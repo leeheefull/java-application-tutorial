@@ -1,23 +1,46 @@
+package ac.hs.se.model;
+
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class ToDo {
 
-	private int id;
+	private int id; // Primary Key
 	private String status;
 	private String content;
 	private String date;
-	
-	public ToDo() {}
-	
-	public ToDo(String content) {
+
+	public ToDo() {
+	}
+
+	public ToDo(int id, String content) {
+		this.id = id;
+		this.status = "toDo";
 		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 		this.content = content;
 	}
-	
-	public ToDo(String date, String content) {
+
+	public ToDo(int id, String date, String content) {
+		this.id = id;
+		this.status = "toDo";
 		this.date = date;
 		this.content = content;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public String getContent() {
@@ -32,20 +55,12 @@ public class ToDo {
 		return date;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
+
 	@Override
 	public String toString() {
-		return getDate() + " " + getContent();
+		return getId() + "\t" + getDate() + "\t" + getContent();
 	}
 }
