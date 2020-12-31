@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class ToDo {
 
+	static int cnt = 1;
 	private int id; // Primary Key
 	private String status;
 	private String content;
@@ -13,15 +14,15 @@ public class ToDo {
 	public ToDo() {
 	}
 
-	public ToDo(int id, String content) {
-		this.id = id;
+	public ToDo(String content) {
+		this.id = cnt++;
 		this.status = "toDo";
 		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 		this.content = content;
 	}
 
-	public ToDo(int id, String date, String content) {
-		this.id = id;
+	public ToDo(String date, String content) {
+		this.id = cnt++;
 		this.status = "toDo";
 		this.date = date;
 		this.content = content;
