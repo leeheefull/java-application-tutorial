@@ -39,3 +39,7 @@
 >  할 일 조회하기
 
   ![Print](https://user-images.githubusercontent.com/58816862/103399816-239b1900-4b86-11eb-9c3b-8f5344148d7e.png)
+  
+## Class Diagram
+
+![UML](https://user-images.githubusercontent.com/58816862/103480914-beac2100-4e1a-11eb-90cd-dbfdc6cbd571.png)
