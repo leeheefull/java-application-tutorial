@@ -5,27 +5,26 @@ import java.text.SimpleDateFormat;
 
 public class ToDo {
 
-	static int cnt = 1;
 	private int id; // Primary Key
-	private String status;
 	private String content;
 	private String date;
+	private String status;
 
 	public ToDo() {
 	}
 
-	public ToDo(String content) {
-		this.id = cnt++;
-		this.status = "toDo";
+	public ToDo(int id, String content) {
+		this.id = id;
 		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 		this.content = content;
+		this.status = "TODO";
 	}
 
-	public ToDo(String date, String content) {
-		this.id = cnt++;
-		this.status = "toDo";
+	public ToDo(int id, String date, String content) {
+		this.id = id;
 		this.date = date;
 		this.content = content;
+		this.status = "TODO";
 	}
 
 	public int getId() {
@@ -34,14 +33,6 @@ public class ToDo {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
 	}
 
 	public String getContent() {
@@ -58,6 +49,14 @@ public class ToDo {
 
 	public void setDate(String date) {
 		this.date = date;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
