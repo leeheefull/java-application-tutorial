@@ -1,6 +1,6 @@
 ## Today I Learned
 
-2020-12-28
+### 2020-12-28
 <details>
   <summary>Bean Pattern</summary>
   
@@ -9,7 +9,8 @@
   생성자에 전달되는 인자 수가 많을 때 적용이 가능
   단점: 객체의 일관성이 일시적으로 깨질 수 있다.
   ```
-  예시
+  
+  > 예시
   ```java
   public class CafeMenu {
 
@@ -46,7 +47,7 @@
   ---
 </details>
 
-2020-12-30
+### 2020-12-30
 <details>
   <summary>MVC Pattern</summary>
   
@@ -57,6 +58,7 @@
   사용자 인터페이스로부터 비즈니스 로직을 분리하여 애플리케이션의 시각적 요소나 그 이면에서 실행되는 비즈니스 로직을
   서로 영향 없이 쉽게 고칠 수 있는 애플리 케이션을 만들 수 있다.
   ```
+  
   ```
   1. Model
   : 모델의 상태에 변화가 있을 때 컨트롤러와 뷰에 이를 통보한다.
@@ -64,10 +66,12 @@
     컨트롤러는 모델의 변화에 따른 적용 가능한 명령을 추가·제거·수정할 수 있다.
     어떤 MVC 구현에서는 통보 대신 뷰나 컨트롤러가 직접 모델의 상태를 읽어 오기도 한다.
   ```
+  
   ```
   2. View
   : 사용자가 볼 결과물을 생성하기 위해 모델로부터 정보를 얻어 온다.
   ```
+  
   ```
   3. Controller
   : 모델에 명령을 보냄으로써 모델의 상태를 변경할 수 있다.
@@ -76,7 +80,7 @@
   ---
 </details>
 
-2021-01-03
+### 2021-01-03
 <details>
   <summary>enum</summary>
   
@@ -85,12 +89,14 @@
   열거형(enumerated type)이라고 부른다.
   열거형은 서로 연관된 상수들의 집합이다고 할 수 있다.
   ```
+  
   ```
   1. 코드가 단순해진다.
   2. 인스턴스 생성과 상속을 방지한다.
   3. 키워드 enum을 사용하기 때문에 구현의 의도가 열거임을 분명하게 나타낼 수 있다.
   ```
-  기존의 열거는 복잡함
+  
+  > 기존의 열거는 복잡함
   ```java
   class Fruit {
     public static final Fruit APPLE = new Fruit();
@@ -98,7 +104,8 @@
     public static final Fruit BANANA = new Fruit();
   }
   ```
-  문법적으로 지원됨
+  
+  > 문법적으로 지원됨
   ```java
   enum Fruit {
     APPLE, PEACH, BANANA;
@@ -216,5 +223,69 @@
     }        
   }
   ```
+  ---
+</details>
+
+### 2020-01-04
+<details>
+  <summary>static import *</summary>
+  
+  ---
+  ```
+  static import
+  : 자바 클래스의 static 메소드는 클래스에 대한 인스턴스의 생성없이 메소드를 사용할 수 있다.
+  ```
+  
+  > Before
+  ```java
+  int i = Math.abs(-3); // 3
+  ```
+  
+  > After
+  ```java
+  import static java.lang.Math.abs;
+  
+  int i = abs(-3);  // 3
+  ```
+  
+  > 주의
+  ```
+  아래의 코드도 사용이 가능하지만 권장하지 않음
+  단 Math의 method를 전부 사용한다면 권장됨
+  ```
+  ```java
+  import static java.lang.Math.*;
+  
+  int i = abs(-3);  // 3
+  ```
+  ---
+</details>
+
+<details>
+  <summary>.gitignore</summary>
+  
+  ---
+  > 정의
+  ```
+  Project에 원하지 않는 파일들을(컴파일 된 파일, .gradle, .idea 등등) git에서 제외시키기 위해 필요한 파일
+  ```
+  
+  > git commit할 때, 포함하면 안되는 파일
+  ```
+  .setting/
+  .classpath
+  .project
+  .springBeans
+  ... etc
+  ```
+  
+  > 이유
+  ```
+  : 난 잘되는데 왜 넌 안되냐?
+  : 개발 환경이 서로 완벽하게 같으면 상관이 없으나 다른 환경의 값을 참조하므로 프로젝트가 꼬인다.
+  : 이를 개선하기 위해 보통 소스만 commit한다.
+  ```
+  
+  #### [.gitignore 자동 생성 사이트](https://www.toptal.com/developers/gitignore)
   ---
 </details>
