@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ac.hs.se.model.ToDo;
-import ac.hs.se.util.ToDoConstants.Status;
+import ac.hs.se.model.ToDoStatus;
 
 public class ToDoModule {
 
@@ -24,17 +24,17 @@ public class ToDoModule {
 
 	public void changeStatus(int id) {
 		for (ToDo toDo : this.toDoList) {
-			if (toDo.getStatus().equals(Status.TODO) && toDo.getId() == id) {
-				toDo.setStatus(Status.DOING);
+			if (toDo.getStatus().equals(ToDoStatus.TODO) && toDo.getId() == id) {
+				toDo.setStatus(ToDoStatus.DOING);
 				return;
-			} else if (toDo.getStatus().equals(Status.DOING) && toDo.getId() == id) {
-				toDo.setStatus(Status.DONE);
+			} else if (toDo.getStatus().equals(ToDoStatus.DOING) && toDo.getId() == id) {
+				toDo.setStatus(ToDoStatus.DONE);
 				return;
 			}
 		}
 	}
 
-	public void selectToDo(int id) {
+	public void deleteToDo(int id) {
 		for (int i = 0; i < toDoList.size(); i++) {
 			if (toDoList.get(i).getId() == id) {
 				toDoList.remove(i);
@@ -42,7 +42,7 @@ public class ToDoModule {
 		}
 	}
 
-	public List<ToDo> selectToDoList(String status) {
+	public List<ToDo> selectToDoList(ToDoStatus status) {
 		List<ToDo> list = new ArrayList<>();
 		for (ToDo toDo : this.toDoList) {
 			if (toDo.getStatus().equals(status)) {

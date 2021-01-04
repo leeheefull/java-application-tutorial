@@ -42,4 +42,4 @@
   
 ## Class Diagram
 
-![UML](https://user-images.githubusercontent.com/58816862/103480914-beac2100-4e1a-11eb-90cd-dbfdc6cbd571.png)
+![UML](https://user-images.githubusercontent.com/58816862/103503970-5ea88f80-4e99-11eb-8143-a5e3b93e0fd6.png)

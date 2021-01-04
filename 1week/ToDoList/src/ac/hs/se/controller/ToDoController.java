@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import ac.hs.se.model.ToDoStatus;
 import ac.hs.se.module.ToDoModule;
-import ac.hs.se.util.ToDoConstants.Menu;
-import ac.hs.se.util.ToDoConstants.Status;
 import ac.hs.se.view.ToDoView;
+
+import static ac.hs.se.util.ToDoConstants.Menu.*;
 
 public class ToDoController {
 
@@ -26,31 +27,32 @@ public class ToDoController {
 				view.showMenu();
 				String menu = br.readLine();
 				switch (menu) {
-				case Menu.INSERT:
+				case INSERT:
 					insertToDo(br);
 					break;
-				case Menu.UPDATE:
+				case UPDATE:
 					updateToDo(br);
 					break;
-				case Menu.DELETE:
+				case DELETE:
 					deleteToDo(br);
 					break;
-				case Menu.SHOW:
+				case SHOW:
 					showList();
 					break;
-				case Menu.EXIT:
+				case EXIT:
 					view.showMessage("END");
 					return;
 				}
 			}
 		} catch (Exception e) {
 			view.showMessage("ERROR");
+			e.printStackTrace();
 		}
 	}
 
 	private void insertToDo(BufferedReader br) throws IOException {
 		view.lineBreak();
-		view.showInput(Menu.INSERT);
+		view.showInput(INSERT);
 		String content = br.readLine();
 		service.insertToDo(content);
 		view.lineBreak();
@@ -58,7 +60,7 @@ public class ToDoController {
 
 	private void updateToDo(BufferedReader br) throws NumberFormatException, IOException {
 		showList();
-		view.showInput(Menu.UPDATE);
+		view.showInput(UPDATE);
 		int id = Integer.parseInt(br.readLine());
 		service.changeStatus(id);
 		view.lineBreak();
@@ -66,24 +68,24 @@ public class ToDoController {
 
 	private void deleteToDo(BufferedReader br) throws NumberFormatException, IOException {
 		showList();
-		view.showInput(Menu.DELETE);
+		view.showInput(DELETE);
 		int id = Integer.parseInt(br.readLine());
-		service.selectToDo(id);
+		service.deleteToDo(id);
 		view.lineBreak();
 	}
 
 	private void showList() {
 		view.lineBreak();
-		view.showAttribute(Status.TODO);
-		view.showToDoList(service.selectToDoList(Status.TODO));
+		view.showAttribute(ToDoStatus.TODO);
+		view.showToDoList(service.selectToDoList(ToDoStatus.TODO));
 
 		view.lineBreak();
-		view.showAttribute(Status.DOING);
-		view.showToDoList(service.selectToDoList(Status.DOING));
+		view.showAttribute(ToDoStatus.DOING);
+		view.showToDoList(service.selectToDoList(ToDoStatus.DOING));
 
 		view.lineBreak();
-		view.showAttribute(Status.DONE);
-		view.showToDoList(service.selectToDoList(Status.DONE));
+		view.showAttribute(ToDoStatus.DONE);
+		view.showToDoList(service.selectToDoList(ToDoStatus.DONE));
 		view.lineBreak();
 	}
 }

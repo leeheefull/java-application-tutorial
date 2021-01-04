@@ -9,10 +9,4 @@ public class ToDoConstants {
 		public static final String SHOW = "4";
 		public static final String EXIT = "5";
 	}
-
-	public static class Status {
-		public static final String TODO = "TODO";
-		public static final String DOING = "DOING";
-		public static final String DONE = "DONE";
-	}
 }

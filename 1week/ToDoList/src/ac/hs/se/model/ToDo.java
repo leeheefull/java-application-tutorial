@@ -8,7 +8,7 @@ public class ToDo {
 	private int id; // Primary Key
 	private String content;
 	private String date;
-	private String status;
+	private ToDoStatus status;
 
 	public ToDo() {
 	}
@@ -17,14 +17,14 @@ public class ToDo {
 		this.id = id;
 		this.date = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 		this.content = content;
-		this.status = "TODO";
+		this.status = ToDoStatus.TODO;
 	}
 
 	public ToDo(int id, String date, String content) {
 		this.id = id;
 		this.date = date;
 		this.content = content;
-		this.status = "TODO";
+		this.status = ToDoStatus.TODO;
 	}
 
 	public int getId() {
@@ -51,11 +51,11 @@ public class ToDo {
 		this.date = date;
 	}
 
-	public String getStatus() {
+	public ToDoStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(ToDoStatus status) {
 		this.status = status;
 	}
 

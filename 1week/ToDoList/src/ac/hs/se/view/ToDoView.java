@@ -3,6 +3,7 @@ package ac.hs.se.view;
 import java.util.List;
 
 import ac.hs.se.model.ToDo;
+import ac.hs.se.model.ToDoStatus;
 import ac.hs.se.util.ToDoConstants.Menu;
 
 public class ToDoView {
@@ -34,8 +35,8 @@ public class ToDoView {
 		}
 	}
 
-	public void showAttribute(String status) {
-		System.out.println(status);
+	public void showAttribute(ToDoStatus todo) {
+		System.out.println(todo);
 		System.out.println("번호\t날짜\t\t할 일");
 	}
 
