@@ -21,3 +21,11 @@
 * 메소드는 한 가지 작업만 한다.
 * class의 instance 변수는 3개이상 두지 않는다.
 * model 위주의 설계를 먼저 진행한다.
+
+## 실행 화면
+
+![Lotto](https://user-images.githubusercontent.com/58816862/103640662-c511d880-4f93-11eb-9cd6-cb8a57bb7c0d.png)
+
+## Class diagram
+
+![classDiagram](https://user-images.githubusercontent.com/58816862/103641034-70229200-4f94-11eb-8851-0be48d820166.png)

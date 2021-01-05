@@ -57,10 +57,11 @@ public class LottoModule {
 
 	@Override
 	public String toString() {
-		String outputStr = "";
+		String outputStr = "───────────────────────당첨 번호────────────────────────\n";
 		// 당첨 번호 출력
 		outputStr += winningLotto;
 		// 구매된 로또 리스트 출력
+		outputStr += "───────────────────시뮬레이션된 복권 번호───────────────────\n";
 		for (PurchasedLotto purchasedLotto : purchasedLottoList) {
 			int rank = whatIsRanking(purchasedLotto);
 			if (5 < rank) {
@@ -69,6 +70,7 @@ public class LottoModule {
 				outputStr += purchasedLotto + "-> " + rank + "\n";
 			}
 		}
+		outputStr += "──────────────────────────────────────────────────────";
 		return outputStr;
 	}
 }
