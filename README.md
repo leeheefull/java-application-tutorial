@@ -192,6 +192,7 @@
   Comparable
   ```
   Comparable 인터페이스를 구현한 객체 스스로에게 부여하는 한 가지 기본 정렬 규칙을 설정하는 목적으로 사용한다.
+  객체의 기본 정렬기준이 되는 메서드를 정의하는 인터페이스이다.
   ```
   ```java
   class Friend implements Comparable<Friend>{
@@ -214,6 +215,7 @@
   ```
   Comparator 인터페이스를 구현한 클래스는 정렬 규칙 그 자체를 의미하며,
   기본 정렬 규칙과 다르게 원하는대로 정렬순서를 지정하고 싶을 때 사용한다.
+  새로운 정렬 기준을 적용하고 싶은 경우 사용하는 인터페이스이다.
   ```
   ```java
   class SortFriendByNameInAsc implements Comparator<Friend>{
@@ -287,5 +289,99 @@
   ```
   
   #### [.gitignore 자동 생성 사이트](https://www.toptal.com/developers/gitignore)
+  ---
+</details>
+
+### 2020-01-07
+<details>
+  <summary>Stream</summary>
+  
+  ---
+  ```
+  Java 8에서 추가된 기능으로, stream 형태의 요소에 함수형 연산자를 지원해주는 클래스이다.
+  ```
+  
+  ![Stream](https://user-images.githubusercontent.com/58816862/103875144-6a07ef00-5115-11eb-98b3-7154a36e64ba.png)
+  
+  filter()
+  ```
+  필터링 조건은 람다함수 또는 메소드 참조를 통해 결정됨
+  원하는 요소만 추출하기 위한 메소드
+  ```
+  
+  map()
+  ```
+  스트림 내 요소를 가공함
+  T를 인자로 받아 변환한 값 R을 반환하는 함수
+  ```
+  
+  flatMap()
+  ```
+  flattening 작업
+  중첩 구조를 한 단게 제거하고 단일 컬렉션으로 만들어 주는 역할
+  ```
+  
+  sorted()
+  ```
+  어떠한 인자도 넣지 않는다면 오름차순으로 정렬
+  Comparator를 인자로 넣으면 Comparator의 기준에 따라 정렬
+  ```
+  
+  distinct()
+  ```
+  중복 값 제거
+  ```
+  
+  peek()
+  ```
+  중간에 값을 출력해볼 때 이용
+  stack에서 쓰는 그 peek
+  ```
+  
+  limit()
+  ```
+  앞선 n개의 요소만 취함
+  ```
+  
+  Skip()
+  ```
+  앞선 n개의 요소를 건너뛰고 다음에 오는 요소를 취함
+  ```
+  
+  concat()
+  ```
+  두 Stream을 연결
+  ```
+  
+  reduce()
+  ```
+  세 가지의 인자를 받아 처리할 수 있음
+  ```
+  
+  Collectors.toList()
+  ```
+  리스트 형태로 결과를 반환
+  ```
+  
+  Collectors.joining()
+  ```
+  스트림 작업 결과를 하나의 스트링으로 연결, 세 가지 인자를 입력할 수 있음
+   - delimiter: 각 요소 중간에 들어가는 구분자
+   - prefix: 이어붙인 결과 맨 앞에 붙는 문자
+   - suffix: 이어붙인 결과 맨 끝에 붙는 문자
+  ```
+  
+  Collectors.groupingBy()
+  ```
+  특정 조건으로 요소들을 그룹화하여 Map 타입으로 반환
+  예를 들어, 나이, 이름, 성별을 가진 클래스를 나이 기준으로 그룹화 할 수 있다.
+  ```
+  
+  forEach()
+  ```
+  요소를 순회하면서 실행되는 작업
+  인자로 넘긴 메소드에 요소를 대입하여 호출
+  주로 System.out::println과 같은 출력 함수를 인자로 넘김
+  ```
   ---
 </details>
