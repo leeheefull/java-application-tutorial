@@ -1,42 +1,47 @@
 package kr.ac.hs.se.model;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class PurchasedLotto implements Lotto {
 
-	private List<Integer> basicNumbers;
+	private Set<Integer> basicNumbers;
+	private String winningResult;
 
 	public PurchasedLotto() {
-		this.basicNumbers = new ArrayList<>();
-		this.setNumbers();
+		this.basicNumbers = new TreeSet<>();
+		this.setBasicNumbers();
 	}
 
 	@Override
-	public List<Integer> getNumbers() {
+	public Set<Integer> getBasicNumbers() {
 		return this.basicNumbers;
 	}
 
+	// 기본 번호의 개수가 6이 될 때까지, 반복
 	@Override
-	public void setNumbers() {
-		for (int i = 0; i < SIZE; i++) {
+	public void setBasicNumbers() {
+		while (this.basicNumbers.size() < SIZE) {
 			int tmp = (int) (Math.random() * 42) + 1;
-			if (!this.basicNumbers.contains(tmp)) {
-				this.basicNumbers.add(tmp);
-			} else {
-				i--;
-			}
+			this.basicNumbers.add(tmp);
 		}
-		Collections.sort(this.basicNumbers);
 	}
 
+	public String getResult() {
+		return winningResult;
+	}
+
+	public void setResult(String winningResult) {
+		this.winningResult = winningResult;
+	}
+
+	// 기본 번호 한 줄 출력
 	@Override
 	public String toString() {
 		String outputStr = "";
 		for (int number : this.basicNumbers) {
 			outputStr += number + "\t";
 		}
-		return outputStr;
+		return outputStr + this.winningResult;
 	}
 }

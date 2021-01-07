@@ -1,10 +1,12 @@
 package kr.ac.hs.se.model;
 
-import java.util.List;
+import java.util.Set;
 
 public interface Lotto {
 
 	public static final int SIZE = 6;
-	public List<Integer> getNumbers();
-	public void setNumbers();
+
+	public abstract Set<Integer> getBasicNumbers();
+
+	public abstract void setBasicNumbers();
 }
