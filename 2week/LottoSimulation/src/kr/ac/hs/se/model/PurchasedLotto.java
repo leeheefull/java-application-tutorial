@@ -6,7 +6,7 @@ import java.util.TreeSet;
 public class PurchasedLotto implements Lotto {
 
     private final Set<Integer> basicNumbers;
-    private String winningResult;
+    private WinningResult winningResult;
 
     public PurchasedLotto() {
         this.basicNumbers = new TreeSet<>();
@@ -32,7 +32,11 @@ public class PurchasedLotto implements Lotto {
         }
     }
 
-    public void setWinningResult(String winningResult) {
+    public WinningResult getWinningResult() {
+        return winningResult;
+    }
+
+    public void setWinningResult(WinningResult winningResult) {
         this.winningResult = winningResult;
     }
 
@@ -42,6 +46,6 @@ public class PurchasedLotto implements Lotto {
         for (int number : this.basicNumbers) {
             outputStr.append(number).append("\t");
         }
-        return outputStr + this.winningResult;
+        return outputStr + winningResult.getResult();
     }
 }

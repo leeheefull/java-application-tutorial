@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import com.sun.jdi.IntegerType;
 import kr.ac.hs.se.model.PurchasedLotto;
 import kr.ac.hs.se.model.WinningLotto;
+import kr.ac.hs.se.model.WinningResult;
 
 public class LottoGame {
 
@@ -47,30 +48,21 @@ public class LottoGame {
 
     public void setLottoListResult() {
         for (PurchasedLotto purchasedLotto : purchasedLottoList) {
-            int rank = getRank(purchasedLotto);
-            if (rank <= 5) {
-                purchasedLotto.setWinningResult(rank + "등");
-            } else {
-                purchasedLotto.setWinningResult("낙첨");
-            }
+            setRank(purchasedLotto);
         }
     }
 
-    private int getRank(PurchasedLotto purchasedLotto) {
-        int cnt = 0;
+    private void setRank(PurchasedLotto purchasedLotto) {
+        purchasedLotto.setWinningResult(WinningResult.EIGHT);
         for (Integer integer : this.winningLotto.getBasicNumbers()) {
             if (purchasedLotto.getBasicNumbers().contains(integer)) {
-                cnt++;
+                purchasedLotto.setWinningResult(purchasedLotto.getWinningResult().getNextRank());
             }
         }
-        if (purchasedLotto.getBasicNumbers().containsAll(this.winningLotto.getBasicNumbers())) {
-            return 1;
-        }
         int bonusNumber = this.winningLotto.getBonusNumber();
-        if (cnt == 5 && isWinningBonusNumber(purchasedLotto, bonusNumber)) {
-            return 2;
+        if (purchasedLotto.getWinningResult().getRank() == 2 && isWinningBonusNumber(purchasedLotto, bonusNumber)) {
+            purchasedLotto.setWinningResult(WinningResult.TWO);
         }
-        return 8 - cnt;
     }
 
     private boolean isWinningBonusNumber(PurchasedLotto purchasedLotto, int bonusNumber) {
