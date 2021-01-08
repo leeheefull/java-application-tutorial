@@ -1,74 +1,79 @@
 package kr.ac.hs.se.game;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
+import com.sun.jdi.IntegerType;
 import kr.ac.hs.se.model.PurchasedLotto;
 import kr.ac.hs.se.model.WinningLotto;
 
 public class LottoGame {
 
-	private final List<PurchasedLotto> purchasedLottoList;
-	private final WinningLotto winningLotto;
+    private final List<PurchasedLotto> purchasedLottoList;
+    private WinningLotto winningLotto;
 
-	public LottoGame() {
-		this.purchasedLottoList = new ArrayList<>();
-		this.winningLotto = new WinningLotto();
-	}
+    public LottoGame() {
+        this.purchasedLottoList = new ArrayList<>();
+        this.winningLotto = new WinningLotto();
+    }
 
-	public WinningLotto getWinningLotto() {
-		return winningLotto;
-	}
+    public void clearLottoGame() {
+        for (PurchasedLotto purchasedLotto : purchasedLottoList) {
+            purchasedLotto.clear();
+        }
+        this.purchasedLottoList.clear();
+        this.winningLotto.clear();
+    }
 
-	public List<PurchasedLotto> getPurchasedLottoList() {
-		return this.purchasedLottoList;
-	}
+    public List<PurchasedLotto> getPurchasedLottoList() {
+        return this.purchasedLottoList;
+    }
 
-	// ½Ã¹Ä·¡ÀÌ¼Ç ÇÒ º¹±Ç ¸®½ºÆ®ÀÇ setter
-	public void setPurchasedLottoList(int numberOfLotto) {
-		while (purchasedLottoList.size() < numberOfLotto) {
-			this.purchasedLottoList.add(new PurchasedLotto());
-		}
-	}
+    public void setPurchasedLottoList(int numberOfLotto) {
+        while (purchasedLottoList.size() < numberOfLotto) {
+            this.purchasedLottoList.add(new PurchasedLotto());
+        }
+    }
 
-	// °¢ ½Ã¹Ä·¹ÀÌ¼Ç ·Î¶ÇµéÀÇ °á°ú¸¦ set
-	public void setLottoListResult() {
-		for (PurchasedLotto purchasedLotto : purchasedLottoList) {
-			int rank = getRanking(purchasedLotto);
-			if (5 < rank) {
-				purchasedLotto.setResult("³«Ã·");
-			} else {
-				purchasedLotto.setResult(rank + "µî");
-			}
-		}
-	}
+    public WinningLotto getWinningLotto() {
+        return winningLotto;
+    }
 
-	// ½Ã¹Ä·¹ÀÌ¼ÇÇÒ º¹±Ç ¸®½ºÆ®ÀÇ µî¼ö
-	private int getRanking(PurchasedLotto purchasedLotto) {
-		int cnt = 0;
-		// ±¸¸ÅµÈ ·Î¶Ç¿Í ´çÃ· ·Î¶Ç°¡ °°À¸¸é, 1µî
-		if (purchasedLotto.getBasicNumbers().containsAll(this.winningLotto.getBasicNumbers())) {
-			return 1;
-		}
-		// ±¸¸ÅµÈ ·Î¶Ç¿Í ´çÃ· ·Î¶Ç°¡ 5°³·Î °°À¸¸é¼­ º¸³Ê½º ¹øÈ£¸¦ °®°í ÀÖ´Ù¸é, 2µî
-		int bonusNumber = this.winningLotto.getBonusNumber();
-		if (cnt == 5 && isWinningBonusNumber(purchasedLotto, bonusNumber)) {
-			return 2;
-		}
-		// ±¸¸ÅµÈ ·Î¶Ç¿Í ´çÃ· ·Î¶Ç Áß¿¡¼­ °°Àº °³¼ö°¡ ¸î°³ ÀÎÁö
-		Iterator<Integer> winningBasicNumber = this.winningLotto.getBasicNumbers().iterator();
-		while (winningBasicNumber.hasNext()) {
-			if (purchasedLotto.getBasicNumbers().contains(winningBasicNumber.next())) {
-				cnt++;
-			}
-		}
-		// 3µî ~ 8µî ±îÁö ¹ÝÈ¯
-		return 8 - cnt;
-	}
+    public void setWinningLotto() {
+        this.winningLotto = new WinningLotto();
+    }
 
-	// º¸³Ê½º ¹øÈ£°¡ ÀÏÄ¡ÇÏ´ÂÁö
-	private boolean isWinningBonusNumber(PurchasedLotto purchasedLotto, int bonusNumber) {
-		return purchasedLotto.getBasicNumbers().contains(bonusNumber);
-	}
+    public void setLottoListResult() {
+        for (PurchasedLotto purchasedLotto : purchasedLottoList) {
+            int rank = getRank(purchasedLotto);
+            if (rank <= 5) {
+                purchasedLotto.setWinningResult(rank + "ë“±");
+            } else {
+                purchasedLotto.setWinningResult("ë‚™ì²¨");
+            }
+        }
+    }
+
+    private int getRank(PurchasedLotto purchasedLotto) {
+        int cnt = 0;
+        for (Integer integer : this.winningLotto.getBasicNumbers()) {
+            if (purchasedLotto.getBasicNumbers().contains(integer)) {
+                cnt++;
+            }
+        }
+        if (purchasedLotto.getBasicNumbers().containsAll(this.winningLotto.getBasicNumbers())) {
+            return 1;
+        }
+        int bonusNumber = this.winningLotto.getBonusNumber();
+        if (cnt == 5 && isWinningBonusNumber(purchasedLotto, bonusNumber)) {
+            return 2;
+        }
+        return 8 - cnt;
+    }
+
+    private boolean isWinningBonusNumber(PurchasedLotto purchasedLotto, int bonusNumber) {
+        return purchasedLotto.getBasicNumbers().contains(bonusNumber);
+    }
 }

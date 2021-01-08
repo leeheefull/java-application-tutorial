@@ -7,46 +7,67 @@ import java.io.InputStreamReader;
 import kr.ac.hs.se.game.LottoGame;
 import kr.ac.hs.se.view.LottoView;
 
+import static kr.ac.hs.se.util.LottoConstants.Menu.*;
+
 public class LottoController {
 
-	private final LottoGame lottoGame;
-	private final LottoView view;
+    private final LottoGame lottoGame;
+    private final LottoView view;
 
-	public LottoController() {
-		lottoGame = new LottoGame();
-		view = new LottoView();
-	}
+    public LottoController() {
+        lottoGame = new LottoGame();
+        view = new LottoView();
+    }
 
-	public void run() {
-		try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-			createLotto(br);
-			showGame();
-		} catch (Exception e) {
-			view.showErrorMassage();
-			e.printStackTrace();
-		}
-	}
+    public void run() {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            while (true) {
+                view.showProgramTitle();
+                String menu = inputMenu(br);
 
-	private void createLotto(BufferedReader br) throws NumberFormatException, IOException {
-		view.showProgramTitle();
-		view.showInput();
-		int numberOfLotto = Integer.parseInt(br.readLine());
-		lottoGame.setPurchasedLottoList(numberOfLotto);
-	}
+                if (menu.equals(START)) {
+                    int numberOfLotto = inputNumber(br);
+                    createLotto(numberOfLotto);
 
-	private void showGame() {
-		view.winningLineBreak();
-		view.showWinningLotto(lottoGame.getWinningLotto());
-		view.purchasedLottoListLineBreak();
-		showLottosResult();
-		view.lineBreak();
-	}
+                    view.winningLineBreak();
+                    view.showWinningLotto(lottoGame.getWinningLotto());
 
-	// 시뮬레이션 된 로또 복권들의 결과를 보여주는 메소드
-	private void showLottosResult() {
-		lottoGame.setLottoListResult();
-		for (int i = 0; i < lottoGame.getPurchasedLottoList().size(); i++) {
-			view.showPurchasedLotto(lottoGame.getPurchasedLottoList().get(i));
-		}
-	}
+                    view.purchasedLottoListLineBreak();
+                    showLottoResult();
+                    view.lineBreak();
+
+                    lottoGame.clearLottoGame();
+                } else if (menu.equals(END)) {
+                    lottoGame.clearLottoGame();
+                    view.lineBreak();
+                    return;
+                } else {
+                    view.showErrorMassage();
+                }
+            }
+        } catch (Exception e) {
+            view.showErrorMassage();
+            e.printStackTrace();
+        }
+    }
+
+    private String inputMenu(BufferedReader br) throws IOException {
+        view.showMenu();
+        return br.readLine();
+    }
+
+    private int inputNumber(BufferedReader br) throws IOException {
+        view.inputNumberOfLotto();
+        return Integer.parseInt(br.readLine());
+    }
+
+    private void createLotto(int numberOfLotto) {
+        lottoGame.setWinningLotto();
+        lottoGame.setPurchasedLottoList(numberOfLotto);
+    }
+
+    private void showLottoResult() {
+        lottoGame.setLottoListResult();
+        view.showPurchasedLottoList(lottoGame.getPurchasedLottoList());
+    }
 }

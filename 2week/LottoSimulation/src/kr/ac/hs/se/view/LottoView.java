@@ -1,45 +1,51 @@
 package kr.ac.hs.se.view;
 
 import java.io.PrintStream;
+import java.util.List;
+import java.util.stream.Stream;
 
+import kr.ac.hs.se.model.Lotto;
 import kr.ac.hs.se.model.PurchasedLotto;
-import kr.ac.hs.se.model.WinningLotto;
 
 public class LottoView {
-	
-	PrintStream out = new PrintStream(System.out);
 
-	public void showProgramTitle() {
-		out.println("¦£¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¤");
-		out.println("¦¢                   Lotto Simulation                 ¦¢");
-		out.println("¦¦¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¥");
-	}
+    private final PrintStream out = new PrintStream(System.out);
 
-	public void showInput() {
-		out.print("½Ã¹Ä·¹ÀÌ¼Ç ÇÒ º¹±ÇÀÇ ¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä.\n>> ");
-	}
-	
-	public void winningLineBreak() {
-		out.println("¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡´çÃ· ¹øÈ£¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡");
-	}
-	
-	public void purchasedLottoListLineBreak() {
-		out.println("¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡½Ã¹Ä·¹ÀÌ¼ÇµÈ º¹±Ç ¹øÈ£¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡");
-	}
-	
-	public void lineBreak() {
-		out.println("¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡");
-	}
+    public void showProgramTitle() {
+        out.println("â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”");
+        out.println("â”‚        Lotto Simulation        â”‚");
+        out.println("â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜");
+    }
 
-	public void showErrorMassage() {
-		out.println("ÇÁ·Î±×·¥Áß ¿À·ù°¡ ¹ß»ıÇß½À´Ï´Ù.");
-	}
+    public void showMenu() {
+        out.print("1. ì‹œë®¬ë ˆì´ì…˜ ì‹œì‘\t  2. ì‹œë®¬ë ˆì´ì…˜ ì¢…ë£Œ\n>> ");
+    }
 
-	public void showWinningLotto(WinningLotto winningLotto) {
-		System.out.println(winningLotto);
-	}
-	
-	public void showPurchasedLotto(PurchasedLotto purchasedLotto) {
-		System.out.println(purchasedLotto);
-	}
+    public void inputNumberOfLotto() {
+        out.print("ì‹œë®¬ë ˆì´ì…˜ í•  ë³µê¶Œì˜ ìˆ˜ë¥¼ ì…ë ¥í•˜ì„¸ìš”.\n>> ");
+    }
+
+    public void winningLineBreak() {
+        out.println("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ë‹¹ì²¨ ë²ˆí˜¸â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
+    }
+
+    public void purchasedLottoListLineBreak() {
+        out.println("â”€â”€â”€â”€â”€â”€â”€ì‹œë®¬ë ˆì´ì…˜ëœ ë³µê¶Œ ë²ˆí˜¸â”€â”€â”€â”€â”€â”€â”€â”€");
+    }
+
+    public void lineBreak() {
+        out.println("â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€");
+    }
+
+    public void showErrorMassage() {
+        out.println("í”„ë¡œê·¸ë¨ì¤‘ ì˜¤ë¥˜ê°€ ë°œìƒí–ˆìŠµë‹ˆë‹¤.");
+    }
+
+    public <T extends Lotto> void showWinningLotto(T lotto) {
+        out.println(lotto);
+    }
+
+    public void showPurchasedLottoList(List<PurchasedLotto> purchasedLottoList) {
+        purchasedLottoList.forEach(out::println);
+    }
 }

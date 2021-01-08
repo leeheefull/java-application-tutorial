@@ -4,7 +4,7 @@ import kr.ac.hs.se.controller.LottoController;
 
 public class LottoSimulationConsole {
 
-	public static void main(String[] args) {
-		new LottoController().run();
-	}
+    public static void main(String[] args) {
+        new LottoController().run();
+    }
 }
