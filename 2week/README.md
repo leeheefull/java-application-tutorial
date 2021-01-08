@@ -24,8 +24,8 @@
 
 ## 실행 화면
 
-![Lotto](https://user-images.githubusercontent.com/58816862/103640662-c511d880-4f93-11eb-9cd6-cb8a57bb7c0d.png)
+![Lotto](https://user-images.githubusercontent.com/58816862/104042506-f00f5d00-521d-11eb-879a-f100b1862dbc.png)
 
 ## Class diagram
 
-![classDiagram](https://user-images.githubusercontent.com/58816862/103641034-70229200-4f94-11eb-8851-0be48d820166.png)
+![classDiagram](https://user-images.githubusercontent.com/58816862/104041635-b5f18b80-521c-11eb-8a63-19ba4605a387.png)
