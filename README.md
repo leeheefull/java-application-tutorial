@@ -385,3 +385,27 @@
   ```
   ---
 </details>
+
+### 2020-01-08
+<details>
+  <summary>Bounded Type Parameters</summary>
+  
+  ---
+  ```
+  매개 변수 형식의 형식 인수로 사용할 수 있는 형식을 제한하려는 경우가 있을 수 있습니다.
+  예를 들어 숫자로 작동하는 메서드는 하위 클래스의 인스턴스 또는 하위 클래스만 수락할 수 있습니다.
+  ```
+  
+  > 예제
+  ```java
+  public class NaturalNumber<T extends Integer> {
+    private T n;
+    public NaturalNumber(T n)  { this.n = n; }
+
+    public boolean isEven() {
+      return n.intValue() % 2 == 0;
+    }
+  }
+  ```
+  ---
+</details>
