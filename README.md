@@ -409,3 +409,153 @@
   ```
   ---
 </details>
+
+### 2020-01-10
+<details>
+  <summary>High Coupling & Loose Cohesion</summary>
+  
+  ---
+  > Coupling(결합도)
+  ```
+  - 결합도는 하나의 모듈이 다른 모듈에 의존하는 정도를 나타냄, 결합도를 의존도라고 부름
+  - 각 모듈이 서로 관련성이 적어 결합도가 낮을수록 모듈간의 독립성이 높아짐
+  - 독립성이 높은 모듈은 서로의 기능에 영향을 미치지 않고 데이터만을 주고받음
+  - 때문에 전체 프로그램에서 일부 기능을 수정해야 할 때 그 기능을 담당하는 모듈만을 교체하면 되기 때문에 유지보수가 손쉬움
+  ```
+  
+  > Cohesion(응집도)
+  ```
+  - 응집도는 한 모듈 내에 존재하는 함수, 데이터 등의 구성 요소들 사이의 밀접한 정도를 나타냄
+  - 응집도가 높은 모듈은 하나의 모듈 안에 필요한 함수나 데이터와 같은 구성 요소들이 똘똘 뭉쳐서 존재하는 것을 말함
+  - 응집도가 낮은 모듈은 모듈 내부에 서로 관련 없는 함수나 데이터들이 존재하거나 관련성이 적은 여러 기능들이 하나의 모듈 안에 있게됨
+  ```
+  ---
+</details>
+
+<details>
+  <summary>Java Naming Conventions</summary>
+  
+  ---
+  > Package
+  ```
+  고유한 패키지 이름의 접두사는 모두 항상 ASCII문자 소문자로 작성되고,
+  최상위 도메인 이름 중 하나 (com, edu, gov, mil, net, org...) 
+  또는 ISO 표준 3166, 1981에 명시된 국가 식별 영어 두 문자 코드 중 하나여야 합니다.
+  ```
+  
+  > Class
+  ```
+  클래스 이름은 명사여야 합니다.
+  첫 글자는 대문자이며, 단어를 합쳐서 사용할 경우 각 단어의 첫 글자는 대문자입니다.
+  되도록 간단하게 기술합니다.
+  흔하게 사용하는 단어가 아니라면 약어는 사용하지 않습니다.
+  ```
+  
+  > Method
+  ```
+  메소드 이름은 동사여야 합니다.
+  첫 글자는 소문자이며, 단어를 합쳐서 사용할 경우 각 단어의 첫 글자는 대문자입니다.
+  ```
+  
+  > Variable
+  ```
+  첫 글자는 소문자이며, 단어를 합쳐서 사용할 경우 각 단어의 첫 글자는 대문자입니다.
+  ```
+  
+  > Constants
+  ```
+  상수의 이름은 대문자이며, 단어의 분리는 '_'를 사용합니다.
+  ```
+  ---
+</details>
+
+<details>
+  <summary>Functional Interface</summary>
+  
+  ---
+  ```
+  1개의 추상 메소드를 갖고 있는 인터페이스를 말합니다.
+  Single Abstract Method(SAM)라고 불리기도 합니다.
+  ```
+  
+  > 사용하는 이유?
+  ```
+  함수형 인터페이스를 사용하는 이유는 자바의 람다식은 함수형 인터페이스로만 접근이 되기 때문입니다.
+  ```
+  
+  > 예제
+  ```java
+  // 함수형 인터페이스와 람다식을 사용한 익명 클래스
+  public interface FunctionalInterface {
+    public abstract void doSomething(String text);
+  }
+
+  FunctionalInterface func = text -> System.out.println(text);
+  func.doSomething("do something");
+  // 실행 결과
+  // do something
+  ```
+  ```java
+  // 익명 클래스 (위의 코드를 리팩토링)
+  FunctionalInterface func = new FunctionalInterface() {
+    @Override
+    public void doSomething(String text) {
+      System.out.println(text);
+    }
+  };
+  func.doSomething("do something");
+  ```
+  > 결론
+  ```
+  함수형 인터페이스를 사용하는 것은 람다식으로 만든 객체에 접근하기 위해서 입니다.
+  ```
+  ---
+</details>
+
+<details>
+  <summary>Lombok</summary>
+  
+  ---
+  ```
+  롬복(Lombok)은 자바에서 Model(DTO, VO, Domain) Object 를 만들 때, 
+  멤버필드(프로퍼티)에 대한 Getter/Setter, ToString과 멤버필드에 주입하는 생성자를 만드는 코드 등 
+  불필요하게 반복적으로 만드는 코드를 어노테이션을 통해 줄여 주는 라이브러리, 프로젝트 입니다.
+  ```
+  > Before
+  ```java
+  public class ExampleVO {
+  
+    private final String name;
+    private int age;
+    
+    public SimpleVO(String name) {
+      this.name = name;
+    }
+    
+    public String getName() {
+      return name;
+    }
+    
+    public int getAge() {
+      return age;
+    }
+    
+    public void setAge(int age) {
+      this.age = age;
+    }
+
+    @Override
+    public String toString() {
+      return "name=" + name + ", age=" + age;
+    }
+  }
+  ```
+  > After
+  ```java
+  public @Data class ExampleVO {
+    private final String name;
+    private int age;
+  }
+  ```
+  ---
+</details>
