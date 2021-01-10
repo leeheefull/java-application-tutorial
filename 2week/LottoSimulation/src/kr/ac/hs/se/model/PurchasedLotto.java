@@ -1,22 +1,18 @@
 package kr.ac.hs.se.model;
 
+import kr.ac.hs.se.util.RandomGenerator;
+
 import java.util.Set;
 import java.util.TreeSet;
 
 public class PurchasedLotto implements Lotto {
 
-    private final Set<Integer> basicNumbers;
-    private WinningResult winningResult;
+    private Set<Integer> basicNumbers;
+    private WinningRank winningRank;
 
     public PurchasedLotto() {
         this.basicNumbers = new TreeSet<>();
-        this.setBasicNumbers();
-    }
-
-    @Override
-    public void clear() {
-        basicNumbers.clear();
-        this.winningResult = null;
+        this.setBasicNumbers(new RandomGenerator().createRandomNumbers());
     }
 
     @Override
@@ -25,19 +21,22 @@ public class PurchasedLotto implements Lotto {
     }
 
     @Override
-    public void setBasicNumbers() {
-        while (this.basicNumbers.size() < SIZE) {
-            int tmp = (int) (Math.random() * 42) + 1;
-            this.basicNumbers.add(tmp);
-        }
+    public void setBasicNumbers(Set<Integer> basicNumbers) {
+        this.basicNumbers = basicNumbers;
     }
 
-    public WinningResult getWinningResult() {
-        return winningResult;
+    public WinningRank getWinningRank() {
+        return this.winningRank;
     }
 
-    public void setWinningResult(WinningResult winningResult) {
-        this.winningResult = winningResult;
+    public void setWinningRank(WinningRank winningResult) {
+        this.winningRank = winningResult;
+    }
+
+    @Override
+    public void clear() {
+        this.basicNumbers.clear();
+        this.winningRank = null;
     }
 
     @Override
@@ -46,6 +45,6 @@ public class PurchasedLotto implements Lotto {
         for (int number : this.basicNumbers) {
             outputStr.append(number).append("\t");
         }
-        return outputStr + winningResult.getResult();
+        return outputStr + this.winningRank.getRank();
     }
 }

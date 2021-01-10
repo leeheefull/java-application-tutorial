@@ -4,11 +4,9 @@ import java.util.Set;
 
 public interface Lotto {
 
-    int SIZE = 6;
-
-    void clear();
-
     Set<Integer> getBasicNumbers();
 
-    void setBasicNumbers();
+    void setBasicNumbers(Set<Integer> basicNumbers);
+
+    void clear();
 }

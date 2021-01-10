@@ -27,7 +27,7 @@ public class LottoController {
 
                 if (menu.equals(START)) {
                     int numberOfLotto = inputNumber(br);
-                    createLotto(numberOfLotto);
+                    start(numberOfLotto);
 
                     view.winningLineBreak();
                     view.showWinningLotto(lottoGame.getWinningLotto());
@@ -61,13 +61,13 @@ public class LottoController {
         return Integer.parseInt(br.readLine());
     }
 
-    private void createLotto(int numberOfLotto) {
-        lottoGame.setWinningLotto();
-        lottoGame.setPurchasedLottoList(numberOfLotto);
+    private void start(int numberOfLotto) {
+        lottoGame.createWinningLotto();
+        lottoGame.addPurchasedLottoList(numberOfLotto);
     }
 
     private void showLottoResult() {
-        lottoGame.setLottoListResult();
+        lottoGame.setRankLottoList();
         view.showPurchasedLottoList(lottoGame.getPurchasedLottoList());
     }
 }

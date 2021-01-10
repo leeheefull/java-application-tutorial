@@ -28,4 +28,4 @@
 
 ## Class diagram
 
-![classDiagram](https://user-images.githubusercontent.com/58816862/104041635-b5f18b80-521c-11eb-8a63-19ba4605a387.png)
+![classDiagram](https://user-images.githubusercontent.com/58816862/104125966-5a9ad700-539d-11eb-9882-e4dfc5923d37.png)

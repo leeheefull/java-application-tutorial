@@ -2,7 +2,6 @@ package kr.ac.hs.se.view;
 
 import java.io.PrintStream;
 import java.util.List;
-import java.util.stream.Stream;
 
 import kr.ac.hs.se.model.Lotto;
 import kr.ac.hs.se.model.PurchasedLotto;

@@ -2,13 +2,10 @@ package kr.ac.hs.se.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Stream;
 
-import com.sun.jdi.IntegerType;
 import kr.ac.hs.se.model.PurchasedLotto;
 import kr.ac.hs.se.model.WinningLotto;
-import kr.ac.hs.se.model.WinningResult;
+import kr.ac.hs.se.model.WinningRank;
 
 public class LottoGame {
 
@@ -21,9 +18,6 @@ public class LottoGame {
     }
 
     public void clearLottoGame() {
-        for (PurchasedLotto purchasedLotto : purchasedLottoList) {
-            purchasedLotto.clear();
-        }
         this.purchasedLottoList.clear();
         this.winningLotto.clear();
     }
@@ -32,7 +26,7 @@ public class LottoGame {
         return this.purchasedLottoList;
     }
 
-    public void setPurchasedLottoList(int numberOfLotto) {
+    public void addPurchasedLottoList(int numberOfLotto) {
         while (purchasedLottoList.size() < numberOfLotto) {
             this.purchasedLottoList.add(new PurchasedLotto());
         }
@@ -42,26 +36,26 @@ public class LottoGame {
         return winningLotto;
     }
 
-    public void setWinningLotto() {
+    public void createWinningLotto() {
         this.winningLotto = new WinningLotto();
     }
 
-    public void setLottoListResult() {
+    public void setRankLottoList() {
         for (PurchasedLotto purchasedLotto : purchasedLottoList) {
-            setRank(purchasedLotto);
-        }
-    }
-
-    private void setRank(PurchasedLotto purchasedLotto) {
-        purchasedLotto.setWinningResult(WinningResult.EIGHT);
-        for (Integer integer : this.winningLotto.getBasicNumbers()) {
-            if (purchasedLotto.getBasicNumbers().contains(integer)) {
-                purchasedLotto.setWinningResult(purchasedLotto.getWinningResult().getNextRank());
+            int cnt = 0;
+            purchasedLotto.setWinningRank(WinningRank.OTHERS);
+            for (Integer integer : this.winningLotto.getBasicNumbers()) {
+                if (purchasedLotto.getBasicNumbers().contains(integer)) {
+                    cnt++;
+                    if (3 <= cnt) {
+                        purchasedLotto.setWinningRank(purchasedLotto.getWinningRank().getNextRank());
+                    }
+                }
             }
-        }
-        int bonusNumber = this.winningLotto.getBonusNumber();
-        if (purchasedLotto.getWinningResult().getRank() == 2 && isWinningBonusNumber(purchasedLotto, bonusNumber)) {
-            purchasedLotto.setWinningResult(WinningResult.TWO);
+            int bonusNumber = this.winningLotto.getBonusNumber();
+            if (purchasedLotto.getWinningRank() == WinningRank.THREE && isWinningBonusNumber(purchasedLotto, bonusNumber)) {
+                purchasedLotto.setWinningRank(WinningRank.TWO);
+            }
         }
     }
 

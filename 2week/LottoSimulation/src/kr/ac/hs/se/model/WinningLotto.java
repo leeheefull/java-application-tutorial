@@ -1,17 +1,38 @@
 package kr.ac.hs.se.model;
 
+import kr.ac.hs.se.util.RandomGenerator;
+
 import java.util.Set;
 import java.util.TreeSet;
 
 public class WinningLotto implements Lotto {
 
-    private final Set<Integer> basicNumbers;
+    private Set<Integer> basicNumbers;
     private int bonusNumber;
 
     public WinningLotto() {
+        RandomGenerator randomGenerator = new RandomGenerator();
         this.basicNumbers = new TreeSet<>();
-        this.setBasicNumbers();
-        this.setBonusNumber();
+        this.setBasicNumbers(randomGenerator.createRandomNumbers());
+        this.setBonusNumber(randomGenerator.createRandomNumber());
+    }
+
+    @Override
+    public Set<Integer> getBasicNumbers() {
+        return this.basicNumbers;
+    }
+
+    @Override
+    public void setBasicNumbers(Set<Integer> basicNumbers) {
+        this.basicNumbers = basicNumbers;
+    }
+
+    public int getBonusNumber() {
+        return this.bonusNumber;
+    }
+
+    public void setBonusNumber(int bonusNumber) {
+        this.bonusNumber = bonusNumber;
     }
 
     @Override
@@ -21,36 +42,11 @@ public class WinningLotto implements Lotto {
     }
 
     @Override
-    public Set<Integer> getBasicNumbers() {
-        return this.basicNumbers;
-    }
-
-    @Override
-    public void setBasicNumbers() {
-        while (this.basicNumbers.size() < SIZE) {
-            int tmp = (int) (Math.random() * 42) + 1;
-            this.basicNumbers.add(tmp);
-        }
-    }
-
-    public int getBonusNumber() {
-        return this.bonusNumber;
-    }
-
-    public void setBonusNumber() {
-        int tmp = (int) (Math.random() * 42) + 1;
-        while (this.basicNumbers.contains(tmp)) {
-            tmp = (int) (Math.random() * 42) + 1;
-        }
-        this.bonusNumber = tmp;
-    }
-
-    @Override
     public String toString() {
         StringBuilder outputStr = new StringBuilder();
-        for (int number : basicNumbers) {
+        for (int number : this.basicNumbers) {
             outputStr.append(number).append("\t");
         }
-        return outputStr + "+ " + this.bonusNumber;
+        return outputStr + "+ " + this.getBonusNumber();
     }
 }
