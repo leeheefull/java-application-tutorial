@@ -14,7 +14,7 @@ public class PostService {
     private final List<Post> postList = new ArrayList<>();
     private int cnt = 0;
 
-    public void addPost(Board board, String title, String userId, String content) {
+    public void createPost(Board board, String title, String userId, String content) {
         postList.add(new Post(cnt++, board, title, userId, content));
     }
 
@@ -26,11 +26,7 @@ public class PostService {
         }
     }
 
-    public void removePost(int no, Board board, String userId) {
-        for (Post post : postList) {
-            if (post.getNo() == no && post.getBoard().equals(board) && post.getUserId().equals(userId)) {
-                postList.remove(post);
-            }
-        }
+    public void deletePost(int no, Board board, String userId) {
+        postList.removeIf(post -> post.getNo() == no && post.getBoard().equals(board) && post.getUserId().equals(userId));
     }
 }

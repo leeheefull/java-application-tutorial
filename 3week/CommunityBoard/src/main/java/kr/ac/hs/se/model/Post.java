@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString(exclude = "board")
 
 public class Post {
 
@@ -20,4 +19,9 @@ public class Post {
     private String content;
 
     private final String date = BoardConstants.YYYYMMDD.format(LocalDateTime.now());
+
+    @Override
+    public String toString() {
+        return no + "\t\t" + date + "\t" + userId + "\t" + title + "\t" + content + "\n";
+    }
 }
