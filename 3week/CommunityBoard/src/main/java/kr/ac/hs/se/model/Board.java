@@ -5,7 +5,6 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-
 public enum Board {
 
     FREE_BOARD("1", "자유 게시판", "################ 자유 게시판 ################"),

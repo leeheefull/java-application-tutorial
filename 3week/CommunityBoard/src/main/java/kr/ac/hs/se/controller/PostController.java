@@ -48,8 +48,10 @@ public class PostController {
         postView.showPageName("작성");
         postView.showInput("글 제목");
         String titleToCreate = br.readLine();
+
         postView.showInput("글 내용");
         String contentToCreate = br.readLine();
+
         postService.createPost(board, titleToCreate, user.getId(), contentToCreate);
     }
 
@@ -71,9 +73,7 @@ public class PostController {
 
     private void showTable(Board board) {
         postView.showTableAttribute();
-        postService.getPostList().stream()
-                .filter(post -> post.getBoard().equals(board))
-                .forEach(System.out::print);  // 개선 필요: view로 분리하기
+        postView.showBoardTable(postService.selectPostsByBoard(board));
         postView.lineBreak();
     }
 }

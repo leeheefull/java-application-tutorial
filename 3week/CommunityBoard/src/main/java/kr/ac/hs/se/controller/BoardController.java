@@ -1,5 +1,6 @@
 package kr.ac.hs.se.controller;
 
+import kr.ac.hs.se.exception.LoggingAnException;
 import kr.ac.hs.se.model.User;
 import kr.ac.hs.se.util.BoardConstants;
 import kr.ac.hs.se.view.BoardView;
@@ -15,9 +16,11 @@ public class BoardController {
     private final BoardView boardView = new BoardView();
 
     public void run() {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
-            FileOutputStream fos = new FileOutputStream("error.log", true);
-            PrintStream ps = new PrintStream(fos);
+        try (
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                FileOutputStream fos = new FileOutputStream("error.log", true);
+                PrintStream ps = new PrintStream(fos)
+        ) {
             System.setErr(ps);
 
             while (true) {
@@ -42,12 +45,10 @@ public class BoardController {
                         boardView.showNumberInputError();
                     }
                 }
-                ps.close();
-                fos.close();
             }
         } catch (Exception e) {
             boardView.showError();
-            boardView.logging(e);
+            LoggingAnException.logging(e);
         }
     }
 

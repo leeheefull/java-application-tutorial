@@ -3,7 +3,6 @@ package kr.ac.hs.se.view;
 import kr.ac.hs.se.model.Board;
 
 import java.io.PrintStream;
-import java.util.Date;
 
 public class BoardView {
 
@@ -36,13 +35,5 @@ public class BoardView {
 
     public void showLogout() {
         out.println("###########################################\n -> 로그아웃 되었습니다.");
-    }
-
-    public void logging(Exception e) {
-        System.err.println("---------------------------------------------------------------------------------------------------------");
-        System.err.println("예외발생시간: " + new Date());
-        e.printStackTrace(System.err);
-        System.err.println("예외 메세지: " + e.getMessage());
-        System.err.println("---------------------------------------------------------------------------------------------------------");
     }
 }

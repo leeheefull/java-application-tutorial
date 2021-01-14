@@ -2,12 +2,9 @@ package kr.ac.hs.se.service;
 
 import kr.ac.hs.se.exception.CustomException;
 import kr.ac.hs.se.model.User;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-@Getter
 
 public class UserService {
 

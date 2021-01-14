@@ -2,12 +2,10 @@ package kr.ac.hs.se.service;
 
 import kr.ac.hs.se.model.Board;
 import kr.ac.hs.se.model.Post;
-import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-
-@Getter
+import java.util.stream.Collectors;
 
 public class PostService {
 
@@ -28,5 +26,12 @@ public class PostService {
 
     public void deletePost(int no, Board board, String userId) {
         postList.removeIf(post -> post.getNo() == no && post.getBoard().equals(board) && post.getUserId().equals(userId));
+    }
+
+    public List<Post> selectPostsByBoard(Board board) {
+        return this.postList
+                .stream()
+                .filter(post -> post.getBoard().equals(board))
+                .collect(Collectors.toList());
     }
 }

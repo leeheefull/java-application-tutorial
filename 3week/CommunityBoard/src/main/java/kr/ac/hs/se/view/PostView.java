@@ -1,6 +1,9 @@
 package kr.ac.hs.se.view;
 
+import kr.ac.hs.se.model.Post;
+
 import java.io.PrintStream;
+import java.util.List;
 
 public class PostView {
 
@@ -37,5 +40,9 @@ public class PostView {
 
     public void showEnd() {
         out.println(" -> 글 관리가 끝났습니다.");
+    }
+
+    public void showBoardTable(List<Post> selectPostsByBoard) {
+        selectPostsByBoard.forEach(out::print);
     }
 }

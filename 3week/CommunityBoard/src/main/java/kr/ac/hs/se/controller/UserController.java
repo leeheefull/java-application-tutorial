@@ -21,13 +21,8 @@ public class UserController {
             switch (menu) {
                 case LOGIN:
                     User userToLogin = login(br);
-                    if (userToLogin != null) {
-                        userView.showLoginCompletion(userToLogin.getId());
-                        return userToLogin;
-                    } else {
-                        userView.showFailedLogin();
-                        break;
-                    }
+                    userView.showLoginCompletion(userToLogin.getId());
+                    return userToLogin;
                 case SIGNUP:
                     signUp(br);
                     break;
