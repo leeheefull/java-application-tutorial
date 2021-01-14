@@ -14,7 +14,7 @@ public class PostView {
         out.println("번호\t\t작성한 날짜\t작성자\t글 제목\t내용");
     }
 
-    public void lineBreak(){
+    public void lineBreak() {
         out.println("###########################################");
     }
 
@@ -34,7 +34,6 @@ public class PostView {
     public void showNumberInputError() {
         out.println(" -> 번호를 다시 입력하세요.");
     }
-
 
     public void showEnd() {
         out.println(" -> 글 관리가 끝났습니다.");

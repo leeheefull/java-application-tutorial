@@ -1,5 +1,6 @@
 package kr.ac.hs.se.service;
 
+import kr.ac.hs.se.exception.CustomException;
 import kr.ac.hs.se.model.User;
 import lombok.Getter;
 
@@ -12,14 +13,15 @@ public class UserService {
 
     private final List<User> userList = new ArrayList<>();
 
-    public User login(String id, String pw) {
+    public User login(String id, String pw) throws CustomException {
         if (checkUser(id, pw)) {
-            return getUser(id);
+            return searchUser(id);
+        } else {
+            throw new CustomException();
         }
-        return null;
     }
 
-    private User getUser(String id) {
+    private User searchUser(String id) {
         for (User user : userList) {
             if (user.getId().equals(id)) {
                 return user;
@@ -37,10 +39,12 @@ public class UserService {
         return false;
     }
 
-    public void signUp(User user) {
+    public boolean signUp(User user) {
         if (checkId(user.getId())) {
             userList.add(user);
+            return true;
         }
+        return false;
     }
 
     private boolean checkId(String id) {
