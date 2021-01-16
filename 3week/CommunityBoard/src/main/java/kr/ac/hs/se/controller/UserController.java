@@ -1,5 +1,6 @@
 package kr.ac.hs.se.controller;
 
+import kr.ac.hs.se.exception.ExitException;
 import kr.ac.hs.se.exception.LoginException;
 import kr.ac.hs.se.model.User;
 import kr.ac.hs.se.service.UserService;
@@ -15,7 +16,7 @@ public class UserController implements Controller {
     private final UserService userService = new UserService();
     private final UserView userView = new UserView();
 
-    public String run(BufferedReader br) throws IOException, LoginException {
+    public String run(BufferedReader br) throws IOException, LoginException, ExitException {
         while (true) {
             String menu = inputMenu(br);
             switch (menu) {
@@ -27,7 +28,7 @@ public class UserController implements Controller {
                     signUp(br);
                     break;
                 case END_OF_PROGRAM:
-                    return null;
+                    throw new ExitException();
                 default:
                     userView.showNumberInputError();
             }

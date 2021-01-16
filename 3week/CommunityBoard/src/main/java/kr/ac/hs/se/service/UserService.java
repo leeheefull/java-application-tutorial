@@ -5,18 +5,15 @@ import kr.ac.hs.se.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
 public class UserService {
 
     private final List<User> userList = new ArrayList<>();
 
     public User login(String id, String pw) throws LoginException {
-        if (!Objects.equals(searchUser(id, pw), null)) {
-            return searchUser(id, pw);
-        } else {
-            throw new LoginException();
-        }
+        return Optional.ofNullable(searchUser(id, pw))
+                .orElseThrow(LoginException::new);
     }
 
     private User searchUser(String id, String pw) {

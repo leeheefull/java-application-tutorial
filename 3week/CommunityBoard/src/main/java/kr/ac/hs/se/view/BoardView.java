@@ -19,10 +19,6 @@ public class BoardView implements View {
         out.println("############# Community Board #############");
     }
 
-    public void showProgramEnd() {
-        out.println("############## 프로그램 종료 ################");
-    }
-
     public void showError() {
         out.println("################# 오류 발생 #################");
     }

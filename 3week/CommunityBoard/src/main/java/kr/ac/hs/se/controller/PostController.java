@@ -18,22 +18,26 @@ public class PostController implements Controller {
         while (true) {
             postView.showBoardTitle(board.getTitle());
             showTable(board);
-            String menu = inputMenu(br);
-            switch (menu) {
-                case CREATE:
-                    createPost(br, board, userId);
-                    break;
-                case UPDATE:
-                    updatePost(br, board, userId);
-                    break;
-                case DELETE:
-                    deletePost(br, board, userId);
-                    break;
-                case END_OF_MANAGEMENT:
-                    postView.showEnd();
-                    return;
-                default:
-                    postView.showNumberInputError();
+            if (board.equals(Board.ALL_POST_BOARD)) {
+                return;
+            } else {
+                String menu = inputMenu(br);
+                switch (menu) {
+                    case CREATE:
+                        createPost(br, board, userId);
+                        break;
+                    case UPDATE:
+                        updatePost(br, board, userId);
+                        break;
+                    case DELETE:
+                        deletePost(br, board, userId);
+                        break;
+                    case END_OF_MANAGEMENT:
+                        postView.showEnd();
+                        return;
+                    default:
+                        postView.showNumberInputError();
+                }
             }
         }
     }

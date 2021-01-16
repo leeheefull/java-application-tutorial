@@ -23,10 +23,6 @@ public class BoardController implements Controller {
             while (true) {
                 boardView.showProgramTitle();
                 String loginUserId = userController.run(br);
-                if (loginUserId == null) {
-                    boardView.showProgramEnd();
-                    return;
-                }
                 while (true) {
                     String menu = inputMenu(br);
                     if (menu.equals(ALL_POST_BOARD.getNo())) {
