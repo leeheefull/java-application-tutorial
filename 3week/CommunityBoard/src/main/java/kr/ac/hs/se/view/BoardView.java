@@ -2,23 +2,21 @@ package kr.ac.hs.se.view;
 
 import kr.ac.hs.se.model.Board;
 
-import java.io.PrintStream;
+public class BoardView implements View {
 
-public class BoardView {
-
-    private final PrintStream out = new PrintStream(System.out);
+    @Override
+    public void showMenu() {
+        out.println("################ 게시판 선택 ################");
+        out.println("####### " + Board.ALL_POST_BOARD.getNo() + ". " + Board.ALL_POST_BOARD.getName() + " / "
+                + Board.FREE_BOARD.getNo() + ". " + Board.FREE_BOARD.getName() + " #######" + "\n"
+                + "####### " + Board.GAME_BOARD.getNo() + ". " + Board.GAME_BOARD.getName() + " / "
+                + Board.MARKET_BOARD.getNo() + ". " + Board.MARKET_BOARD.getName() + " #######" + "\n"
+                + "################ 5. 로그아웃 ################");
+        out.print("입력할 번호 >> ");
+    }
 
     public void showProgramTitle() {
         out.println("############# Community Board #############");
-    }
-
-    public void showMenu() {
-        out.println("################ 게시판 선택 ################");
-        out.println("####### " + Board.FREE_BOARD.getNo() + ". " + Board.FREE_BOARD.getName() + " / "
-                + Board.GAME_BOARD.getNo() + ". " + Board.GAME_BOARD.getName() + " #######" + "\n"
-                + "######## " + Board.MARKET_BOARD.getNo() + ". " + Board.MARKET_BOARD.getName() + " / "
-                + "4. 로그아웃 #########");
-        out.print("입력할 번호 >> ");
     }
 
     public void showProgramEnd() {

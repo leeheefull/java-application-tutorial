@@ -1,11 +1,8 @@
 package kr.ac.hs.se.view;
 
-import java.io.PrintStream;
+public class UserView implements View {
 
-public class UserView {
-
-    private final PrintStream out = new PrintStream(System.out);
-
+    @Override
     public void showMenu() {
         out.println("################ 로그인 메뉴 ################");
         out.println("##### 1. 로그인 / 2. 회원가입 / 3. 종료 ######");
@@ -32,7 +29,7 @@ public class UserView {
         out.println("-> 번호를 다시 입력하세요.");
     }
 
-    public void showFailedLogin() {
-        out.println(" -> 회원가입이 필요합니다.");
+    public void showFailedSignUp() {
+        out.println(" -> 이미 가입된 정보가 있습니다.");
     }
 }

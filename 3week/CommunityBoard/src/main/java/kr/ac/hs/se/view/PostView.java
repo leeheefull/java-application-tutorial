@@ -2,12 +2,15 @@ package kr.ac.hs.se.view;
 
 import kr.ac.hs.se.model.Post;
 
-import java.io.PrintStream;
 import java.util.List;
 
-public class PostView {
+public class PostView implements View {
 
-    private final PrintStream out = new PrintStream(System.out);
+    @Override
+    public void showMenu() {
+        out.println("## 1. 작성 / 2. 수정 / 3. 삭제 / 4. 뒤로가기 ##");
+        out.print("입력할 번호 >> ");
+    }
 
     public void showBoardTitle(String title) {
         out.println(title);
@@ -19,11 +22,6 @@ public class PostView {
 
     public void lineBreak() {
         out.println("###########################################");
-    }
-
-    public void showMenu() {
-        out.println("## 1. 작성 / 2. 수정 / 3. 삭제 / 4. 뒤로가기 ##");
-        out.print("입력할 번호 >> ");
     }
 
     public void showPageName(String pageName) {

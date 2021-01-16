@@ -1,7 +1,6 @@
 package kr.ac.hs.se.controller;
 
 import kr.ac.hs.se.model.Board;
-import kr.ac.hs.se.model.User;
 import kr.ac.hs.se.service.PostService;
 import kr.ac.hs.se.view.PostView;
 
@@ -10,25 +9,25 @@ import java.io.IOException;
 
 import static kr.ac.hs.se.util.BoardConstants.PostMenu.*;
 
-public class PostController {
+public class PostController implements Controller {
 
     private final PostService postService = new PostService();
     private final PostView postView = new PostView();
 
-    public void run(BufferedReader br, Board board, User user) throws IOException {
+    public void run(BufferedReader br, Board board, String userId) throws IOException {
         while (true) {
             postView.showBoardTitle(board.getTitle());
             showTable(board);
             String menu = inputMenu(br);
             switch (menu) {
                 case CREATE:
-                    createPost(br, board, user);
+                    createPost(br, board, userId);
                     break;
                 case UPDATE:
-                    updatePost(br, board, user);
+                    updatePost(br, board, userId);
                     break;
                 case DELETE:
-                    deletePost(br, board, user);
+                    deletePost(br, board, userId);
                     break;
                 case END_OF_MANAGEMENT:
                     postView.showEnd();
@@ -39,36 +38,43 @@ public class PostController {
         }
     }
 
-    private String inputMenu(BufferedReader br) throws IOException {
+    @Override
+    public String inputMenu(BufferedReader br) throws IOException {
         postView.showMenu();
         return br.readLine();
     }
 
-    private void createPost(BufferedReader br, Board board, User user) throws IOException {
+    private void createPost(BufferedReader br, Board board, String userId) throws IOException {
         postView.showPageName("작성");
+
         postView.showInput("글 제목");
-        String titleToCreate = br.readLine();
+        String title = br.readLine();
 
         postView.showInput("글 내용");
-        String contentToCreate = br.readLine();
+        String content = br.readLine();
 
-        postService.createPost(board, titleToCreate, user.getId(), contentToCreate);
+        postService.createPost(board, title, userId, content);
     }
 
-    private void updatePost(BufferedReader br, Board board, User user) throws IOException {
+    private void updatePost(BufferedReader br, Board board, String userId) throws IOException {
         postView.showPageName("수정");
+
         postView.showInput("수정할 글 번호");
-        int noToUpdate = Integer.parseInt(br.readLine());
+        int no = Integer.parseInt(br.readLine());
+
         postView.showInput("수정할 내용");
-        String contentToUpdate = br.readLine();
-        postService.updatePost(noToUpdate, board, user.getId(), contentToUpdate);
+        String content = br.readLine();
+
+        postService.updatePost(no, board, userId, content);
     }
 
-    private void deletePost(BufferedReader br, Board board, User user) throws IOException {
+    private void deletePost(BufferedReader br, Board board, String userId) throws IOException {
         postView.showPageName("삭제");
+
         postView.showInput("삭제할 글 번호");
-        int noToDelete = Integer.parseInt(br.readLine());
-        postService.deletePost(noToDelete, board, user.getId());
+        int no = Integer.parseInt(br.readLine());
+
+        postService.deletePost(no, board, userId);
     }
 
     private void showTable(Board board) {

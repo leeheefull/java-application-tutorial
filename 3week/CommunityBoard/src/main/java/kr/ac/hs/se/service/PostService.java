@@ -29,9 +29,13 @@ public class PostService {
     }
 
     public List<Post> selectPostsByBoard(Board board) {
-        return this.postList
-                .stream()
-                .filter(post -> post.getBoard().equals(board))
-                .collect(Collectors.toList());
+        if (board.equals(Board.ALL_POST_BOARD)) {
+            return this.postList;
+        } else {
+            return this.postList
+                    .stream()
+                    .filter(post -> post.getBoard().equals(board))
+                    .collect(Collectors.toList());
+        }
     }
 }

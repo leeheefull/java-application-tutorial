@@ -5,7 +5,7 @@ import java.time.format.DateTimeFormatter;
 public class BoardConstants {
 
     public static final DateTimeFormatter YYYYMMDD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static final String LOGOUT = "4";
+    public static final String LOGOUT = "5";
 
     public static class UserMenu {
         public static final String LOGIN = "1";

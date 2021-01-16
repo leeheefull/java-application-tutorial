@@ -1,6 +1,6 @@
 package kr.ac.hs.se.exception;
 
-public class CustomException extends Exception {
+public class LoginException extends Exception {
 
     @Override
     public String getMessage() {
