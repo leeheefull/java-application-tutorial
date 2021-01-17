@@ -11,7 +11,7 @@ import java.io.IOException;
 
 import static kr.ac.hs.se.util.BoardConstants.UserMenu.*;
 
-public class UserController implements Controller {
+public class UserController {
 
     private final UserService userService = new UserService();
     private final UserView userView = new UserView();
@@ -49,14 +49,13 @@ public class UserController implements Controller {
         String id = inputId(br);
         String pw = inputPw(br);
 
-        if (userService.signUp(new User(name, id, pw))) {
+        if (userService.signUp(name, id, pw)) {
             userView.showSignUpCompletion(id);
-        } else {
-            userView.showFailedSignUp();
+            return;
         }
+        userView.showFailedSignUp();
     }
 
-    @Override
     public String inputMenu(BufferedReader br) throws IOException {
         userView.showMenu();
         return br.readLine();

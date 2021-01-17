@@ -25,9 +25,9 @@ public class UserService {
         return null;
     }
 
-    public boolean signUp(User user) {
-        if (checkId(user.getId())) {
-            userList.add(user);
+    public boolean signUp(String name, String id, String pw) {
+        if (checkId(id)) {
+            userList.add(new User(name, id, pw));
             return true;
         }
         return false;

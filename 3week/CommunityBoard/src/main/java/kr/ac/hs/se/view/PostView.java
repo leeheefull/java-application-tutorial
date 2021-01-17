@@ -1,6 +1,7 @@
 package kr.ac.hs.se.view;
 
 import kr.ac.hs.se.model.Post;
+import kr.ac.hs.se.util.PostMenu;
 
 import java.util.List;
 
@@ -8,7 +9,10 @@ public class PostView implements View {
 
     @Override
     public void showMenu() {
-        out.println("## 1. 작성 / 2. 수정 / 3. 삭제 / 4. 뒤로가기 ##");
+        out.println(PostMenu.CREATE.getNo() + ". " + PostMenu.CREATE.getName());
+        out.println(PostMenu.UPDATE.getNo() + ". " + PostMenu.UPDATE.getName());
+        out.println(PostMenu.DELETE.getNo() + ". " + PostMenu.DELETE.getName());
+        out.println(PostMenu.BACK.getNo() + ". " + PostMenu.BACK.getName());
         out.print("입력할 번호 >> ");
     }
 

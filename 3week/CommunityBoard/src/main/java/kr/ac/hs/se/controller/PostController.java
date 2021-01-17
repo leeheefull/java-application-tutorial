@@ -1,15 +1,14 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.model.Board;
+import kr.ac.hs.se.util.Board;
 import kr.ac.hs.se.service.PostService;
+import kr.ac.hs.se.util.PostMenu;
 import kr.ac.hs.se.view.PostView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 
-import static kr.ac.hs.se.util.BoardConstants.PostMenu.*;
-
-public class PostController implements Controller {
+public class PostController {
 
     private final PostService postService = new PostService();
     private final PostView postView = new PostView();
@@ -17,35 +16,37 @@ public class PostController implements Controller {
     public void run(BufferedReader br, Board board, String userId) throws IOException {
         while (true) {
             postView.showBoardTitle(board.getTitle());
-            showTable(board);
-            if (board.equals(Board.ALL_POST_BOARD)) {
+            if (board.equals(Board.ALL_POST)) {
+                showPostTable(board);
                 return;
-            } else {
-                String menu = inputMenu(br);
-                switch (menu) {
-                    case CREATE:
-                        createPost(br, board, userId);
-                        break;
-                    case UPDATE:
-                        updatePost(br, board, userId);
-                        break;
-                    case DELETE:
-                        deletePost(br, board, userId);
-                        break;
-                    case END_OF_MANAGEMENT:
-                        postView.showEnd();
-                        return;
-                    default:
-                        postView.showNumberInputError();
-                }
+            } else if (board.equals(Board.MY_POST)) {
+                showMyPostTable(userId);
+                return;
+            }
+            showPostTable(board);
+            PostMenu menu = inputMenu(br);
+            switch (menu) {
+                case CREATE:
+                    createPost(br, board, userId);
+                    break;
+                case UPDATE:
+                    updatePost(br, board, userId);
+                    break;
+                case DELETE:
+                    deletePost(br, board, userId);
+                    break;
+                case BACK:
+                    postView.showEnd();
+                    return;
+                default:
+                    postView.showNumberInputError();
             }
         }
     }
 
-    @Override
-    public String inputMenu(BufferedReader br) throws IOException {
+    public PostMenu inputMenu(BufferedReader br) throws IOException {
         postView.showMenu();
-        return br.readLine();
+        return PostMenu.of(br.readLine());
     }
 
     private void createPost(BufferedReader br, Board board, String userId) throws IOException {
@@ -81,9 +82,15 @@ public class PostController implements Controller {
         postService.deletePost(no, board, userId);
     }
 
-    private void showTable(Board board) {
+    private void showPostTable(Board board) {
         postView.showTableAttribute();
         postView.showBoardTable(postService.selectPostsByBoard(board));
+        postView.lineBreak();
+    }
+
+    private void showMyPostTable(String userId) {
+        postView.showTableAttribute();
+        postView.showBoardTable(postService.selectPostsById(userId));
         postView.lineBreak();
     }
 }

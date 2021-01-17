@@ -5,7 +5,9 @@ public class UserView implements View {
     @Override
     public void showMenu() {
         out.println("################ 로그인 메뉴 ################");
-        out.println("##### 1. 로그인 / 2. 회원가입 / 3. 종료 ######");
+        out.println("1. 로그인 하기");
+        out.println("2. 회원가입 하기");
+        out.println("3. 프로그램 종료하기");
         out.print("입력할 번호 >> ");
     }
 
