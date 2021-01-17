@@ -1,13 +1,12 @@
 package kr.ac.hs.se.controller;
 
 import kr.ac.hs.se.exception.LoggingAnException;
-import kr.ac.hs.se.model.User;
-import kr.ac.hs.se.util.BoardConstants;
+import kr.ac.hs.se.util.Board;
 import kr.ac.hs.se.view.BoardView;
 
 import java.io.*;
 
-import static kr.ac.hs.se.model.Board.*;
+import static kr.ac.hs.se.util.Board.*;
 
 public class BoardController {
 
@@ -16,33 +15,37 @@ public class BoardController {
     private final BoardView boardView = new BoardView();
 
     public void run() {
-        try (
-                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-                FileOutputStream fos = new FileOutputStream("error.log", true);
-                PrintStream ps = new PrintStream(fos)
-        ) {
-            System.setErr(ps);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
+            PrintStream log = new PrintStream(new FileOutputStream("error.log", true));
+            System.setErr(log);
 
             while (true) {
                 boardView.showProgramTitle();
-                User loginUser = userController.run(br);
-                if (loginUser == null) {
-                    boardView.showProgramEnd();
-                    return;
-                }
+                String loginUserId = userController.run(br);
+                logout:
                 while (true) {
-                    String menu = inputMenu(br);
-                    if (menu.equals(FREE_BOARD.getNo())) {
-                        postController.run(br, FREE_BOARD, loginUser);
-                    } else if (menu.equals(GAME_BOARD.getNo())) {
-                        postController.run(br, GAME_BOARD, loginUser);
-                    } else if (menu.equals(MARKET_BOARD.getNo())) {
-                        postController.run(br, MARKET_BOARD, loginUser);
-                    } else if (menu.equals(BoardConstants.LOGOUT)) {
-                        boardView.showLogout();
-                        break;
-                    } else {
-                        boardView.showNumberInputError();
+                    Board menu = inputMenu(br);
+                    switch (menu) {
+                        case ALL_POST:
+                            postController.run(br, ALL_POST, loginUserId);
+                            break;
+                        case MY_POST:
+                            postController.run(br, MY_POST, loginUserId);
+                            break;
+                        case FREE_BOARD:
+                            postController.run(br, FREE_BOARD, loginUserId);
+                            break;
+                        case GAME_BOARD:
+                            postController.run(br, GAME_BOARD, loginUserId);
+                            break;
+                        case MARKET_BOARD:
+                            postController.run(br, MARKET_BOARD, loginUserId);
+                            break;
+                        case LOGOUT:
+                            boardView.showLogout();
+                            break logout;
+                        default:
+                            boardView.showNumberInputError();
                     }
                 }
             }
@@ -52,8 +55,8 @@ public class BoardController {
         }
     }
 
-    private String inputMenu(BufferedReader br) throws IOException {
+    public Board inputMenu(BufferedReader br) throws IOException {
         boardView.showMenu();
-        return br.readLine();
+        return Board.of(br.readLine());
     }
 }

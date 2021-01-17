@@ -1,6 +1,6 @@
 package kr.ac.hs.se.service;
 
-import kr.ac.hs.se.model.Board;
+import kr.ac.hs.se.util.Board;
 import kr.ac.hs.se.model.Post;
 
 import java.util.ArrayList;
@@ -29,9 +29,19 @@ public class PostService {
     }
 
     public List<Post> selectPostsByBoard(Board board) {
+        if (board.equals(Board.ALL_POST)) {
+            return this.postList;
+        }
         return this.postList
                 .stream()
                 .filter(post -> post.getBoard().equals(board))
+                .collect(Collectors.toList());
+    }
+
+    public List<Post> selectPostsById(String userId) {
+        return this.postList
+                .stream()
+                .filter(post -> post.getUserId().equals(userId))
                 .collect(Collectors.toList());
     }
 }

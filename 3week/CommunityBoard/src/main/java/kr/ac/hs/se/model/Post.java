@@ -1,5 +1,6 @@
 package kr.ac.hs.se.model;
 
+import kr.ac.hs.se.util.Board;
 import kr.ac.hs.se.util.BoardConstants;
 import lombok.*;
 
