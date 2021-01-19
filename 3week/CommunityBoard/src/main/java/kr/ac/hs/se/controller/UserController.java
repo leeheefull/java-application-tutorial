@@ -4,12 +4,11 @@ import kr.ac.hs.se.exception.ExitException;
 import kr.ac.hs.se.exception.LoginException;
 import kr.ac.hs.se.model.User;
 import kr.ac.hs.se.service.UserService;
+import kr.ac.hs.se.util.UserMenu;
 import kr.ac.hs.se.view.UserView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-
-import static kr.ac.hs.se.util.BoardConstants.UserMenu.*;
 
 public class UserController {
 
@@ -18,7 +17,7 @@ public class UserController {
 
     public String run(BufferedReader br) throws IOException, LoginException, ExitException {
         while (true) {
-            String menu = inputMenu(br);
+            UserMenu menu = inputMenu(br);
             switch (menu) {
                 case LOGIN:
                     User userToLogin = login(br);
@@ -29,14 +28,12 @@ public class UserController {
                     break;
                 case END_OF_PROGRAM:
                     throw new ExitException();
-                default:
-                    userView.showNumberInputError();
             }
         }
     }
 
     private User login(BufferedReader br) throws IOException, LoginException {
-        userView.showPageName("로그인");
+        userView.showUserMenuTitle(UserMenu.LOGIN.getTitle());
         String id = inputId(br);
         String pw = inputPw(br);
 
@@ -44,7 +41,7 @@ public class UserController {
     }
 
     private void signUp(BufferedReader br) throws IOException {
-        userView.showPageName("회원가입");
+        userView.showUserMenuTitle(UserMenu.SIGNUP.getTitle());
         String name = inputName(br);
         String id = inputId(br);
         String pw = inputPw(br);
@@ -56,9 +53,9 @@ public class UserController {
         userView.showFailedSignUp();
     }
 
-    public String inputMenu(BufferedReader br) throws IOException {
+    public UserMenu inputMenu(BufferedReader br) throws IOException {
         userView.showMenu();
-        return br.readLine();
+        return UserMenu.of(br.readLine());
     }
 
     private String inputName(BufferedReader br) throws IOException {

@@ -38,8 +38,6 @@ public class PostController {
                 case BACK:
                     postView.showEnd();
                     return;
-                default:
-                    postView.showNumberInputError();
             }
         }
     }
@@ -50,7 +48,7 @@ public class PostController {
     }
 
     private void createPost(BufferedReader br, Board board, String userId) throws IOException {
-        postView.showPageName("작성");
+        postView.showPostMenuTitle(PostMenu.CREATE.getTitle());
 
         postView.showInput("글 제목");
         String title = br.readLine();
@@ -62,7 +60,7 @@ public class PostController {
     }
 
     private void updatePost(BufferedReader br, Board board, String userId) throws IOException {
-        postView.showPageName("수정");
+        postView.showPostMenuTitle(PostMenu.UPDATE.getTitle());
 
         postView.showInput("수정할 글 번호");
         int no = Integer.parseInt(br.readLine());
@@ -74,7 +72,7 @@ public class PostController {
     }
 
     private void deletePost(BufferedReader br, Board board, String userId) throws IOException {
-        postView.showPageName("삭제");
+        postView.showPostMenuTitle(PostMenu.DELETE.getTitle());
 
         postView.showInput("삭제할 글 번호");
         int no = Integer.parseInt(br.readLine());

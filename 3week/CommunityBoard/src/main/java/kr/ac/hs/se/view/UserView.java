@@ -1,18 +1,19 @@
 package kr.ac.hs.se.view;
 
+import kr.ac.hs.se.util.UserMenu;
+
 public class UserView implements View {
 
     @Override
     public void showMenu() {
         out.println("################ 로그인 메뉴 ################");
-        out.println("1. 로그인 하기");
-        out.println("2. 회원가입 하기");
-        out.println("3. 프로그램 종료하기");
+        UserMenu.selectMenuByName()
+                .forEach(out::println);
         out.print("입력할 번호 >> ");
     }
 
-    public void showPageName(String pageName) {
-        out.println("############### " + pageName + " 페이지 ################");
+    public void showUserMenuTitle(String title) {
+        out.println(title);
     }
 
     public void showInput(String input) {
@@ -25,10 +26,6 @@ public class UserView implements View {
 
     public void showSignUpCompletion(String idToSignUp) {
         out.println("-> " + idToSignUp + "님 환영합니다.");
-    }
-
-    public void showNumberInputError() {
-        out.println("-> 번호를 다시 입력하세요.");
     }
 
     public void showFailedSignUp() {

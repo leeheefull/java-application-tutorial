@@ -9,14 +9,16 @@ public class PostView implements View {
 
     @Override
     public void showMenu() {
-        out.println(PostMenu.CREATE.getNo() + ". " + PostMenu.CREATE.getName());
-        out.println(PostMenu.UPDATE.getNo() + ". " + PostMenu.UPDATE.getName());
-        out.println(PostMenu.DELETE.getNo() + ". " + PostMenu.DELETE.getName());
-        out.println(PostMenu.BACK.getNo() + ". " + PostMenu.BACK.getName());
+        PostMenu.selectMenuByName()
+                .forEach(out::println);
         out.print("입력할 번호 >> ");
     }
 
     public void showBoardTitle(String title) {
+        out.println(title);
+    }
+
+    public void showPostMenuTitle(String title) {
         out.println(title);
     }
 
@@ -28,16 +30,8 @@ public class PostView implements View {
         out.println("###########################################");
     }
 
-    public void showPageName(String pageName) {
-        out.println("############### 글 " + pageName + " 페이지 ###############");
-    }
-
     public void showInput(String input) {
         out.print(input + " >> ");
-    }
-
-    public void showNumberInputError() {
-        out.println(" -> 번호를 다시 입력하세요.");
     }
 
     public void showEnd() {

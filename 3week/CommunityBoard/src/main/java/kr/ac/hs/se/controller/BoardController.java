@@ -44,8 +44,6 @@ public class BoardController {
                         case LOGOUT:
                             boardView.showLogout();
                             break logout;
-                        default:
-                            boardView.showNumberInputError();
                     }
                 }
             }
