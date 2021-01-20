@@ -1,12 +1,14 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.util.Board;
+import kr.ac.hs.se.menu.Board;
+import kr.ac.hs.se.model.Post;
 import kr.ac.hs.se.service.PostService;
-import kr.ac.hs.se.util.PostMenu;
+import kr.ac.hs.se.menu.PostMenu;
 import kr.ac.hs.se.view.PostView;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.List;
 
 public class PostController {
 
@@ -17,13 +19,13 @@ public class PostController {
         while (true) {
             postView.showBoardTitle(board.getTitle());
             if (board.equals(Board.ALL_POST)) {
-                showPostTable(board);
+                showPostTable(postService.selectPostsByBoard(board));
                 return;
             } else if (board.equals(Board.MY_POST)) {
-                showMyPostTable(userId);
+                showPostTable(postService.selectPostsById(userId));
                 return;
             }
-            showPostTable(board);
+            showPostTable(postService.selectPostsByBoard(board));
             PostMenu menu = inputMenu(br);
             switch (menu) {
                 case CREATE:
@@ -38,8 +40,6 @@ public class PostController {
                 case BACK:
                     postView.showEnd();
                     return;
-                default:
-                    postView.showNumberInputError();
             }
         }
     }
@@ -50,7 +50,7 @@ public class PostController {
     }
 
     private void createPost(BufferedReader br, Board board, String userId) throws IOException {
-        postView.showPageName("작성");
+        postView.showPostMenuTitle(PostMenu.CREATE.getTitle());
 
         postView.showInput("글 제목");
         String title = br.readLine();
@@ -62,7 +62,7 @@ public class PostController {
     }
 
     private void updatePost(BufferedReader br, Board board, String userId) throws IOException {
-        postView.showPageName("수정");
+        postView.showPostMenuTitle(PostMenu.UPDATE.getTitle());
 
         postView.showInput("수정할 글 번호");
         int no = Integer.parseInt(br.readLine());
@@ -74,7 +74,7 @@ public class PostController {
     }
 
     private void deletePost(BufferedReader br, Board board, String userId) throws IOException {
-        postView.showPageName("삭제");
+        postView.showPostMenuTitle(PostMenu.DELETE.getTitle());
 
         postView.showInput("삭제할 글 번호");
         int no = Integer.parseInt(br.readLine());
@@ -82,15 +82,9 @@ public class PostController {
         postService.deletePost(no, board, userId);
     }
 
-    private void showPostTable(Board board) {
+    private void showPostTable(List<Post> selectPosts) {
         postView.showTableAttribute();
-        postView.showBoardTable(postService.selectPostsByBoard(board));
-        postView.lineBreak();
-    }
-
-    private void showMyPostTable(String userId) {
-        postView.showTableAttribute();
-        postView.showBoardTable(postService.selectPostsById(userId));
+        postView.showBoardTable(selectPosts);
         postView.lineBreak();
     }
 }
