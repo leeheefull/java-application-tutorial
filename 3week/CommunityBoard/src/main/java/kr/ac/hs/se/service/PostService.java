@@ -1,6 +1,6 @@
 package kr.ac.hs.se.service;
 
-import kr.ac.hs.se.util.Board;
+import kr.ac.hs.se.menu.Board;
 import kr.ac.hs.se.model.Post;
 
 import java.util.ArrayList;

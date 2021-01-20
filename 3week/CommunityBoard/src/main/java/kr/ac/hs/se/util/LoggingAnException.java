@@ -1,4 +1,4 @@
-package kr.ac.hs.se.exception;
+package kr.ac.hs.se.util;
 
 import java.util.Date;
 

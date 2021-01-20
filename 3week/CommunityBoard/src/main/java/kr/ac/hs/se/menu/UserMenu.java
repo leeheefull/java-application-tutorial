@@ -1,10 +1,11 @@
-package kr.ac.hs.se.util;
+package kr.ac.hs.se.menu;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
@@ -18,15 +19,16 @@ public enum UserMenu {
     private final String name;
     private final String title;
 
-    public static UserMenu of(String no) throws NullPointerException {
+    public static UserMenu of(String no) {
         return Arrays.stream(values())
                 .filter(board -> no.equals(board.no))
                 .findFirst()
                 .orElseThrow(NullPointerException::new);
     }
 
-    public static Stream<String> selectMenuByName() {
+    public static List<String> selectMenuByName() {
         return Arrays.stream(UserMenu.values())
-                .map(UserMenu::getName);
+                .map(UserMenu::getName)
+                .collect(Collectors.toList());
     }
 }

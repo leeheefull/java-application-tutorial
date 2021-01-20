@@ -1,6 +1,6 @@
 package kr.ac.hs.se.view;
 
-import kr.ac.hs.se.util.UserMenu;
+import kr.ac.hs.se.menu.UserMenu;
 
 public class UserView implements View {
 
@@ -20,12 +20,12 @@ public class UserView implements View {
         out.print(input + " >> ");
     }
 
-    public void showLoginCompletion(String idToLogin) {
-        out.println("-> " + idToLogin + "님이 로그인 하셨습니다.");
+    public void showLoginCompletion(String id) {
+        out.println("-> " + id + "님이 로그인 하셨습니다.");
     }
 
-    public void showSignUpCompletion(String idToSignUp) {
-        out.println("-> " + idToSignUp + "님 환영합니다.");
+    public void showSignUpCompletion(String id) {
+        out.println("-> " + id + "님 환영합니다.");
     }
 
     public void showFailedSignUp() {

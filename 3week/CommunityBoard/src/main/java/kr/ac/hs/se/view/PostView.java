@@ -1,7 +1,7 @@
 package kr.ac.hs.se.view;
 
 import kr.ac.hs.se.model.Post;
-import kr.ac.hs.se.util.PostMenu;
+import kr.ac.hs.se.menu.PostMenu;
 
 import java.util.List;
 

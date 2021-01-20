@@ -1,6 +1,6 @@
 package kr.ac.hs.se.view;
 
-import kr.ac.hs.se.util.Board;
+import kr.ac.hs.se.menu.Board;
 
 public class BoardView implements View {
 

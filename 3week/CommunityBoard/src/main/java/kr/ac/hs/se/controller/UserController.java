@@ -4,7 +4,7 @@ import kr.ac.hs.se.exception.ExitException;
 import kr.ac.hs.se.exception.LoginException;
 import kr.ac.hs.se.model.User;
 import kr.ac.hs.se.service.UserService;
-import kr.ac.hs.se.util.UserMenu;
+import kr.ac.hs.se.menu.UserMenu;
 import kr.ac.hs.se.view.UserView;
 
 import java.io.BufferedReader;
@@ -20,9 +20,9 @@ public class UserController {
             UserMenu menu = inputMenu(br);
             switch (menu) {
                 case LOGIN:
-                    User userToLogin = login(br);
-                    userView.showLoginCompletion(userToLogin.getId());
-                    return userToLogin.getId();
+                    User user = login(br);
+                    userView.showLoginCompletion(user.getId());
+                    return user.getId();
                 case SIGNUP:
                     signUp(br);
                     break;
