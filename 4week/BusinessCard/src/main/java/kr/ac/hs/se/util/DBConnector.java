@@ -7,7 +7,14 @@ import java.sql.SQLException;
 public class DBConnector {
 
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/tutoring?serverTimezone=UTC", "root", "2277");
+
+        String driver = "com.mysql.cj.jdbc.Driver";
+        Class.forName(driver);
+
+        String url = "jdbc:mysql://localhost:3306/tutoring?serverTimezone=UTC";
+        String user = "root";
+        String password = "2277";
+
+        return DriverManager.getConnection(url, user, password);
     }
 }

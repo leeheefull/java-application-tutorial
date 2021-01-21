@@ -40,12 +40,11 @@ public class BusinessCardDao {
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                int cardNo = rs.getInt(1);
                 String name = rs.getString(2);
                 String phoneNo = rs.getString(3);
                 String companyName = rs.getString(4);
 
-                businessCard = new BusinessCard(cardNo, name, phoneNo, companyName);
+                businessCard = new BusinessCard(name, phoneNo, companyName);
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
