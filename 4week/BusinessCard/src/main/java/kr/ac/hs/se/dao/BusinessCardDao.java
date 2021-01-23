@@ -10,50 +10,51 @@ import java.sql.SQLException;
 
 public class BusinessCardDao {
 
-    public void insertBusinessCard(BusinessCard businessCard) {
-        String sql = "INSERT INTO business_card(name, phone_no, company_name) VALUES(?, ?, ?)";
+    public void insertBusinessCard(String personName, String phoneNo, String companyName) {
+        String sql = "INSERT INTO business_card(person_name, phone_no, company_name) VALUES(?, ?, ?)";
 
         try (
                 Connection con = DBConnector.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, businessCard.getName());
-            ps.setString(2, businessCard.getPhoneNo());
-            ps.setString(3, businessCard.getCompanyName());
+            ps.setString(1, personName);
+            ps.setString(2, phoneNo);
+            ps.setString(3, companyName);
 
             ps.executeUpdate();
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException();
         }
     }
 
-    public BusinessCard selectBusinessCard(String selectedName) {
+    public BusinessCard selectBusinessCard(int cardNo) {
         BusinessCard businessCard = null;
         ResultSet rs = null;
-        String sql = "SELECT * FROM business_card WHERE name = ?";
+        String sql = "SELECT card_no, person_name, phone_no, company_name FROM business_card WHERE card_no = ?";
 
         try (
                 Connection con = DBConnector.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, selectedName);
+            ps.setInt(1, cardNo);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                String name = rs.getString(2);
-                String phoneNo = rs.getString(3);
-                String companyName = rs.getString(4);
+                int cardNo_ = rs.getInt(1);
+                String personName_ = rs.getString(2);
+                String phoneNo_ = rs.getString(3);
+                String companyName_ = rs.getString(4);
 
-                businessCard = new BusinessCard(name, phoneNo, companyName);
+                businessCard = BusinessCard.getInstance(cardNo_, personName_, phoneNo_, companyName_);
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException();
         } finally {
             if (rs != null) {
                 try {
                     rs.close();
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException();
                 }
             }
         }

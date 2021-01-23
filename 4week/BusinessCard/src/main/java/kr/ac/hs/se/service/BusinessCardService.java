@@ -7,11 +7,11 @@ public class BusinessCardService {
 
     private final BusinessCardDao businessCardDao = new BusinessCardDao();
 
-    public void createBusinessCard(String name, String phoneNo, String companyName) {
-        businessCardDao.insertBusinessCard(new BusinessCard(name, phoneNo, companyName));
+    public void createBusinessCard(String personName, String phoneNo, String companyName) {
+        businessCardDao.insertBusinessCard(personName, phoneNo, companyName);
     }
 
-    public BusinessCard searchBusinessCard(String selectedName) {
-        return businessCardDao.selectBusinessCard(selectedName);
+    public BusinessCard searchBusinessCard(int selectedNo) {
+        return businessCardDao.selectBusinessCard(selectedNo);
     }
 }

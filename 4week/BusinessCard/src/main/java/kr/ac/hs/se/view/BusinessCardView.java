@@ -29,7 +29,7 @@ public class BusinessCardView {
     }
 
     public void showSearchedBusinessCard(BusinessCard searchBusinessCard) {
-        System.out.println("이름\t\t전화번호\t\t\t회사");
+        System.out.println("번호\t\t이름\t\t전화번호\t\t\t회사");
         System.out.println(searchBusinessCard);
     }
 }

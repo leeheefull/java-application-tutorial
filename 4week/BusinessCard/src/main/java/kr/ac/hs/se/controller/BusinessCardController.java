@@ -52,10 +52,10 @@ public class BusinessCardController {
     private void search(BufferedReader br) throws IOException {
         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.SEARCH.getTitle());
 
-        businessCardView.showInput("검색할 이름");
-        String name = br.readLine();
+        businessCardView.showInput("검색할 번호");
+        int cardNo = Integer.parseInt(br.readLine());
 
-        businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(name));
+        businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(cardNo));
     }
 
     private String inputName(BufferedReader br) throws IOException {
