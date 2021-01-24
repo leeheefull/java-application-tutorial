@@ -4,6 +4,7 @@ import kr.ac.hs.se.dto.BusinessCard;
 import kr.ac.hs.se.menu.BusinessCardMenu;
 
 import java.io.PrintStream;
+import java.util.List;
 
 public class BusinessCardView {
 
@@ -29,7 +30,12 @@ public class BusinessCardView {
     }
 
     public void showSearchedBusinessCard(BusinessCard searchBusinessCard) {
-        System.out.println("번호\t\t이름\t\t전화번호\t\t\t회사");
-        System.out.println(searchBusinessCard);
+        out.println("번호\t\t이름\t\t전화번호\t\t\t회사");
+        out.println(searchBusinessCard);
+    }
+
+    public void showBusinessCards(List<BusinessCard> businessCardList) {
+        out.println("번호\t\t이름\t\t전화번호\t\t\t회사");
+        businessCardList.forEach(out::println);
     }
 }

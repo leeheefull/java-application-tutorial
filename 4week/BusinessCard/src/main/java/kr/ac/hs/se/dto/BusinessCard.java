@@ -17,14 +17,18 @@ public class BusinessCard {
     @NonNull
     private String companyName;
 
-    private static BusinessCard businessCard = new BusinessCard();
+    private static BusinessCard instance;
 
     public static BusinessCard getInstance(int cardNo, String personName, String phoneNo, String companyName) {
-        businessCard.setCardNo(cardNo);
-        businessCard.setPersonName(personName);
-        businessCard.setPhoneNo(phoneNo);
-        businessCard.setCompanyName(companyName);
-        return businessCard;
+        if (instance == null) {
+            instance = new BusinessCard(cardNo, personName, phoneNo, companyName);
+        } else {
+            instance.setCardNo(cardNo);
+            instance.setPersonName(personName);
+            instance.setPhoneNo(phoneNo);
+            instance.setCompanyName(companyName);
+        }
+        return instance;
     }
 
     @Override

@@ -18,11 +18,20 @@ public class BusinessCardController {
             while (true) {
                 BusinessCardMenu menu = inputMenu(br);
                 switch (menu) {
+                    case SEARCH:
+                        search(br);
+                        break;
                     case CREATE:
                         create(br);
                         break;
-                    case SEARCH:
-                        search(br);
+                    case LOOKUP:
+                        lookUp();
+                        break;
+                    case UPDATE:
+                        update(br);
+                        break;
+                    case DELETE:
+                        delete(br);
                         break;
                     case END:
                         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.END.getTitle());
@@ -39,16 +48,6 @@ public class BusinessCardController {
         return BusinessCardMenu.of(br.readLine());
     }
 
-    private void create(BufferedReader br) throws IOException {
-        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.CREATE.getTitle());
-        String name = inputName(br);
-        String phoneNo = inputPhoneNo(br);
-        String companyName = inputCompanyName(br);
-
-        businessCardService.createBusinessCard(name, phoneNo, companyName);
-        businessCardView.showCompleteInsert();
-    }
-
     private void search(BufferedReader br) throws IOException {
         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.SEARCH.getTitle());
 
@@ -56,6 +55,43 @@ public class BusinessCardController {
         int cardNo = Integer.parseInt(br.readLine());
 
         businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(cardNo));
+    }
+
+    private void create(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.CREATE.getTitle());
+        String personName = inputName(br);
+        String phoneNo = inputPhoneNo(br);
+        String companyName = inputCompanyName(br);
+
+        businessCardService.createBusinessCard(personName, phoneNo, companyName);
+        businessCardView.showCompleteInsert();
+    }
+
+    private void lookUp() {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.LOOKUP.getTitle());
+        businessCardView.showBusinessCards(businessCardService.getBusinessCards());
+    }
+
+    private void update(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.UPDATE.getTitle());
+
+        businessCardView.showInput("수정할 번호");
+        int cardNo = Integer.parseInt(br.readLine());
+
+        String personName = inputName(br);
+        String phoneNo = inputPhoneNo(br);
+        String companyName = inputCompanyName(br);
+
+        businessCardService.updateBusinessCard(cardNo, personName, phoneNo, companyName);
+    }
+
+    private void delete(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.DELETE.getTitle());
+
+        businessCardView.showInput("삭제할 번호");
+        int cardNo = Integer.parseInt(br.readLine());
+
+        businessCardService.removeBusinessCard(cardNo);
     }
 
     private String inputName(BufferedReader br) throws IOException {
