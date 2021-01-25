@@ -8,6 +8,15 @@ import java.util.List;
 
 public class BusinessCardView {
 
+    private static BusinessCardView businessCardView;
+
+    public static BusinessCardView getInstance() {
+        if (businessCardView == null) {
+            businessCardView = new BusinessCardView();
+        }
+        return businessCardView;
+    }
+
     PrintStream out = new PrintStream(System.out);
 
     public void showMenu() {

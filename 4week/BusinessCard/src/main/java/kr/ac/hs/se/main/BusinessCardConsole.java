@@ -2,9 +2,9 @@ package kr.ac.hs.se.main;
 
 import kr.ac.hs.se.controller.BusinessCardController;
 
-public class Main {
+public class BusinessCardConsole {
 
     public static void main(String[] args) {
-        new BusinessCardController().run();
+        BusinessCardController.getInstance().run();
     }
 }

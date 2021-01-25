@@ -10,8 +10,16 @@ import java.io.InputStreamReader;
 
 public class BusinessCardController {
 
-    private final BusinessCardService businessCardService = new BusinessCardService();
-    private final BusinessCardView businessCardView = new BusinessCardView();
+    private static BusinessCardController businessCardController;
+    private final BusinessCardService businessCardService = BusinessCardService.getInstance();
+    private final BusinessCardView businessCardView = BusinessCardView.getInstance();
+
+    public static BusinessCardController getInstance() {
+        if (businessCardController == null) {
+            businessCardController = new BusinessCardController();
+        }
+        return businessCardController;
+    }
 
     public void run() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {

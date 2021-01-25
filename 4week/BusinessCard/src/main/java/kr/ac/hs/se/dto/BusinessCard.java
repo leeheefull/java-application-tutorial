@@ -2,37 +2,54 @@ package kr.ac.hs.se.dto;
 
 import lombok.*;
 
-@AllArgsConstructor
-@RequiredArgsConstructor
-@NoArgsConstructor
 @Getter
-@Setter
 public class BusinessCard {
 
-    private int cardNo;
-    @NonNull
-    private String personName;
-    @NonNull
-    private String phoneNo;
-    @NonNull
-    private String companyName;
+    private final int cardNo;
+    private final String personName;
+    private final String phoneNo;
+    private final String companyName;
 
-    private static BusinessCard instance;
-
-    public static BusinessCard getInstance(int cardNo, String personName, String phoneNo, String companyName) {
-        if (instance == null) {
-            instance = new BusinessCard(cardNo, personName, phoneNo, companyName);
-        } else {
-            instance.setCardNo(cardNo);
-            instance.setPersonName(personName);
-            instance.setPhoneNo(phoneNo);
-            instance.setCompanyName(companyName);
-        }
-        return instance;
+    private BusinessCard(BusinessCardBuilder builder) {
+        this.cardNo = builder.cardNo;
+        this.personName = builder.personName;
+        this.phoneNo = builder.phoneNo;
+        this.companyName = builder.companyName;
     }
 
     @Override
     public String toString() {
         return cardNo + "\t\t" + personName + "\t" + phoneNo + "\t\t" + companyName;
+    }
+
+    public static class BusinessCardBuilder {
+
+        private final int cardNo;
+        private String personName;
+        private String phoneNo;
+        private String companyName;
+
+        public BusinessCardBuilder(int cardNo) {
+            this.cardNo = cardNo;
+        }
+
+        public BusinessCardBuilder setPersonName(String personName) {
+            this.personName = personName;
+            return this;
+        }
+
+        public BusinessCardBuilder setPhoneNo(String phoneNo) {
+            this.phoneNo = phoneNo;
+            return this;
+        }
+
+        public BusinessCardBuilder setCompanyName(String companyName) {
+            this.companyName = companyName;
+            return this;
+        }
+
+        public BusinessCard build() {
+            return new BusinessCard(this);
+        }
     }
 }

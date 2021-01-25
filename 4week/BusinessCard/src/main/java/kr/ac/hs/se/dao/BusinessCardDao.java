@@ -12,6 +12,15 @@ import java.util.List;
 
 public class BusinessCardDao {
 
+    private static BusinessCardDao businessCardDao;
+
+    public static BusinessCardDao getInstance() {
+        if (businessCardDao == null) {
+            businessCardDao = new BusinessCardDao();
+        }
+        return businessCardDao;
+    }
+
     public void insertBusinessCard(String personName, String phoneNo, String companyName) {
         String sql = "INSERT INTO business_card(person_name, phone_no, company_name) VALUES(?, ?, ?)";
 
@@ -29,7 +38,7 @@ public class BusinessCardDao {
         }
     }
 
-    public BusinessCard selectBusinessCard(int cardNo) {
+    public BusinessCard selectBusinessCard(int selectedCardNo) {
         String sql = "SELECT card_no, person_name, phone_no, company_name FROM business_card WHERE card_no = ?";
         BusinessCard businessCard = null;
         ResultSet rs;
@@ -38,16 +47,20 @@ public class BusinessCardDao {
                 Connection con = DBConnector.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setInt(1, cardNo);
+            ps.setInt(1, selectedCardNo);
             rs = ps.executeQuery();
 
             if (rs.next()) {
-                int cardNo_ = rs.getInt(1);
-                String personName_ = rs.getString(2);
-                String phoneNo_ = rs.getString(3);
-                String companyName_ = rs.getString(4);
+                int cardNo = rs.getInt("CARD_NO");
+                String personName = rs.getString("PERSON_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                String companyName = rs.getString("COMPANY_NAME");
 
-                businessCard = BusinessCard.getInstance(cardNo_, personName_, phoneNo_, companyName_);
+                businessCard = new BusinessCard.BusinessCardBuilder(cardNo)
+                        .setPersonName(personName)
+                        .setPhoneNo(phoneNo)
+                        .setCompanyName(companyName)
+                        .build();
             }
             rs.close();
         } catch (SQLException e) {
@@ -91,20 +104,26 @@ public class BusinessCardDao {
     public List<BusinessCard> selectBusinessCards() {
         String sql = "SELECT card_no, person_name, phone_no, company_name FROM business_card";
         List<BusinessCard> businessCardList = new ArrayList<>();
+        BusinessCard businessCard;
 
         try (
                 Connection con = DBConnector.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)
+                PreparedStatement ps = con.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()
         ) {
-            try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
-                    int cardNo = rs.getInt(1);
-                    String personName = rs.getString(2);
-                    String phoneNo = rs.getString(3);
-                    String companyName = rs.getString(4);
+            while (rs.next()) {
+                int cardNo = rs.getInt("CARD_NO");
+                String personName = rs.getString("PERSON_NAME");
+                String phoneNo = rs.getString("PHONE_NO");
+                String companyName = rs.getString("COMPANY_NAME");
 
-                    businessCardList.add(BusinessCard.getInstance(cardNo, personName, phoneNo, companyName));
-                }
+                businessCard = new BusinessCard.BusinessCardBuilder(cardNo)
+                        .setPersonName(personName)
+                        .setPhoneNo(phoneNo)
+                        .setCompanyName(companyName)
+                        .build();
+
+                businessCardList.add(businessCard);
             }
         } catch (SQLException e) {
             throw new RuntimeException();

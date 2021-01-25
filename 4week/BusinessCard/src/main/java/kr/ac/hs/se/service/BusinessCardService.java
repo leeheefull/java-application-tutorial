@@ -2,12 +2,21 @@ package kr.ac.hs.se.service;
 
 import kr.ac.hs.se.dao.BusinessCardDao;
 import kr.ac.hs.se.dto.BusinessCard;
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 public class BusinessCardService {
 
-    private final BusinessCardDao businessCardDao = new BusinessCardDao();
+    private static BusinessCardService businessCardService;
+    private final BusinessCardDao businessCardDao = BusinessCardDao.getInstance();
+
+    public static BusinessCardService getInstance() {
+        if (businessCardService == null) {
+            businessCardService = new BusinessCardService();
+        }
+        return businessCardService;
+    }
 
     public void createBusinessCard(String personName, String phoneNo, String companyName) {
         businessCardDao.insertBusinessCard(personName, phoneNo, companyName);
