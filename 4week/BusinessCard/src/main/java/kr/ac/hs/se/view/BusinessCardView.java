@@ -26,6 +26,10 @@ public class BusinessCardView {
         out.print(">> ");
     }
 
+    public void showPageMenu() {
+        out.print("###### 1. 이전 / 2. 다음 / 3. 뒤로가기 ######\n>> ");
+    }
+
     public void showBusinessCardMenuTitle(String businessCardMenuTitle) {
         out.println(businessCardMenuTitle);
     }

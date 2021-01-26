@@ -2,9 +2,9 @@ package kr.ac.hs.se.service;
 
 import kr.ac.hs.se.dao.BusinessCardDao;
 import kr.ac.hs.se.dto.BusinessCard;
-import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BusinessCardService {
 
@@ -34,7 +34,10 @@ public class BusinessCardService {
         businessCardDao.updateBusinessCard(cardNo, personName, phoneNo, companyName);
     }
 
-    public List<BusinessCard> getBusinessCards() {
-        return businessCardDao.selectBusinessCards();
+    public List<BusinessCard> getBusinessCardByPage(int page, int num) {
+        return businessCardDao.selectBusinessCards()
+                .stream()
+                .filter(businessCard -> page * num - num < businessCard.getCardNo() && businessCard.getCardNo() <= page * num)
+                .collect(Collectors.toList());
     }
 }
