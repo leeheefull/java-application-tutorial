@@ -3,15 +3,18 @@ package kr.ac.hs.se.service;
 import kr.ac.hs.se.dao.BusinessCardDao;
 import kr.ac.hs.se.dto.BusinessCard;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class BusinessCardService {
 
     private static BusinessCardService businessCardService;
     private final BusinessCardDao businessCardDao = BusinessCardDao.getInstance();
 
-    public static BusinessCardService getInstance() {
+    private BusinessCardService() {
+    }
+
+    public static synchronized BusinessCardService getInstance() {
         if (businessCardService == null) {
             businessCardService = new BusinessCardService();
         }
@@ -19,11 +22,16 @@ public class BusinessCardService {
     }
 
     public void createBusinessCard(String personName, String phoneNo, String companyName) {
-        businessCardDao.insertBusinessCard(personName, phoneNo, companyName);
+        BusinessCard businessCard = BusinessCard.builder()
+                .personName(personName)
+                .phoneNo(phoneNo)
+                .companyName(companyName)
+                .build();
+        businessCardDao.insertBusinessCard(businessCard);
     }
 
-    public BusinessCard searchBusinessCard(int selectedNo) {
-        return businessCardDao.selectBusinessCard(selectedNo);
+    public List<BusinessCard> searchBusinessCard(String searchedName) {
+        return new ArrayList<>(businessCardDao.searchedBusinessCard(searchedName));
     }
 
     public void removeBusinessCard(int cardNo) {
@@ -31,13 +39,17 @@ public class BusinessCardService {
     }
 
     public void updateBusinessCard(int cardNo, String personName, String phoneNo, String companyName) {
-        businessCardDao.updateBusinessCard(cardNo, personName, phoneNo, companyName);
+        BusinessCard businessCard = BusinessCard.builder()
+                .cardNo(cardNo)
+                .personName(personName)
+                .phoneNo(phoneNo)
+                .companyName(companyName)
+                .build();
+        businessCardDao.updateBusinessCard(businessCard);
     }
 
-    public List<BusinessCard> getBusinessCardByPage(int page, int num) {
-        return businessCardDao.selectBusinessCards()
-                .stream()
-                .filter(businessCard -> page * num - num < businessCard.getCardNo() && businessCard.getCardNo() <= page * num)
-                .collect(Collectors.toList());
+    public List<BusinessCard> getBusinessCardByPage(int pageSize, int page) {
+        int offset = pageSize * (page - 1);
+        return new ArrayList<>(businessCardDao.selectBusinessCards(pageSize, offset));
     }
 }

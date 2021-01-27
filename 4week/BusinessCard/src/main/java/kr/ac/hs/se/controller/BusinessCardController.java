@@ -16,7 +16,10 @@ public class BusinessCardController {
     private final BusinessCardService businessCardService = BusinessCardService.getInstance();
     private final BusinessCardView businessCardView = BusinessCardView.getInstance();
 
-    public static BusinessCardController getInstance() {
+    private BusinessCardController() {
+    }
+
+    public static synchronized BusinessCardController getInstance() {
         if (businessCardController == null) {
             businessCardController = new BusinessCardController();
         }
@@ -65,8 +68,8 @@ public class BusinessCardController {
 
     private void search(BufferedReader br) throws IOException {
         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.SEARCH.getTitle());
-        int cardNo = inputInteger(br, "검색할 번호");
-        businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(cardNo));
+        String personName = inputString(br, "검색할 이름");
+        businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(personName));
     }
 
     private void create(BufferedReader br) throws IOException {
@@ -81,12 +84,12 @@ public class BusinessCardController {
 
     private void lookUp(BufferedReader br) throws IOException {
         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.LOOKUP.getTitle());
+        int pageSize = inputInteger(br, "페이지 당 글의 수");
         int page = 1;
-        int num = inputInteger(br, "페이지 당 글의 수");
 
         out:
         while (true) {
-            businessCardView.showBusinessCards(businessCardService.getBusinessCardByPage(page, num));
+            businessCardView.showBusinessCards(businessCardService.getBusinessCardByPage(pageSize, page));
             String control = inputPageMenu(br);
             switch (control) {
                 case PREVIOUS:

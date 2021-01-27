@@ -9,15 +9,17 @@ import java.util.List;
 public class BusinessCardView {
 
     private static BusinessCardView businessCardView;
+    private static final PrintStream out = new PrintStream(System.out);
 
-    public static BusinessCardView getInstance() {
+    private BusinessCardView() {
+    }
+
+    public static synchronized BusinessCardView getInstance() {
         if (businessCardView == null) {
             businessCardView = new BusinessCardView();
         }
         return businessCardView;
     }
-
-    PrintStream out = new PrintStream(System.out);
 
     public void showMenu() {
         out.println("#### Business Card Management Program ####");
@@ -42,9 +44,9 @@ public class BusinessCardView {
         out.println(" -> 새로운 명함이 추가되었습니다.");
     }
 
-    public void showSearchedBusinessCard(BusinessCard searchBusinessCard) {
+    public void showSearchedBusinessCard(List<BusinessCard> businessCardList) {
         out.println("번호\t\t이름\t\t전화번호\t\t\t회사");
-        out.println(searchBusinessCard);
+        businessCardList.forEach(out::println);
     }
 
     public void showBusinessCards(List<BusinessCard> businessCardList) {

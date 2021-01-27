@@ -15,11 +15,15 @@ public class DBConnector {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PW);
+    public static Connection getConnection() {
+        try {
+            return DriverManager.getConnection(URL, USER, PW);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -14,59 +14,63 @@ public class BusinessCardDao {
 
     private static BusinessCardDao businessCardDao;
 
-    public static BusinessCardDao getInstance() {
+    private BusinessCardDao() {
+    }
+
+    public static synchronized BusinessCardDao getInstance() {
         if (businessCardDao == null) {
             businessCardDao = new BusinessCardDao();
         }
         return businessCardDao;
     }
 
-    public void insertBusinessCard(String personName, String phoneNo, String companyName) {
+    public void insertBusinessCard(BusinessCard businessCard) {
         String sql = "INSERT INTO business_card(person_name, phone_no, company_name) VALUES(?, ?, ?)";
 
         try (
                 Connection con = DBConnector.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, personName);
-            ps.setString(2, phoneNo);
-            ps.setString(3, companyName);
+            ps.setString(1, businessCard.getPersonName());
+            ps.setString(2, businessCard.getPhoneNo());
+            ps.setString(3, businessCard.getCompanyName());
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
-    public BusinessCard selectBusinessCard(int selectedCardNo) {
-        String sql = "SELECT card_no, person_name, phone_no, company_name FROM business_card WHERE card_no = ?";
-        BusinessCard businessCard = null;
-        ResultSet rs;
+    public List<BusinessCard> searchedBusinessCard(String searchedName) {
+        String sql = "SELECT card_no, person_name, phone_no, company_name FROM business_card WHERE person_name = ?";
+        List<BusinessCard> businessCardList = new ArrayList<>();
 
         try (
                 Connection con = DBConnector.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setInt(1, selectedCardNo);
-            rs = ps.executeQuery();
+            ps.setString(1, searchedName);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int cardNo = rs.getInt("CARD_NO");
+                    String personName = rs.getString("PERSON_NAME");
+                    String phoneNo = rs.getString("PHONE_NO");
+                    String companyName = rs.getString("COMPANY_NAME");
 
-            if (rs.next()) {
-                int cardNo = rs.getInt("CARD_NO");
-                String personName = rs.getString("PERSON_NAME");
-                String phoneNo = rs.getString("PHONE_NO");
-                String companyName = rs.getString("COMPANY_NAME");
+                    BusinessCard businessCard = BusinessCard.builder()
+                            .cardNo(cardNo)
+                            .personName(personName)
+                            .phoneNo(phoneNo)
+                            .companyName(companyName)
+                            .build();
 
-                businessCard = new BusinessCard.BusinessCardBuilder(cardNo)
-                        .setPersonName(personName)
-                        .setPhoneNo(phoneNo)
-                        .setCompanyName(companyName)
-                        .build();
+                    businessCardList.add(businessCard);
+                }
+                return businessCardList;
             }
-            rs.close();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-        return businessCard;
     }
 
     public void deleteBusiness(int cardNo) {
@@ -79,55 +83,58 @@ public class BusinessCardDao {
             ps.setInt(1, cardNo);
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
-    public void updateBusinessCard(int carNo, String personName, String phoneNo, String companyName) {
+    public void updateBusinessCard(BusinessCard businessCard) {
         String sql = "UPDATE business_card SET person_name = ?, phone_no = ?, company_name = ? WHERE card_no = ?";
 
         try (
                 Connection con = DBConnector.getConnection();
                 PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            ps.setString(1, personName);
-            ps.setString(2, phoneNo);
-            ps.setString(3, companyName);
-            ps.setInt(4, carNo);
+            ps.setString(1, businessCard.getPersonName());
+            ps.setString(2, businessCard.getPhoneNo());
+            ps.setString(3, businessCard.getCompanyName());
+            ps.setInt(4, businessCard.getCardNo());
 
             ps.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
-    public List<BusinessCard> selectBusinessCards() {
-        String sql = "SELECT card_no, person_name, phone_no, company_name FROM business_card";
+    public List<BusinessCard> selectBusinessCards(int limit, int offset) {
+        String sql = "select card_no, person_name, phone_no, company_name FROM(SELECT * FROM business_card ORDER BY card_no) PAGE LIMIT ? OFFSET ?";
         List<BusinessCard> businessCardList = new ArrayList<>();
-        BusinessCard businessCard;
 
         try (
                 Connection con = DBConnector.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()
+                PreparedStatement ps = con.prepareStatement(sql)
         ) {
-            while (rs.next()) {
-                int cardNo = rs.getInt("CARD_NO");
-                String personName = rs.getString("PERSON_NAME");
-                String phoneNo = rs.getString("PHONE_NO");
-                String companyName = rs.getString("COMPANY_NAME");
+            ps.setInt(1, limit);
+            ps.setInt(2, offset);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int cardNo = rs.getInt("CARD_NO");
+                    String personName = rs.getString("PERSON_NAME");
+                    String phoneNo = rs.getString("PHONE_NO");
+                    String companyName = rs.getString("COMPANY_NAME");
 
-                businessCard = new BusinessCard.BusinessCardBuilder(cardNo)
-                        .setPersonName(personName)
-                        .setPhoneNo(phoneNo)
-                        .setCompanyName(companyName)
-                        .build();
+                    BusinessCard businessCard = BusinessCard.builder()
+                            .cardNo(cardNo)
+                            .personName(personName)
+                            .phoneNo(phoneNo)
+                            .companyName(companyName)
+                            .build();
 
-                businessCardList.add(businessCard);
+                    businessCardList.add(businessCard);
+                }
+                return businessCardList;
             }
         } catch (SQLException e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
-        return businessCardList;
     }
 }
