@@ -8,21 +8,43 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import static kr.ac.hs.se.menu.PageMenu.*;
+
 public class BusinessCardController {
 
-    private final BusinessCardService businessCardService = new BusinessCardService();
-    private final BusinessCardView businessCardView = new BusinessCardView();
+    private static BusinessCardController businessCardController;
+    private final BusinessCardService businessCardService = BusinessCardService.getInstance();
+    private final BusinessCardView businessCardView = BusinessCardView.getInstance();
+
+    private BusinessCardController() {
+    }
+
+    public static synchronized BusinessCardController getInstance() {
+        if (businessCardController == null) {
+            businessCardController = new BusinessCardController();
+        }
+        return businessCardController;
+    }
 
     public void run() {
         try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in))) {
             while (true) {
                 BusinessCardMenu menu = inputMenu(br);
                 switch (menu) {
+                    case SEARCH:
+                        search(br);
+                        break;
                     case CREATE:
                         create(br);
                         break;
-                    case SEARCH:
-                        search(br);
+                    case LOOKUP:
+                        lookUp(br);
+                        break;
+                    case UPDATE:
+                        update(br);
+                        break;
+                    case DELETE:
+                        delete(br);
                         break;
                     case END:
                         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.END.getTitle());
@@ -39,37 +61,73 @@ public class BusinessCardController {
         return BusinessCardMenu.of(br.readLine());
     }
 
-    private void create(BufferedReader br) throws IOException {
-        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.CREATE.getTitle());
-        String name = inputName(br);
-        String phoneNo = inputPhoneNo(br);
-        String companyName = inputCompanyName(br);
-
-        businessCardService.createBusinessCard(name, phoneNo, companyName);
-        businessCardView.showCompleteInsert();
+    private String inputPageMenu(BufferedReader br) throws IOException {
+        businessCardView.showPageMenu();
+        return br.readLine();
     }
 
     private void search(BufferedReader br) throws IOException {
         businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.SEARCH.getTitle());
-
-        businessCardView.showInput("검색할 번호");
-        int cardNo = Integer.parseInt(br.readLine());
-
-        businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(cardNo));
+        String personName = inputString(br, "검색할 이름");
+        businessCardView.showSearchedBusinessCard(businessCardService.searchBusinessCard(personName));
     }
 
-    private String inputName(BufferedReader br) throws IOException {
-        businessCardView.showInput("이름");
+    private void create(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.CREATE.getTitle());
+        String personName = inputString(br, "이름");
+        String phoneNo = inputString(br, "전화번호");
+        String companyName = inputString(br, "회사");
+
+        businessCardService.createBusinessCard(personName, phoneNo, companyName);
+        businessCardView.showCompleteInsert();
+    }
+
+    private void lookUp(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.LOOKUP.getTitle());
+        int pageSize = inputInteger(br, "페이지 당 글의 수");
+        int page = 1;
+
+        out:
+        while (true) {
+            businessCardView.showBusinessCards(businessCardService.getBusinessCardByPage(pageSize, page));
+            String control = inputPageMenu(br);
+            switch (control) {
+                case PREVIOUS:
+                    page--;
+                    break;
+                case NEXT:
+                    page++;
+                    break;
+                case BACK:
+                    break out;
+            }
+        }
+    }
+
+    private void update(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.UPDATE.getTitle());
+        int cardNo = inputInteger(br, "수정할 번호");
+
+        String personName = inputString(br, "이름");
+        String phoneNo = inputString(br, "전화번호");
+        String companyName = inputString(br, "회사");
+
+        businessCardService.updateBusinessCard(cardNo, personName, phoneNo, companyName);
+    }
+
+    private void delete(BufferedReader br) throws IOException {
+        businessCardView.showBusinessCardMenuTitle(BusinessCardMenu.DELETE.getTitle());
+        int cardNo = inputInteger(br, "삭제할 번호");
+        businessCardService.removeBusinessCard(cardNo);
+    }
+
+    private String inputString(BufferedReader br, String input) throws IOException {
+        businessCardView.showInput(input);
         return br.readLine();
     }
 
-    private String inputPhoneNo(BufferedReader br) throws IOException {
-        businessCardView.showInput("전화번호");
-        return br.readLine();
-    }
-
-    private String inputCompanyName(BufferedReader br) throws IOException {
-        businessCardView.showInput("회사");
-        return br.readLine();
+    private int inputInteger(BufferedReader br, String input) throws IOException {
+        businessCardView.showInput(input);
+        return Integer.parseInt(br.readLine());
     }
 }
