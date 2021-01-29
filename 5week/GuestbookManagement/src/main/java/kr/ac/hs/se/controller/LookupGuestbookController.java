@@ -1,6 +1,5 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.dto.Guestbook;
 import kr.ac.hs.se.service.GuestbookService;
 
 import javax.servlet.ServletException;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/lookup")
-public class Lookup extends HttpServlet {
+@WebServlet("/guestbook")
+public class LookupGuestbookController extends HttpServlet {
 
     private final GuestbookService guestbookService = GuestbookService.getInstance();
 

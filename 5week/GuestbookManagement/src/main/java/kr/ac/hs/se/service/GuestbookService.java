@@ -26,6 +26,10 @@ public class GuestbookService {
         guestbookDAO.insertBusinessCard(guestbook);
     }
 
+    public void deleteGuestbook(int id) {
+        guestbookDAO.removeGuestbook(id);
+    }
+
     public List<Guestbook> getGuestbooks() {
         return new ArrayList<>(guestbookDAO.selectedGuestbooks());
     }

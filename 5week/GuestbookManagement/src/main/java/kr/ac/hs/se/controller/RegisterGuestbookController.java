@@ -2,15 +2,14 @@ package kr.ac.hs.se.controller;
 
 import kr.ac.hs.se.service.GuestbookService;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/regist")
-public class Regist extends HttpServlet {
+@WebServlet("/register")
+public class RegisterGuestbookController extends HttpServlet {
 
     private final GuestbookService guestbookService = GuestbookService.getInstance();
 
@@ -25,6 +24,6 @@ public class Regist extends HttpServlet {
 
         guestbookService.createGuestbook(personName, content);
 
-        response.sendRedirect("lookup");
+        response.sendRedirect("guestbook");
     }
 }

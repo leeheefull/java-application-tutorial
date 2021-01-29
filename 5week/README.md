@@ -15,12 +15,4 @@
 
 ## 실행 화면
 
-> 기본 화면
-
-![image](https://user-images.githubusercontent.com/58816862/106245875-944e5780-6250-11eb-8615-015a7fbd8b1e.png)
-
-> 방명록 추가
-
-![image](https://user-images.githubusercontent.com/58816862/106245994-c1026f00-6250-11eb-85e7-7e9b51dfe3d3.png)
-
-![image](https://user-images.githubusercontent.com/58816862/106246040-d24b7b80-6250-11eb-95e8-f1004512811b.png)
+![result](https://user-images.githubusercontent.com/58816862/106266426-c02b0680-626b-11eb-98aa-ca76ccb948b0.gif)

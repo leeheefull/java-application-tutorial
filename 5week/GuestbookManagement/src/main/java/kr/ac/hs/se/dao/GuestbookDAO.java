@@ -41,6 +41,20 @@ public class GuestbookDAO {
         }
     }
 
+    public void removeGuestbook(int id) {
+        String sql = "DELETE FROM guestbook WHERE id = ?";
+
+        try (
+                Connection con = DBConnector.getConnection();
+                PreparedStatement ps = con.prepareStatement(sql);
+        ) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Guestbook> selectedGuestbooks() {
         String sql = "SELECT id, person_name, content, regdate FROM guestbook";
         List<Guestbook> guestbookList = new ArrayList<>();
