@@ -1,0 +1,30 @@
+package kr.ac.hs.se.controller;
+
+import kr.ac.hs.se.service.GuestbookService;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+
+@WebServlet("/regist")
+public class Regist extends HttpServlet {
+
+    private final GuestbookService guestbookService = GuestbookService.getInstance();
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+
+        String personName = request.getParameter("personName");
+        String content = request.getParameter("content");
+
+        guestbookService.createGuestbook(personName, content);
+
+        response.sendRedirect("lookup");
+    }
+}
