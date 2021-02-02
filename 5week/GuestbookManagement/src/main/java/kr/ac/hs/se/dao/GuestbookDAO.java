@@ -12,19 +12,6 @@ import java.util.List;
 
 public class GuestbookDAO {
 
-    private static GuestbookDAO guestbookDAO;
-
-    private GuestbookDAO() {
-    }
-
-    public static synchronized GuestbookDAO getInstance() {
-        if (guestbookDAO == null) {
-            guestbookDAO = new GuestbookDAO();
-        }
-        return guestbookDAO;
-    }
-
-
     public void insertBusinessCard(Guestbook guestbook) {
         String sql = "INSERT INTO guestbook(person_name, content) VALUES(?, ?)";
 
@@ -46,7 +33,7 @@ public class GuestbookDAO {
 
         try (
                 Connection con = DBConnector.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql);
+                PreparedStatement ps = con.prepareStatement(sql)
         ) {
             ps.setInt(1, id);
             ps.executeUpdate();
@@ -55,7 +42,7 @@ public class GuestbookDAO {
         }
     }
 
-    public List<Guestbook> selectedGuestbooks() {
+    public List<Guestbook> selectGuestbooks() {
         String sql = "SELECT id, person_name, content, regdate FROM guestbook";
         List<Guestbook> guestbookList = new ArrayList<>();
 
