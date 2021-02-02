@@ -1,5 +1,7 @@
 package kr.ac.hs.se.controller;
 
+import kr.ac.hs.se.container.Container;
+import kr.ac.hs.se.dto.Guestbook;
 import kr.ac.hs.se.service.GuestbookService;
 
 import javax.servlet.ServletException;
@@ -13,11 +15,11 @@ import java.util.List;
 @WebServlet("/guestbook")
 public class LookupGuestbookController extends HttpServlet {
 
-    private final GuestbookService guestbookService = GuestbookService.getInstance();
+    private final GuestbookService guestbookService = Container.guestbookService;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        List<kr.ac.hs.se.dto.Guestbook> list = guestbookService.getGuestbooks();
+        List<Guestbook> list = guestbookService.getGuestbooks();
         request.setAttribute("guestbookList", list);
 
         request.getRequestDispatcher("/WEB-INF/view/guestbookView.jsp").forward(request, response);

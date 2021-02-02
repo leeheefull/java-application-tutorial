@@ -1,5 +1,6 @@
 package kr.ac.hs.se.controller;
 
+import kr.ac.hs.se.container.Container;
 import kr.ac.hs.se.service.GuestbookService;
 
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +12,16 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegisterGuestbookController extends HttpServlet {
 
-    private final GuestbookService guestbookService = GuestbookService.getInstance();
+    private final GuestbookService guestbookService = Container.guestbookService;
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html; charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
 
         String personName = request.getParameter("personName");
         String content = request.getParameter("content");
 
         guestbookService.createGuestbook(personName, content);
-
         response.sendRedirect("guestbook");
     }
 }

@@ -11,30 +11,33 @@
 <hr/>
 
 <c:forEach var="item" items="${guestbookList}">
-    <div>
-        <div>No: ${item.getId()}
-        </div>
-        <div>성함: ${item.getPersonName()}
-        </div>
-        <div>내용: ${item.getContent()}
-        </div>
-        <div>등록일: ${item.getRegdate()}
+    <form action="delete" method="post">
+        <div>
+            No: ${item.id}
         </div>
         <div>
-            <input type="button" value="삭제" onclick="location.href='delete?no=${item.getId()}'"/>
+            이름: ${item.personName}
+        </div>
+        <div>
+            내용: ${item.content}
+        </div>
+        <div>
+            등록일: ${item.regdate}
+        </div>
+        <div>
+            <input type="hidden" name="no" value="${item.id}"/>
+            <input type="submit" value="삭제"/>
         </div>
         <hr/>
-    </div>
+    </form>
 </c:forEach>
 
 <form action="register" method="post">
     <div>
-        <label>이름: </label>
-        <input name="personName" type="text"/><br/>
+        이름: <input name="personName" type="text"/><br/>
     </div>
     <div>
-        <label>내용: </label>
-        <textarea name="content"></textarea><br/>
+        내용: <textarea name="content"></textarea><br/>
     </div>
     <div>
         <input type="submit" value="작성"/>
