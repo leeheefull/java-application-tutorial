@@ -1808,19 +1808,3 @@ insert into reservation_user_comment_image(id, reservation_info_id, reservation_
 values (1, 1, 1, 1);
 insert into reservation_user_comment_image(id, reservation_info_id, reservation_user_comment_id, file_id)
 values (2, 1, 2, 2);
-
-
--- select id, name, password, email, phone, create_date, modify_date from user;
--- select id, user_id, role_name from user_role;
--- select * from category;
--- select id, file_name, save_file_name, content_type, delete_flag, create_date, modify_date from file_info;
--- select id, description, content, event, category_id, create_date, modify_date from product;
--- select id, product_id, opening_hours, place_name, place_lot, place_street, tel, homepage, email, create_date, modify_date from display_info;
--- select id, product_id, type, file_id from product_image;
--- select id, display_info_id, file_id from display_info_image;
--- select id, product_id, price_type_name , price, discount_rate, create_date, modify_date from product_price;
--- select id, product_id from promotion;
--- select id, product_id, display_info_id, user_id, reservation_date, create_date, modify_date from reservation_info;
--- select id, reservation_info_id, product_price_id, count from reservation_info_price;
--- select id, product_id, reservation_info_id, user_id, score, comment, create_date, modify_date from reservation_user_comment;
--- select id, reservation_info_id, reservation_user_comment_id, file_id from reservation_user_comment_image;
