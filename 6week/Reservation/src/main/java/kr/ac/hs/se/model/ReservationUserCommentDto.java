@@ -1,17 +1,15 @@
-package kr.ac.hs.se.dto;
+package kr.ac.hs.se.model;
 
-import kr.ac.hs.se.vo.ReservationUserCommentImage;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
-public class ReservationUserCommentDTO {
+public class ReservationUserCommentDto {
     private long id;
     private long productId;
     private long reservationInfoId;
@@ -20,5 +18,4 @@ public class ReservationUserCommentDTO {
     private String comment;
     private Date createDate;
     private Date modifyDate;
-    private List<ReservationUserCommentImage> reservationUserCommentImages;
 }

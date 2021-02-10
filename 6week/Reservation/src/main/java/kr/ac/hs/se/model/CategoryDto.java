@@ -1,4 +1,4 @@
-package kr.ac.hs.se.dto;
+package kr.ac.hs.se.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CategoryDTO {
+public class CategoryDto {
     private long id;
     private String name;
     private long count;
