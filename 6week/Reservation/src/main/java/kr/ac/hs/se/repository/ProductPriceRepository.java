@@ -22,7 +22,7 @@ public class ProductPriceRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<ProductPriceDto> selectByProductId(long productId) {
+    public List<ProductPriceDto> select(long productId) {
         Map<String, ?> params = Collections.singletonMap("product_id", productId);
         return jdbc.query(SELECT_PRODUCT_PRICE_BY_PRODUCT_ID, params, productPriceRowMapper);
     }

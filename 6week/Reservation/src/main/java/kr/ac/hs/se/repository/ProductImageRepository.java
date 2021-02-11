@@ -22,7 +22,7 @@ public class ProductImageRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<ProductImageDto> selectByProductId(long productId) {
+    public List<ProductImageDto> select(long productId) {
         Map<String, ?> params = Collections.singletonMap("product_id", productId);
         return jdbc.query(SELECT_PRODUCT_IMAGE_BY_PRODUCT_ID, params, productImageRowMapper);
     }

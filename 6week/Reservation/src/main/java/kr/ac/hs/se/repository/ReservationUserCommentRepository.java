@@ -22,11 +22,11 @@ public class ReservationUserCommentRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public long getCount() {
+    public long countAll() {
         return jdbc.queryForObject(COUNT_RESERVATION_USER_COMMENTS, Collections.emptyMap(), long.class);
     }
 
-    public int getAvgByProductId(long productId) {
+    public int average(long productId) {
         Map<String, ?> params = Collections.singletonMap("product_id", productId);
         return jdbc.queryForObject(AVG_RESERVATION_USER_COMMENT_SCORE_BY_PRODUCT_ID, params, int.class);
     }

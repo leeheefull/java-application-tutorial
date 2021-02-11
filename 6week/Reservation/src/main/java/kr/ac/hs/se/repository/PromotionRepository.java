@@ -22,12 +22,12 @@ public class PromotionRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public long getCountByProductImageType(String productImageType) {
+    public long count(String productImageType) {
         Map<String, ?> params = Collections.singletonMap("product_image_type", productImageType);
         return jdbc.queryForObject(COUNT_PROMOTIONS_BY_PRODUCT_IMAGE_TYPE, params, Long.class);
     }
 
-    public List<PromotionDto> selectByProductImageType(String productImageType) {
+    public List<PromotionDto> select(String productImageType) {
         Map<String, ?> params = Collections.singletonMap("product_image_type", productImageType);
         return jdbc.query(SELECT_PROMOTIONS_BY_PRODUCT_IMAGE_TYPE, params, promotionRowMapper);
     }

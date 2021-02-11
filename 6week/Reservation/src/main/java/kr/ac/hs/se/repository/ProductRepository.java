@@ -23,12 +23,12 @@ public class ProductRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public long getCountByCategoryId(long categoryId) {
+    public long count(long categoryId) {
         Map<String, ?> params = Collections.singletonMap("category_id", categoryId);
         return jdbc.queryForObject(COUNT_PRODUCT_BY_CATEGORY_ID, params, long.class);
     }
 
-    public List<ProductDto> selectByCategoryId(String productImageType, long categoryId, long productCount) {
+    public List<ProductDto> select(String productImageType, long categoryId, long productCount) {
         Map<String, Object> params = new HashMap<>();
         params.put("product_image_type", productImageType);
         params.put("category_id", categoryId);
@@ -36,7 +36,7 @@ public class ProductRepository {
         return jdbc.query(SELECT_PRODUCT_BY_CATEGORY_ID, params, productRowMapper);
     }
 
-    public ProductDto selectByDisplayId(String productImageType, long displayInfoId) {
+    public ProductDto select(String productImageType, long displayInfoId) {
         Map<String, Object> params = new HashMap<>();
         params.put("product_image_type", productImageType);
         params.put("display_info_id", displayInfoId);
