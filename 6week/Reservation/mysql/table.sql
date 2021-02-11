@@ -76,7 +76,7 @@ where p.id = ruc.product_id and p.id = 1;
 
 -- select reservation_user_comment
 select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date
-from reservation_user_comment as uc, user as u
+from reservation_user_comment as ruc, user as u
 where ruc.user_id = u.id
 order by ruc.id desc
 limit 5;
