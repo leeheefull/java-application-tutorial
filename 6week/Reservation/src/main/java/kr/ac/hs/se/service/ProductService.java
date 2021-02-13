@@ -4,6 +4,7 @@ import kr.ac.hs.se.model.ProductDto;
 import kr.ac.hs.se.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class ProductService {
         return productRepository.count(categoryId);
     }
 
+    @Transactional(readOnly = true)
     public List<ProductDto> getProducts(String productImageType, long categoryId, long productCount) {
         return productRepository.select(productImageType, categoryId, productCount);
     }

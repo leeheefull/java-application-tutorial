@@ -4,6 +4,7 @@ import kr.ac.hs.se.model.CategoryDto;
 import kr.ac.hs.se.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class CategoryService {
         return categoryRepository.count();
     }
 
+    @Transactional(readOnly = true)
     public List<CategoryDto> getCategories() {
         return categoryRepository.selectAll();
     }

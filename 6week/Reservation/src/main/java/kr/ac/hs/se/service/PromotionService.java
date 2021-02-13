@@ -4,6 +4,7 @@ import kr.ac.hs.se.model.PromotionDto;
 import kr.ac.hs.se.repository.PromotionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class PromotionService {
         return promotionRepository.count(productImageType);
     }
 
+    @Transactional(readOnly = true)
     public List<PromotionDto> getPromotions(String productImageType) {
         return promotionRepository.select(productImageType);
     }

@@ -7,6 +7,7 @@ import kr.ac.hs.se.model.ProductPriceDto;
 import kr.ac.hs.se.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,18 +29,22 @@ public class DisplayInfoService {
         this.reservationUserCommentRepository = reservationUserCommentRepository;
     }
 
+    @Transactional(readOnly = true)
     public ProductDto getProduct(String productImageType, long displayInfoId) {
         return productRepository.select(productImageType, displayInfoId);
     }
 
-        public List<ProductImageDto> getProductImages(long productId) {
+    @Transactional(readOnly = true)
+    public List<ProductImageDto> getProductImages(long productId) {
         return productImageRepository.select(productId);
     }
 
+    @Transactional(readOnly = true)
     public List<DisplayInfoImageDto> getDisplayInfoImages(long productId) {
         return displayInfoImageRepository.select(productId);
     }
 
+    @Transactional(readOnly = true)
     public List<ProductPriceDto> getProductPrices(long productId) {
         return productPriceRepository.select(productId);
     }
