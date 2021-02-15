@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,9 @@ public class ReservationUserCommentRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public long countAll() {
-        return jdbc.queryForObject(COUNT_RESERVATION_USER_COMMENTS, Collections.emptyMap(), long.class);
+    public long count(long productId) {
+        Map<String, ?> params = Collections.singletonMap("product_id", productId);
+        return jdbc.queryForObject(COUNT_RESERVATION_USER_COMMENTS, params, long.class);
     }
 
     public int average(long productId) {
@@ -31,8 +33,10 @@ public class ReservationUserCommentRepository {
         return jdbc.queryForObject(AVG_RESERVATION_USER_COMMENT_SCORE_BY_PRODUCT_ID, params, int.class);
     }
 
-    public List<ReservationUserCommentDto> select(long commentCount) {
-        Map<String, ?> params = Collections.singletonMap("comment_count", commentCount);
+    public List<ReservationUserCommentDto> select(long start, long productId) {
+        Map<String, Long> params = new HashMap<>();
+        params.put("start", start);
+        params.put("product_id", productId);
         return jdbc.query(SELECT_RESERVATION_USER_COMMENTS, params, reservationUserCommentRowMapper);
     }
 }

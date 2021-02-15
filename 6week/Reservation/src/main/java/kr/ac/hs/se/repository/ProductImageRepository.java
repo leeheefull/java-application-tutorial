@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,8 +23,10 @@ public class ProductImageRepository {
         this.jdbc = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<ProductImageDto> select(long productId) {
-        Map<String, ?> params = Collections.singletonMap("product_id", productId);
+    public List<ProductImageDto> select(long productId, String productImageType) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("product_id", productId);
+        params.put("product_image_type", productImageType);
         return jdbc.query(SELECT_PRODUCT_IMAGE_BY_PRODUCT_ID, params, productImageRowMapper);
     }
 }

@@ -5,7 +5,7 @@ public class ReservationUserCommentSql {
     public static final String COUNT_RESERVATION_USER_COMMENTS =
             "select count(*)\n" +
                     "from reservation_user_comment as ruc, user as u\n" +
-                    "where ruc.user_id = u.id";
+                    "where ruc.user_id = u.id and ruc.product_id = :product_id";
 
     public static final String AVG_RESERVATION_USER_COMMENT_SCORE_BY_PRODUCT_ID =
             "select avg(ruc.score)\n" +
@@ -15,7 +15,7 @@ public class ReservationUserCommentSql {
     public static final String SELECT_RESERVATION_USER_COMMENTS =
             "select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date\n" +
                     "from reservation_user_comment as ruc, user as u\n" +
-                    "where ruc.user_id = u.id\n" +
+                    "where ruc.user_id = u.id and ruc.product_id = :product_id\n" +
                     "order by ruc.id desc\n" +
-                    "limit :comment_count";
+                    "limit :start, 5";
 }

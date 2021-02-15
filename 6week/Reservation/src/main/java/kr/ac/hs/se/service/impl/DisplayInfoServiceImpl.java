@@ -1,9 +1,6 @@
 package kr.ac.hs.se.service.impl;
 
-import kr.ac.hs.se.model.DisplayInfoImageDto;
-import kr.ac.hs.se.model.ProductDto;
-import kr.ac.hs.se.model.ProductImageDto;
-import kr.ac.hs.se.model.ProductPriceDto;
+import kr.ac.hs.se.model.*;
 import kr.ac.hs.se.repository.*;
 import kr.ac.hs.se.service.DisplayInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +12,19 @@ import java.util.List;
 @Service
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 
-    private final ProductRepository productRepository;
+    private final DisplayInfoRepository displayInfoRepository;
     private final ProductImageRepository productImageRepository;
     private final DisplayInfoImageRepository displayInfoImageRepository;
     private final ProductPriceRepository productPriceRepository;
     private final ReservationUserCommentRepository reservationUserCommentRepository;
 
     @Autowired
-    public DisplayInfoServiceImpl(ProductRepository productRepository, ProductImageRepository productImageRepository, DisplayInfoImageRepository displayInfoImageRepository, ProductPriceRepository productPriceRepository, ReservationUserCommentRepository reservationUserCommentRepository) {
-        this.productRepository = productRepository;
+    public DisplayInfoServiceImpl(DisplayInfoRepository displayInfoRepository,
+                                  ProductImageRepository productImageRepository,
+                                  DisplayInfoImageRepository displayInfoImageRepository,
+                                  ProductPriceRepository productPriceRepository,
+                                  ReservationUserCommentRepository reservationUserCommentRepository) {
+        this.displayInfoRepository = displayInfoRepository;
         this.productImageRepository = productImageRepository;
         this.displayInfoImageRepository = displayInfoImageRepository;
         this.productPriceRepository = productPriceRepository;
@@ -32,14 +33,25 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
 
     @Override
     @Transactional(readOnly = true)
-    public ProductDto getProduct(String productImageType, long displayInfoId) {
-        return productRepository.select(productImageType, displayInfoId);
+    public DisplayInfoDto getProduct(String productImageType, long displayInfoId) {
+        return displayInfoRepository.select(productImageType, displayInfoId);
+    }
+
+    @Override
+    public long getProductsSize(long categoryId) {
+        return displayInfoRepository.count(categoryId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductImageDto> getProductImages(long productId) {
-        return productImageRepository.select(productId);
+    public List<DisplayInfoDto> getProducts(String productImageType, long categoryId, long start) {
+        return displayInfoRepository.select(productImageType, categoryId, start);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ProductImageDto> getProductImages(long productId, String productImageType) {
+        return productImageRepository.select(productId, productImageType);
     }
 
     @Override
@@ -52,6 +64,17 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
     @Transactional(readOnly = true)
     public List<ProductPriceDto> getProductPrices(long productId) {
         return productPriceRepository.select(productId);
+    }
+
+    @Override
+    public long getReservationUserCommentsSize(long productId) {
+        return reservationUserCommentRepository.count(productId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<ReservationUserCommentDto> getReservationUserComments(long start, long productId) {
+        return reservationUserCommentRepository.select(start, productId);
     }
 
     @Override

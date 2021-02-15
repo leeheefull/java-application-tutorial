@@ -9,7 +9,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProductDto {
+public class DisplayInfoDto {
     private long id;
     private long categoryId;
     private long displayInfoId;

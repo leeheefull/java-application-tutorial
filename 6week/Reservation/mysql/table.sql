@@ -31,7 +31,7 @@ where p.id = di.product_id and p.category_id = 3;
 select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id
 from product as p, display_info as di , category as c, product_image as pi
 where p.id = di.product_id and p.id = pi.product_id and pi.type = 'ma' and p.category_id = c.id and c.id = 3
-limit 4;
+limit 0, 4;
 
 -- select product by display_id
 select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id
@@ -51,7 +51,7 @@ where pm.product_id = pd.id and pd.category_id = c.id and pd.id = pi.product_id 
 -- select product_image by product id
 select p.id as product_id, pi.id as product_image_id, pi.type, pi.file_id as file_info_id, fi.file_name, fi.save_file_name, fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date
 from product as p, product_image as pi, file_info as fi
-where p.id = pi.product_id and pi.file_id = fi.id and p.id = 1;
+where p.id = pi.product_id and pi.file_id = fi.id and p.id = 1 and pi.type = 'ma';
 
 -- select display_info_image by product_id
 select dii.id, dii.display_info_id, dii.file_id, fi.file_name, fi.save_file_name, fi.content_type, fi.delete_flag, fi.create_date, fi.modify_date
@@ -59,15 +59,15 @@ from display_info as di, display_info_image as dii, file_info as fi
 where di.id = dii.display_info_id and dii.file_id = fi.id and di.product_id= 1;
 
 -- select product_price by product id
-select pp.id, p.id product_id, pp.price_type_name, pp.price, pp.discount_rate, pp.create_date, pp.modify_date
-from product_price as pp, product as p
-where p.id = pp.product_id and p.id = 1
-order by pp.id desc;
+select id, product_id, price_type_name, price, discount_rate, create_date, modify_date
+from product_price
+where product_id = 1
+order by id desc;
 
 -- count reservation_user_comment
 select count(*)
 from reservation_user_comment as ruc, user as u
-where ruc.user_id = u.id;
+where ruc.user_id = u.id and ruc.product_id = 1;
 
 -- avg reservation_user_comment score by product id
 select avg(ruc.score)
@@ -77,6 +77,6 @@ where p.id = ruc.product_id and p.id = 1;
 -- select reservation_user_comment
 select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date
 from reservation_user_comment as ruc, user as u
-where ruc.user_id = u.id
+where ruc.user_id = u.id and ruc.product_id = 1
 order by ruc.id desc
-limit 5;
+limit 0, 5;
