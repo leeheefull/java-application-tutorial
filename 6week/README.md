@@ -28,8 +28,6 @@
 
 ![image](https://user-images.githubusercontent.com/58816862/107901726-c0bfde80-6f87-11eb-927c-8bcf93dd5e7c.png)
 
-![image-20210215121824242](C:\Users\227\AppData\Roaming\Typora\typora-user-images\image-20210215121824242.png)
-
 ![image](https://user-images.githubusercontent.com/58816862/107901789-e220ca80-6f87-11eb-9f3b-8197dd84094e.png)
 
 
