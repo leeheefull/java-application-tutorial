@@ -1,26 +1,14 @@
 package kr.ac.hs.se.service;
 
-import kr.ac.hs.se.model.*;
-
-import java.util.List;
+import kr.ac.hs.se.response.DisplayInfoDetailResponse;
+import kr.ac.hs.se.response.DisplayInfosResponse;
+import kr.ac.hs.se.response.ReservationUserCommentResponse;
 
 public interface DisplayInfoService {
 
-    DisplayInfoDto getProduct(String productImageType, long displayInfoId);
+    DisplayInfosResponse getDisplayInfosByProductImageTypeInMa(long categoryId, long pageSize, long page);
 
-    long getProductsSize(long categoryId);
+    DisplayInfoDetailResponse getDisplayInfo(long displayInfoId);
 
-    List<DisplayInfoDto> getProducts(String productImageType, long categoryId, long start);
-
-    List<ProductImageDto> getProductImages(long productId, String productImageType);
-
-    List<DisplayInfoImageDto> getDisplayInfoImages(long productId);
-
-    List<ProductPriceDto> getProductPrices(long productId);
-
-    long getReservationUserCommentsSize(long productId);
-
-    List<ReservationUserCommentDto> getReservationUserComments(long start, long productId);
-
-    int getReservationUserCommentAvg(long productId);
+    ReservationUserCommentResponse getReservationUserCommentsByProductImageTypeInMa(long productId, long pageSize, long page);
 }

@@ -2,83 +2,40 @@ package kr.ac.hs.se.service.impl;
 
 import kr.ac.hs.se.model.*;
 import kr.ac.hs.se.repository.*;
+import kr.ac.hs.se.response.DisplayInfoDetailResponse;
+import kr.ac.hs.se.response.DisplayInfosResponse;
+import kr.ac.hs.se.response.ReservationUserCommentResponse;
 import kr.ac.hs.se.service.DisplayInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
+@RequiredArgsConstructor
 @Service
 public class DisplayInfoServiceImpl implements DisplayInfoService {
 
-    private final DisplayInfoRepository displayInfoRepository;
-    private final ProductImageRepository productImageRepository;
-    private final DisplayInfoImageRepository displayInfoImageRepository;
-    private final ProductPriceRepository productPriceRepository;
-    private final ReservationUserCommentRepository reservationUserCommentRepository;
+    private final DisplayInfosRepository displayInfosRepository;
 
-    @Autowired
-    public DisplayInfoServiceImpl(DisplayInfoRepository displayInfoRepository,
-                                  ProductImageRepository productImageRepository,
-                                  DisplayInfoImageRepository displayInfoImageRepository,
-                                  ProductPriceRepository productPriceRepository,
-                                  ReservationUserCommentRepository reservationUserCommentRepository) {
-        this.displayInfoRepository = displayInfoRepository;
-        this.productImageRepository = productImageRepository;
-        this.displayInfoImageRepository = displayInfoImageRepository;
-        this.productPriceRepository = productPriceRepository;
-        this.reservationUserCommentRepository = reservationUserCommentRepository;
+    @Override
+    public DisplayInfosResponse getDisplayInfosByProductImageTypeInMa(long categoryId, long pageSize, long page) {
+        return new DisplayInfosResponse(displayInfosRepository.getDisplayInfosSize(categoryId),
+                pageSize,
+                displayInfosRepository.selectDisplayInfos("ma", categoryId, pageSize, page));
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public DisplayInfoDto getProduct(String productImageType, long displayInfoId) {
-        return displayInfoRepository.select(productImageType, displayInfoId);
+    public DisplayInfoDetailResponse getDisplayInfo(long displayInfoId) {
+        DisplayInfoDto product = displayInfosRepository.selectDisplayInfo("ma", displayInfoId);
+        return new DisplayInfoDetailResponse(product,
+                displayInfosRepository.selectProductImages(product.getId(), "ma"),
+                displayInfosRepository.selectDisplayInfoImages(product.getId()),
+                displayInfosRepository.getReservationUserCommentsAvg(product.getId()),
+                displayInfosRepository.selectProductPrices(product.getId()));
     }
 
     @Override
-    public long getProductsSize(long categoryId) {
-        return displayInfoRepository.count(categoryId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<DisplayInfoDto> getProducts(String productImageType, long categoryId, long start) {
-        return displayInfoRepository.select(productImageType, categoryId, start);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ProductImageDto> getProductImages(long productId, String productImageType) {
-        return productImageRepository.select(productId, productImageType);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<DisplayInfoImageDto> getDisplayInfoImages(long productId) {
-        return displayInfoImageRepository.select(productId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ProductPriceDto> getProductPrices(long productId) {
-        return productPriceRepository.select(productId);
-    }
-
-    @Override
-    public long getReservationUserCommentsSize(long productId) {
-        return reservationUserCommentRepository.count(productId);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<ReservationUserCommentDto> getReservationUserComments(long start, long productId) {
-        return reservationUserCommentRepository.select(start, productId);
-    }
-
-    @Override
-    public int getReservationUserCommentAvg(long productId) {
-        return reservationUserCommentRepository.average(productId);
+    public ReservationUserCommentResponse getReservationUserCommentsByProductImageTypeInMa(long productId, long pageSize, long page) {
+        return new ReservationUserCommentResponse(displayInfosRepository.getReservationUserCommentsSize(productId),
+                pageSize,
+                displayInfosRepository.selectReservationUserComments(productId, pageSize, page));
     }
 }
