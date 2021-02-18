@@ -2,13 +2,21 @@ package kr.ac.hs.se.service;
 
 import kr.ac.hs.se.response.DisplayInfoDetailResponse;
 import kr.ac.hs.se.response.DisplayInfosResponse;
-import kr.ac.hs.se.response.ReservationUserCommentResponse;
+import kr.ac.hs.se.response.ReservationUserCommentsResponse;
 
 public interface DisplayInfoService {
 
+    DisplayInfosResponse getDisplayInfosByProductImageTypeInMa();
+
+    DisplayInfosResponse getDisplayInfosByProductImageTypeInMa(long categoryId);
+
     DisplayInfosResponse getDisplayInfosByProductImageTypeInMa(long categoryId, long pageSize, long page);
 
-    DisplayInfoDetailResponse getDisplayInfo(long displayInfoId);
+    DisplayInfoDetailResponse getDisplayInfoByProductImageTypeInMa(long displayInfoId);
 
-    ReservationUserCommentResponse getReservationUserCommentsByProductImageTypeInMa(long productId, long pageSize, long page);
+    ReservationUserCommentsResponse getReservationUserComments();
+
+    ReservationUserCommentsResponse getReservationUserComments(long productId);
+
+    ReservationUserCommentsResponse getReservationUserComments(long productId, long pageSize, long page);
 }

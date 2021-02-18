@@ -28,6 +28,22 @@ public class DisplayInfosRepository {
                 long.class);
     }
 
+    public List<DisplayInfoDto> selectDisplayInfos(String productImageType) {
+        return jdbc.query(SELECT_DISPLAY_INFO_BY_PRODUCT_IMAGE_TYPE,
+                Collections.singletonMap("productImageType", productImageType),
+                BeanPropertyRowMapper.newInstance(DisplayInfoDto.class));
+    }
+
+    public List<DisplayInfoDto> selectDisplayInfos(String productImageType, long categoryId) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("productImageType", productImageType);
+        params.put("categoryId", categoryId);
+
+        return jdbc.query(SELECT_DISPLAY_INFO_BY_PRODUCT_IMAGE_TYPE_AND_CATEGORY_ID,
+                params,
+                BeanPropertyRowMapper.newInstance(DisplayInfoDto.class));
+    }
+
     public List<DisplayInfoDto> selectDisplayInfos(String productImageType, long categoryId, long pageSize, long page) {
         Map<String, Object> params = new HashMap<>();
         params.put("productImageType", productImageType);
@@ -82,6 +98,18 @@ public class DisplayInfosRepository {
         return jdbc.queryForObject(AVG_RESERVATION_USER_COMMENT_SCORE_BY_PRODUCT_ID,
                 Collections.singletonMap("productId", productId),
                 int.class);
+    }
+
+    public List<ReservationUserCommentDto> selectReservationUserComments() {
+        return jdbc.query(SELECT_RESERVATION_USER_COMMENTS,
+                Collections.EMPTY_MAP,
+                BeanPropertyRowMapper.newInstance(ReservationUserCommentDto.class));
+    }
+
+    public List<ReservationUserCommentDto> selectReservationUserComments(long productId) {
+        return jdbc.query(SELECT_RESERVATION_USER_COMMENTS_BY_PRODUCT_ID,
+                Collections.singletonMap("productId", productId),
+                BeanPropertyRowMapper.newInstance(ReservationUserCommentDto.class));
     }
 
     public List<ReservationUserCommentDto> selectReservationUserComments(long productId, long pageSize, long page) {

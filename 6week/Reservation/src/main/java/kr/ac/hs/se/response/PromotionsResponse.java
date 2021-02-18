@@ -8,7 +8,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class PromotionResponse {
+public class PromotionsResponse {
     private final long size;
     private final List<PromotionDto> items;
 }

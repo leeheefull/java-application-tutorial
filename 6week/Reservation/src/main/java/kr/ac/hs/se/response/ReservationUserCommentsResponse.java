@@ -8,7 +8,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
-public class ReservationUserCommentResponse {
+public class ReservationUserCommentsResponse {
     private final long totalCount;
     private final long commentCount;
     private final List<ReservationUserCommentDto> reservationUserComments;

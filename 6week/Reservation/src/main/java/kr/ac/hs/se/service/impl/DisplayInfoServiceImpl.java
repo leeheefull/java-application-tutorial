@@ -4,7 +4,7 @@ import kr.ac.hs.se.model.*;
 import kr.ac.hs.se.repository.*;
 import kr.ac.hs.se.response.DisplayInfoDetailResponse;
 import kr.ac.hs.se.response.DisplayInfosResponse;
-import kr.ac.hs.se.response.ReservationUserCommentResponse;
+import kr.ac.hs.se.response.ReservationUserCommentsResponse;
 import kr.ac.hs.se.service.DisplayInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,20 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
     private final DisplayInfosRepository displayInfosRepository;
 
     @Override
+    public DisplayInfosResponse getDisplayInfosByProductImageTypeInMa() {
+        return new DisplayInfosResponse(displayInfosRepository.selectDisplayInfos("ma").size(),
+                displayInfosRepository.selectDisplayInfos("ma").size(),
+                displayInfosRepository.selectDisplayInfos("ma"));
+    }
+
+    @Override
+    public DisplayInfosResponse getDisplayInfosByProductImageTypeInMa(long categoryId) {
+        return new DisplayInfosResponse(displayInfosRepository.selectDisplayInfos("ma", categoryId).size(),
+                displayInfosRepository.selectDisplayInfos("ma", categoryId).size(),
+                displayInfosRepository.selectDisplayInfos("ma", categoryId));
+    }
+
+    @Override
     public DisplayInfosResponse getDisplayInfosByProductImageTypeInMa(long categoryId, long pageSize, long page) {
         return new DisplayInfosResponse(displayInfosRepository.getDisplayInfosSize(categoryId),
                 pageSize,
@@ -23,7 +37,7 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
     }
 
     @Override
-    public DisplayInfoDetailResponse getDisplayInfo(long displayInfoId) {
+    public DisplayInfoDetailResponse getDisplayInfoByProductImageTypeInMa(long displayInfoId) {
         DisplayInfoDto product = displayInfosRepository.selectDisplayInfo("ma", displayInfoId);
         return new DisplayInfoDetailResponse(product,
                 displayInfosRepository.selectProductImages(product.getId(), "ma"),
@@ -33,8 +47,22 @@ public class DisplayInfoServiceImpl implements DisplayInfoService {
     }
 
     @Override
-    public ReservationUserCommentResponse getReservationUserCommentsByProductImageTypeInMa(long productId, long pageSize, long page) {
-        return new ReservationUserCommentResponse(displayInfosRepository.getReservationUserCommentsSize(productId),
+    public ReservationUserCommentsResponse getReservationUserComments() {
+        return new ReservationUserCommentsResponse(displayInfosRepository.selectReservationUserComments().size(),
+                displayInfosRepository.selectReservationUserComments().size(),
+                displayInfosRepository.selectReservationUserComments());
+    }
+
+    @Override
+    public ReservationUserCommentsResponse getReservationUserComments(long productId) {
+        return new ReservationUserCommentsResponse(displayInfosRepository.selectReservationUserComments(productId).size(),
+                displayInfosRepository.selectReservationUserComments(productId).size(),
+                displayInfosRepository.selectReservationUserComments(productId));
+    }
+
+    @Override
+    public ReservationUserCommentsResponse getReservationUserComments(long productId, long pageSize, long page) {
+        return new ReservationUserCommentsResponse(displayInfosRepository.getReservationUserCommentsSize(productId),
                 pageSize,
                 displayInfosRepository.selectReservationUserComments(productId, pageSize, page));
     }

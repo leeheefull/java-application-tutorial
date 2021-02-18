@@ -28,7 +28,17 @@ select count(*)
 from product as p, display_info as di
 where p.id = di.product_id and p.category_id = 3;
 
--- select products by product_image_type and category_id and page
+-- select display_info by product_image_type
+select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id
+from product as p, display_info as di , category as c, product_image as pi
+where p.id = di.product_id and p.id = pi.product_id and pi.type = 'ma' and p.category_id = c.id;
+
+-- select display_info by product_image_type and category_id
+select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id
+from product as p, display_info as di , category as c, product_image as pi
+where p.id = di.product_id and p.id = pi.product_id and pi.type = 'ma' and p.category_id = c.id and c.id = 3;
+
+-- select display_info by product_image_type and category_id and page
 select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id
 from product as p, display_info as di , category as c, product_image as pi
 where p.id = di.product_id and p.id = pi.product_id and pi.type = 'ma' and p.category_id = c.id and c.id = 3
@@ -64,6 +74,18 @@ where ruc.user_id = u.id and ruc.product_id = 1;
 select avg(ruc.score)
 from reservation_user_comment as ruc, product as p
 where p.id = ruc.product_id and p.id = 1;
+
+-- select reservation_user_comment
+select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date
+from reservation_user_comment as ruc, user as u
+where ruc.user_id = u.id
+order by ruc.id desc;
+
+-- select reservation_user_comment by product_id
+select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date
+from reservation_user_comment as ruc, user as u
+where ruc.user_id = u.id and ruc.product_id = 1
+order by ruc.id desc;
 
 -- select reservation_user_comment by product_id and page
 select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date
