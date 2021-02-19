@@ -22,23 +22,23 @@
        onclick="location.href='http://localhost:8080/api/displayinfos/category/3'"/>
 <br/><br/><br/>
 카테고리별 전시상품 페이지로 보기<br/>
-<input type="button" value="api/displayinfos/category/3/page/4,1"
-       onclick="location.href='http://localhost:8080/api/displayinfos/category/3/page/4,1'"/>
+<input type="button" value="api/displayinfos/category/3?pagesize=4&pageno=1"
+       onclick="location.href='http://localhost:8080/api/displayinfos/category/3?pagesize=4&pageno=1'"/>
 <br/><br/><br/>
 특정 전시상품 세부사항 보기<br/>
 <input type="button" value="api/displayinfos/displayinfo/1"
        onclick="location.href='http://localhost:8080/api/displayinfos/displayinfo/1'"/>
 <br/><br/><br/>
-전시상품 댓글 전체 보기<br/>
-<input type="button" value="api/displayinfos/comments"
-       onclick="location.href='http://localhost:8080/api/displayinfos/comments'"/>
+댓글 전체 보기<br/>
+<input type="button" value="api/comments"
+       onclick="location.href='http://localhost:8080/api/comments'"/>
 <br/><br/><br/>
-전시상품별 댓글 보기<br/>
-<input type="button" value="api/displayinfos/comments/product/1"
-       onclick="location.href='http://localhost:8080/api/displayinfos/comments/product/1'"/>
+상품별 댓글 보기<br/>
+<input type="button" value="api/comments/product/1"
+       onclick="location.href='http://localhost:8080/api/comments/product/1'"/>
 <br/><br/><br/>
-전시상품별 댓글 페이지로 보기<br/>
-<input type="button" value="api/displayinfos/comments/product/1/page/5,1"
-       onclick="location.href='http://localhost:8080/api/displayinfos/comments/product/1/page/5,1'"/>
+상품별 댓글 페이지로 보기<br/>
+<input type="button" value="api/comments/product/1?pagesize=5&pageno=1"
+       onclick="location.href='http://localhost:8080/api/comments/product/1?pagesize=5&pageno=1'"/>
 </body>
 </html>

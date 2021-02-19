@@ -2,11 +2,6 @@ package kr.ac.hs.se.sql;
 
 public class DisplayInfosSql {
 
-    public static final String COUNT_DISPLAY_INFO_BY_CATEGORY_ID =
-            "select count(*)\n" +
-                    "from product as p, display_info as di\n" +
-                    "where p.id = di.product_id and p.category_id = :categoryId";
-
     public static final String SELECT_DISPLAY_INFO_BY_PRODUCT_IMAGE_TYPE =
             "select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id\n" +
                     "    from product as p, display_info as di , category as c, product_image as pi\n" +
@@ -42,34 +37,5 @@ public class DisplayInfosSql {
             "select id, product_id, price_type_name, price, discount_rate, create_date, modify_date\n" +
                     "from product_price\n" +
                     "where product_id = :productId\n" +
-                    "order by id desc;";
-
-    public static final String COUNT_RESERVATION_USER_COMMENTS_BY_PRODUCT_ID =
-            "select count(*)\n" +
-                    "from reservation_user_comment as ruc, user as u\n" +
-                    "where ruc.user_id = u.id and ruc.product_id = :productId";
-
-    public static final String AVG_RESERVATION_USER_COMMENT_SCORE_BY_PRODUCT_ID =
-            "select avg(ruc.score)\n" +
-                    "from reservation_user_comment as ruc, product as p\n" +
-                    "where p.id = ruc.product_id and p.id = :productId";
-
-    public static final String SELECT_RESERVATION_USER_COMMENTS =
-            "select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date\n" +
-                    "from reservation_user_comment as ruc, user as u\n" +
-                    "where ruc.user_id = u.id\n" +
-                    "order by ruc.id desc";
-
-    public static final String SELECT_RESERVATION_USER_COMMENTS_BY_PRODUCT_ID =
-            "select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date\n" +
-                    "from reservation_user_comment as ruc, user as u\n" +
-                    "where ruc.user_id = u.id and ruc.product_id = :productId\n" +
-                    "order by ruc.id desc";
-
-    public static final String SELECT_RESERVATION_USER_COMMENTS_BY_PRODUCT_ID_AND_PAGE =
-            "select ruc.id, ruc.product_id, ruc.reservation_info_id, ruc.score, u.email reservation_email, ruc.comment, ruc.create_date, ruc.modify_date\n" +
-                    "from reservation_user_comment as ruc, user as u\n" +
-                    "where ruc.user_id = u.id and ruc.product_id = :productId\n" +
-                    "order by ruc.id desc\n" +
-                    "limit :pageSize offset :offset";
+                    "order by id desc";
 }

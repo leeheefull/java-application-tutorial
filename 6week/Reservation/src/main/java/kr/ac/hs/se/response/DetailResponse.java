@@ -4,14 +4,15 @@ import kr.ac.hs.se.model.DisplayInfoDto;
 import kr.ac.hs.se.model.DisplayInfoImageDto;
 import kr.ac.hs.se.model.ProductImageDto;
 import kr.ac.hs.se.model.ProductPriceDto;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@Builder
 @Getter
-public class DisplayInfoDetailResponse {
+public class DetailResponse {
+
     private final DisplayInfoDto product;
     private final List<ProductImageDto> productImages;
     private final List<DisplayInfoImageDto> displayInfoImages;

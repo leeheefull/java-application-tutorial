@@ -1,9 +1,24 @@
 package kr.ac.hs.se.service;
 
+import kr.ac.hs.se.model.CategoryDto;
+import kr.ac.hs.se.repository.CategoriesRepository;
+import kr.ac.hs.se.response.ListAllResponse;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
-import kr.ac.hs.se.response.CategoriesResponse;
+import java.util.List;
 
-public interface CategoriesService {
+@RequiredArgsConstructor
+@Service
+public class CategoriesService {
 
-    CategoriesResponse getCategories();
+    private final CategoriesRepository categoriesRepository;
+
+    public ListAllResponse<CategoryDto> getCategories() {
+        List<CategoryDto> categories = categoriesRepository.selectCategories();
+        return ListAllResponse.<CategoryDto>builder()
+                .size(categories.size())
+                .items(categories)
+                .build();
+    }
 }

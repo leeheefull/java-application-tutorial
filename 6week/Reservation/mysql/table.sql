@@ -23,11 +23,6 @@ select pm.id, pd.id product_id, c.id category_id, c.name category_name, pd.descr
 from promotion as pm, product as pd, category as c, product_image as pi
 where pm.product_id = pd.id and pd.category_id = c.id and pd.id = pi.product_id and pi.type = 'ma';
 
--- count category by id
-select count(*)
-from product as p, display_info as di
-where p.id = di.product_id and p.category_id = 3;
-
 -- select display_info by product_image_type
 select p.id, p.category_id, di.id as display_info_id, c.name, p.description, p.content, p.event, di.opening_hours, di.place_name, di.place_lot, di.place_street, di.tel, di.homepage, di.email, di.create_date, di.modify_date, pi.file_id
 from product as p, display_info as di , category as c, product_image as pi
@@ -64,11 +59,6 @@ select id, product_id, price_type_name, price, discount_rate, create_date, modif
 from product_price
 where product_id = 1
 order by id desc;
-
--- count reservation_user_comment by product_id
-select count(*)
-from reservation_user_comment as ruc, user as u
-where ruc.user_id = u.id and ruc.product_id = 1;
 
 -- avg reservation_user_comment score by product id
 select avg(ruc.score)

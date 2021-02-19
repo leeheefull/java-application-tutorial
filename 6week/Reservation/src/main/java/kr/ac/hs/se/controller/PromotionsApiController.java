@@ -1,6 +1,7 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.response.PromotionsResponse;
+import kr.ac.hs.se.model.PromotionDto;
+import kr.ac.hs.se.response.ListAllResponse;
 import kr.ac.hs.se.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +16,7 @@ public class PromotionsApiController {
     private final PromotionsService promotionService;
 
     @GetMapping
-    public PromotionsResponse getPromotions() {
+    public ListAllResponse<PromotionDto> getPromotions() {
         return promotionService.getPromotionsByProductImageTypeInMa();
     }
 }
