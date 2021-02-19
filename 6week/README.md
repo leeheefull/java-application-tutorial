@@ -6,11 +6,11 @@
 * GET (프로모션 목록 구하기): /api/promotions
 * GET (상품 목록 구하기): /api/displayinfos
 * GET (카테고리별 상품 목록 구하기): /api/displayinfos/category/{categoryId}
-* GET (카테고리별 상품 목록 페이지로 구하기): /api/displayinfos/category/{categoryId}/page/{pageSize},{page}
+* GET (카테고리별 상품 목록 페이지로 구하기): /api/displayinfos/category/{categoryId}?pagesize={pageSize}&pageno={page}
 * GET (상품 세부사항 구하기): /api/displayinfos/{displayId}
-* GET (상품 댓글 목록 구하기): /api/displayinfos/comments
-* GET (상품별 댓글 목록 구하기): /api/displayinfos/comments/product/{productId}
-* GET (상품별 댓글 목록 페이지로 구하기): /api/displayinfos/comments/product/{producrId}/page/{pageSize},{page}
+* GET (상품 댓글 목록 구하기): /api/comments
+* GET (상품별 댓글 목록 구하기): /api/comments/product/{productId}
+* GET (상품별 댓글 목록 페이지로 구하기): /api/comments/product/{producrId}?pagesize={pageSize}&pageno={page}
 
 
 
@@ -597,7 +597,7 @@
 }
 ```
 
-> GET (카테고리별 상품 목록 페이지로 구하기): /api/displayinfos/category/3/page/4,1
+> GET (카테고리별 상품 목록 페이지로 구하기): /api/displayinfos/category/3?pagesize=4&pageno=1
 
 ```json
 {
@@ -767,7 +767,7 @@
 }
 ```
 
-> GET (상품 댓글 목록 구하기): /api/displayinfos/comments
+> GET (상품 댓글 목록 구하기): /api/comments
 
 ```json
 {
@@ -928,7 +928,7 @@
 }
 ```
 
-> GET (상품별 댓글 목록 구하기): /api/displayinfos/comments/product/1
+> GET (상품별 댓글 목록 구하기): /api/comments/product/1
 
 ```json
 {
@@ -1089,7 +1089,7 @@
 }
 ```
 
-> GET (상품별 댓글 목록 페이지로 구하기): /api/displayinfos/comments/product/1/page/5,1
+> GET (상품별 댓글 목록 페이지로 구하기): /api/comments/product/1?pagesize=5&pageno=1
 
 ```json
 {
