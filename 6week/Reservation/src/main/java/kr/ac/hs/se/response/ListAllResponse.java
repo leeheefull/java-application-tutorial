@@ -1,14 +1,15 @@
 package kr.ac.hs.se.response;
 
-import kr.ac.hs.se.model.CategoryDto;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-@RequiredArgsConstructor
+@Builder
 @Getter
-public class CategoriesResponse {
+public class ListAllResponse<T> {
+
     private final long size;
-    private final List<CategoryDto> items;
+    private final List<T> items;
 }

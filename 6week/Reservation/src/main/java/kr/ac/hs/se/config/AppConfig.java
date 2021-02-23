@@ -10,5 +10,5 @@ import org.springframework.context.annotation.Import;
         "kr.ac.hs.se.service"
 })
 @Import({DBConfig.class})
-public class ApplicationConfig {
+public class AppConfig {
 }
