@@ -7,7 +7,6 @@ import org.springframework.web.servlet.config.annotation.*;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {
-        "kr.ac.hs.se.user.controller",
         "kr.ac.hs.se.reservation.controller"
 })
 public class WebConfig implements WebMvcConfigurer {
@@ -22,17 +21,5 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
-    }
-
-    // "/" 대신 처리할 jsp 등록
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addRedirectViewController("/", "main");
-    }
-
-    // "jsp"위치 설정
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.jsp("/WEB-INF/view/", ".jsp");
     }
 }

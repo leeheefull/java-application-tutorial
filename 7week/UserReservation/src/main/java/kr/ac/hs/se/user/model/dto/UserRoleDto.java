@@ -1,4 +1,4 @@
-package kr.ac.hs.se.user.dto;
+package kr.ac.hs.se.user.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

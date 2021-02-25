@@ -1,4 +1,4 @@
-package kr.ac.hs.se.security.model;
+package kr.ac.hs.se.user.model;
 
 import lombok.Getter;
 import lombok.Setter;

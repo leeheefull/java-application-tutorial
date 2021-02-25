@@ -1,4 +1,4 @@
-package kr.ac.hs.se.security.model.entity;
+package kr.ac.hs.se.user.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
