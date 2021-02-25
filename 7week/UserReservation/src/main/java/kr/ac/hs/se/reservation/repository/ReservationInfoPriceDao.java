@@ -11,7 +11,8 @@ import javax.sql.DataSource;
 import java.util.Collections;
 import java.util.List;
 
-import static kr.ac.hs.se.reservation.sql.ReservationSql.SELECT_RESERVATION_INFO_PRICES_BY_RESERVATION_INFO_ID;
+import static kr.ac.hs.se.reservation.sql.ReservationInfoPriceSql.SELECT_RESERVATION_INFO_PRICES_BY_RESERVATION_INFO_ID;
+
 
 @Repository
 public class ReservationInfoPriceDao {

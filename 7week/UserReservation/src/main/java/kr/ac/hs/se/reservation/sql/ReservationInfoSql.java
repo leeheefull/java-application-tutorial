@@ -1,6 +1,6 @@
 package kr.ac.hs.se.reservation.sql;
 
-public class ReservationSql {
+public class ReservationInfoSql {
 
     public static final String SELECT_RESERVATION_INFOS_BY_USER_EMAIL =
             "select ri.id, p.id as product_id, ri.display_info_id, ri.cancel_flag, p.description as product_description, p.content as product_content,\n" +
@@ -22,9 +22,4 @@ public class ReservationSql {
             "select ri.id, ri.product_id, ri.cancel_flag, ri.display_info_id, ri.user_id, ri.reservation_date, ri.create_date, ri.modify_date\n" +
                     "from reservation_info as ri\n" +
                     "where ri.id = :reservationInfoId";
-
-    public static final String SELECT_RESERVATION_INFO_PRICES_BY_RESERVATION_INFO_ID =
-            "select rip.id, rip.reservation_info_id, rip.product_price_id, rip.count\n" +
-                    "from reservation_info_price as rip\n" +
-                    "where rip.reservation_info_id = :reservationInfoId";
 }

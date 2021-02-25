@@ -7,8 +7,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserRole {
+public class LoginUserRole {
 
-    private String userLoginId;
+    private String loginUserId; // UserEntity.getEmail()
     private String roleName;
 }

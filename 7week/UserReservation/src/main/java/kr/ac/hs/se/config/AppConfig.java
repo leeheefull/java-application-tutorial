@@ -6,11 +6,8 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @ComponentScan(basePackages = {
-        "kr.ac.hs.se.user.repository",
-        "kr.ac.hs.se.user.service",
         "kr.ac.hs.se.reservation.repository",
-        "kr.ac.hs.se.reservation.service",
-        "kr.ac.hs.se.security"
+        "kr.ac.hs.se.reservation.service"
 })
 @Import({DBConfig.class})
 public class AppConfig {

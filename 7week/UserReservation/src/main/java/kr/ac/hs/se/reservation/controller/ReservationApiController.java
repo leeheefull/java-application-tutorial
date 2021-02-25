@@ -30,8 +30,8 @@ public class ReservationApiController {
     }
 
     @PutMapping
-    public Map<String, String> putReservationCancelFlag(@RequestBody Map<String, Integer> requestBody) {
-        long cancelFlag = reservationService.updateReservationCancelFlag(requestBody.get("id"));
-        return Collections.singletonMap("result", cancelFlag > 0 ? "success" : "fail");
+    public String putReservationCancelFlag(@RequestBody Map<String, Integer> requestBody) {
+        reservationService.updateReservationCancelFlag(requestBody.get("id"));
+        return "success";
     }
 }

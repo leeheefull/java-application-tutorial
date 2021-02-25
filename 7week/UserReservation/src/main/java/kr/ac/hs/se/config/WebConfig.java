@@ -5,10 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.*;
 
 @Configuration
-@EnableWebMvc
 @ComponentScan(basePackages = {
+        "kr.ac.hs.se.user.controller",
         "kr.ac.hs.se.reservation.controller"
 })
+@EnableWebMvc
 public class WebConfig implements WebMvcConfigurer {
 
     // 리소스 핸들러

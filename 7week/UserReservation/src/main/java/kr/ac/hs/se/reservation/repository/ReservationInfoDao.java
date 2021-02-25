@@ -11,8 +11,8 @@ import javax.sql.DataSource;
 
 import java.util.Collections;
 
-import static kr.ac.hs.se.reservation.sql.ReservationSql.SELECT_RESERVATION_INFO_BY_ID;
-import static kr.ac.hs.se.reservation.sql.ReservationSql.UPDATE_RESERVATION_INFO_CANCEL_FLAG_BY_ID;
+import static kr.ac.hs.se.reservation.sql.ReservationInfoSql.SELECT_RESERVATION_INFO_BY_ID;
+import static kr.ac.hs.se.reservation.sql.ReservationInfoSql.UPDATE_RESERVATION_INFO_CANCEL_FLAG_BY_ID;
 
 @Repository
 public class ReservationInfoDao {
