@@ -39,8 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                 .and()
                 .logout()
-                .logoutUrl("/api/user/logout")
-                .logoutSuccessUrl("/api/user/login");
+                .logoutUrl("/api/user/logout");
     }
 
     // 비밀번호 인코딩

@@ -1,6 +1,6 @@
 package kr.ac.hs.se.user.repository;
 
-import kr.ac.hs.se.user.model.dto.UserDto;
+import kr.ac.hs.se.user.model.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -16,11 +16,11 @@ public class UserDao {
 
     private final NamedParameterJdbcTemplate jdbc;
 
-    public UserDto selectUserByEmail(String email) {
+    public UserEntity selectUserByEmail(String email) {
         return jdbc.queryForObject(
                 SELECT_USER_BY_EMAIL,
                 Collections.singletonMap("email", email),
-                BeanPropertyRowMapper.newInstance(UserDto.class)
+                BeanPropertyRowMapper.newInstance(UserEntity.class)
         );
     }
 }

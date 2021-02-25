@@ -1,6 +1,6 @@
 package kr.ac.hs.se.user.repository;
 
-import kr.ac.hs.se.user.model.dto.UserRoleDto;
+import kr.ac.hs.se.user.model.entity.UserRoleEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,11 +17,11 @@ public class UserRoleDao {
 
     private final NamedParameterJdbcTemplate jdbc;
 
-    public List<UserRoleDto> selectUserRolesByUserEmail(String email) {
+    public List<UserRoleEntity> selectUserRolesByUserEmail(String email) {
         return jdbc.query(
                 SELECT_USER_ROLES_BY_USER_EMAIL,
                 Collections.singletonMap("email", email),
-                BeanPropertyRowMapper.newInstance(UserRoleDto.class)
+                BeanPropertyRowMapper.newInstance(UserRoleEntity.class)
         );
     }
 }

@@ -1,6 +1,6 @@
 package kr.ac.hs.se.reservation.repository;
 
-import kr.ac.hs.se.reservation.model.ReservationDetail;
+import kr.ac.hs.se.reservation.model.Dto.ReservationDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

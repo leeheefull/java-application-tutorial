@@ -1,10 +1,7 @@
-package kr.ac.hs.se.reservation.model;
+package kr.ac.hs.se.reservation.model.Dto;
 
 import lombok.*;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Getter
 @Setter
 public class ReservationDetail {

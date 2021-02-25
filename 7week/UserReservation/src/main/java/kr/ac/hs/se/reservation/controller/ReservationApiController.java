@@ -1,6 +1,6 @@
 package kr.ac.hs.se.reservation.controller;
 
-import kr.ac.hs.se.reservation.model.ReservationDetail;
+import kr.ac.hs.se.reservation.model.Dto.ReservationDetail;
 import kr.ac.hs.se.reservation.model.request.ReservationRequest;
 import kr.ac.hs.se.reservation.model.response.ReservationResponse;
 import kr.ac.hs.se.reservation.service.ReservationService;
