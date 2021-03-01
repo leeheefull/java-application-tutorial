@@ -1,10 +1,8 @@
-package kr.ac.hs.se.model;
+package kr.ac.hs.se.model.Dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @NoArgsConstructor
 @Getter
@@ -15,6 +13,6 @@ public class ProductPriceDto {
     private String priceTypeName;
     private long price;
     private double discountRate;
-    private Date createDate;
-    private Date modifyDate;
+    private String createDate;
+    private String modifyDate;
 }

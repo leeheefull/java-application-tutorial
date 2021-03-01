@@ -1,4 +1,4 @@
-package kr.ac.hs.se.model;
+package kr.ac.hs.se.model.Dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

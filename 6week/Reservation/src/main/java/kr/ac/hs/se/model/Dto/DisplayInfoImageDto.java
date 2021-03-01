@@ -1,10 +1,8 @@
-package kr.ac.hs.se.model;
+package kr.ac.hs.se.model.Dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Date;
 
 @NoArgsConstructor
 @Getter
@@ -17,6 +15,6 @@ public class DisplayInfoImageDto {
     private String saveFileName;
     private String contentType;
     private boolean deleteFlag;
-    private Date createDate;
-    private Date modifyDate;
+    private String createDate;
+    private String modifyDate;
 }

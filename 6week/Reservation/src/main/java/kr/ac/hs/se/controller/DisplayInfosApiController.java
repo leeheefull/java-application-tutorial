@@ -1,8 +1,9 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.model.DisplayInfoDto;
-import kr.ac.hs.se.response.DetailResponse;
-import kr.ac.hs.se.response.ListPageResponse;
+import kr.ac.hs.se.model.Dto.DisplayInfoDto;
+import kr.ac.hs.se.model.response.DetailResponse;
+import kr.ac.hs.se.model.response.ListAllResponse;
+import kr.ac.hs.se.model.response.ListPageResponse;
 import kr.ac.hs.se.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class DisplayInfosApiController {
     private final DisplayInfoService displayInfoService;
 
     @GetMapping
-    public ListPageResponse<DisplayInfoDto> getDisplayInfos() {
+    public ListAllResponse<DisplayInfoDto> getDisplayInfos() {
         return displayInfoService.getDisplayInfos();
     }
 
@@ -30,8 +31,8 @@ public class DisplayInfosApiController {
         }
     }
 
-    @GetMapping("/displayinfo/{displayInfoId}")
-    public DetailResponse getDisplayInfo(@PathVariable(name = "displayInfoId") long displayInfoId) {
-        return displayInfoService.getDisplayInfo(displayInfoId);
+    @GetMapping("/displayinfo/{productId}")
+    public DetailResponse getDisplayInfo(@PathVariable(name = "productId") long productId) {
+        return displayInfoService.getDisplayInfo(productId);
     }
 }

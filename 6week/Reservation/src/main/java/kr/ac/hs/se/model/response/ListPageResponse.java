@@ -1,4 +1,4 @@
-package kr.ac.hs.se.response;
+package kr.ac.hs.se.model.response;
 
 import lombok.Builder;
 import lombok.Getter;
