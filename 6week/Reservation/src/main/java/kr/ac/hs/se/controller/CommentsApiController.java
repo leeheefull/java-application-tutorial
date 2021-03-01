@@ -1,7 +1,8 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.model.CommentDto;
-import kr.ac.hs.se.response.ListPageResponse;
+import kr.ac.hs.se.model.Dto.CommentDto;
+import kr.ac.hs.se.model.response.ListAllResponse;
+import kr.ac.hs.se.model.response.ListPageResponse;
 import kr.ac.hs.se.service.CommentsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class CommentsApiController {
     private final CommentsService commentsService;
 
     @GetMapping
-    public ListPageResponse<CommentDto> getComments() {
+    public ListAllResponse<CommentDto> getComments() {
         return commentsService.getComments();
     }
 

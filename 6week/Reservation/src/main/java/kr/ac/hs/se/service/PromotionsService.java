@@ -1,8 +1,8 @@
 package kr.ac.hs.se.service;
 
-import kr.ac.hs.se.model.PromotionDto;
+import kr.ac.hs.se.model.Dto.PromotionDto;
 import kr.ac.hs.se.repository.PromotionsRepository;
-import kr.ac.hs.se.response.ListAllResponse;
+import kr.ac.hs.se.model.response.ListAllResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,7 @@ public class PromotionsService {
 
     public ListAllResponse<PromotionDto> getPromotionsByProductImageTypeInMa() {
         List<PromotionDto> promotions = promotionsRepository.selectPromotions(PRODUCT_IMAGE_TYPE_MA);
-        return ListAllResponse.<PromotionDto>builder()
-                .size(promotions.size())
-                .items(promotions)
-                .build();
+        return new ListAllResponse<>(promotions);
     }
 }
 

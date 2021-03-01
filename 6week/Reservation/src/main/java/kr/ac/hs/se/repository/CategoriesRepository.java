@@ -1,6 +1,6 @@
 package kr.ac.hs.se.repository;
 
-import kr.ac.hs.se.model.CategoryDto;
+import kr.ac.hs.se.model.Dto.CategoryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

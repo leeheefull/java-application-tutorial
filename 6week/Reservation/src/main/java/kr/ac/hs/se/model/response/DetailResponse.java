@@ -1,9 +1,9 @@
-package kr.ac.hs.se.response;
+package kr.ac.hs.se.model.response;
 
-import kr.ac.hs.se.model.DisplayInfoDto;
-import kr.ac.hs.se.model.DisplayInfoImageDto;
-import kr.ac.hs.se.model.ProductImageDto;
-import kr.ac.hs.se.model.ProductPriceDto;
+import kr.ac.hs.se.model.Dto.DisplayInfoDto;
+import kr.ac.hs.se.model.Dto.DisplayInfoImageDto;
+import kr.ac.hs.se.model.Dto.ProductImageDto;
+import kr.ac.hs.se.model.Dto.ProductPriceDto;
 import lombok.Builder;
 import lombok.Getter;
 

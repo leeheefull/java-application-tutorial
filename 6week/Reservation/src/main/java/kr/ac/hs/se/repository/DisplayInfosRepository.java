@@ -1,6 +1,9 @@
 package kr.ac.hs.se.repository;
 
-import kr.ac.hs.se.model.*;
+import kr.ac.hs.se.model.Dto.DisplayInfoDto;
+import kr.ac.hs.se.model.Dto.DisplayInfoImageDto;
+import kr.ac.hs.se.model.Dto.ProductImageDto;
+import kr.ac.hs.se.model.Dto.ProductPriceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

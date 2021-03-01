@@ -1,7 +1,7 @@
 package kr.ac.hs.se.controller;
 
-import kr.ac.hs.se.model.PromotionDto;
-import kr.ac.hs.se.response.ListAllResponse;
+import kr.ac.hs.se.model.Dto.PromotionDto;
+import kr.ac.hs.se.model.response.ListAllResponse;
 import kr.ac.hs.se.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

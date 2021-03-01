@@ -1,8 +1,9 @@
 package kr.ac.hs.se.service;
 
-import kr.ac.hs.se.model.CommentDto;
+import kr.ac.hs.se.model.Dto.CommentDto;
+import kr.ac.hs.se.model.response.ListAllResponse;
 import kr.ac.hs.se.repository.CommentsRepository;
-import kr.ac.hs.se.response.ListPageResponse;
+import kr.ac.hs.se.model.response.ListPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,8 @@ public class CommentsService {
 
     private final CommentsRepository commentsRepository;
 
-    public ListPageResponse<CommentDto> getComments() {
-        List<CommentDto> comments = commentsRepository.selectComments();
-        return ListPageResponse.<CommentDto>builder()
-                .totalCount(comments.size())
-                .itemCount(comments.size())
-                .items(comments)
-                .build();
+    public ListAllResponse<CommentDto> getComments() {
+        return new ListAllResponse<>(commentsRepository.selectComments());
     }
 
     public ListPageResponse<CommentDto> getComments(long productId) {
@@ -33,11 +29,11 @@ public class CommentsService {
     }
 
     public ListPageResponse<CommentDto> getComments(long productId, long pageSize, long page) {
-        List<CommentDto> CommentsByProductIdAndPage = commentsRepository.selectComments(productId, pageSize, page);
+        List<CommentDto> comments = commentsRepository.selectComments(productId, pageSize, page);
         return ListPageResponse.<CommentDto>builder()
                 .totalCount(commentsRepository.selectComments(productId).size())
-                .itemCount(CommentsByProductIdAndPage.size())
-                .items(CommentsByProductIdAndPage)
+                .itemCount(comments.size())
+                .items(comments)
                 .build();
     }
 }

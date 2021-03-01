@@ -1,21 +1,19 @@
-package kr.ac.hs.se.model;
+package kr.ac.hs.se.model.Dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
 @NoArgsConstructor
 @Getter
 @Setter
-public class CommentDto {
+public class ReservationUserCommentDto {
     private long id;
     private long productId;
     private long reservationInfoId;
     private double score;
     private String reservationEmail;
     private String comment;
-    private Date createDate;
-    private Date modifyDate;
+    private String createDate;
+    private String modifyDate;
 }

@@ -1,9 +1,10 @@
 package kr.ac.hs.se.service;
 
-import kr.ac.hs.se.model.*;
+import kr.ac.hs.se.model.Dto.DisplayInfoDto;
+import kr.ac.hs.se.model.response.ListAllResponse;
 import kr.ac.hs.se.repository.*;
-import kr.ac.hs.se.response.DetailResponse;
-import kr.ac.hs.se.response.ListPageResponse;
+import kr.ac.hs.se.model.response.DetailResponse;
+import kr.ac.hs.se.model.response.ListPageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,8 @@ public class DisplayInfoService {
     private final DisplayInfosRepository displayInfosRepository;
     private final CommentsRepository commentsRepository;
 
-    public ListPageResponse<DisplayInfoDto> getDisplayInfos() {
-        List<DisplayInfoDto> displayInfos = displayInfosRepository.selectDisplayInfos(PRODUCT_IMAGE_TYPE_MA);
-        return ListPageResponse.<DisplayInfoDto>builder()
-                .totalCount(displayInfos.size())
-                .itemCount(displayInfos.size())
-                .items(displayInfos)
-                .build();
+    public ListAllResponse<DisplayInfoDto> getDisplayInfos() {
+        return new ListAllResponse<>(displayInfosRepository.selectDisplayInfos(PRODUCT_IMAGE_TYPE_MA));
     }
 
     public ListPageResponse<DisplayInfoDto> getDisplayInfos(long categoryId) {
@@ -44,8 +40,8 @@ public class DisplayInfoService {
                 .build();
     }
 
-    public DetailResponse getDisplayInfo(long displayInfoId) {
-        DisplayInfoDto product = displayInfosRepository.selectDisplayInfo(PRODUCT_IMAGE_TYPE_MA, displayInfoId);
+    public DetailResponse getDisplayInfo(long productId) {
+        DisplayInfoDto product = displayInfosRepository.selectDisplayInfo(PRODUCT_IMAGE_TYPE_MA, productId);
         return DetailResponse.builder()
                 .product(product)
                 .productImages(displayInfosRepository.selectProductImages(product.getId(), PRODUCT_IMAGE_TYPE_MA))
