@@ -11,8 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -30,20 +29,20 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         List<LoginUserRole> loginUserRoles = userService.getUserRoles(loginUserId);
         List<GrantedAuthority> authorities = new ArrayList<>();
-        if (loginUserRoles != null) {
-            for (LoginUserRole loginUserRole : loginUserRoles) {
-                authorities.add(new SimpleGrantedAuthority(loginUserRole.getRoleName()));
-            }
+        for (LoginUserRole loginUserRole : loginUserRoles) {
+            authorities.add(new SimpleGrantedAuthority(loginUserRole.getRoleName()));
         }
 
-        return CustomUserDetails.builder()
-                .username(loginUser.getLoginUserId())
-                .password(loginUser.getPassword())
-                .isEnabled(true)
-                .isAccountNonExpired(true)
-                .isAccountNonLocked(true)
-                .isCredentialsNonExpired(true)
-                .authorities(authorities)
-                .build();
+        return Optional.ofNullable(
+                CustomUserDetails.builder()
+                        .username(loginUser.getLoginUserId())
+                        .password(loginUser.getPassword())
+                        .isEnabled(true)
+                        .isAccountNonExpired(true)
+                        .isAccountNonLocked(true)
+                        .isCredentialsNonExpired(true)
+                        .authorities(authorities)
+                        .build()
+        ).orElseThrow();
     }
 }   // "security configuration"으로 보내기

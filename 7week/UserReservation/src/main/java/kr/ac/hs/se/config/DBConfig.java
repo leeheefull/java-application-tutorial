@@ -4,7 +4,6 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -44,10 +43,5 @@ public class DBConfig implements TransactionManagementConfigurer {
     @Bean
     public NamedParameterJdbcTemplate jdbc(DataSource dataSource) {
         return new NamedParameterJdbcTemplate(dataSource);
-    }
-
-    @Bean
-    public SimpleJdbcInsert insertAction(DataSource dataSource) {
-        return new SimpleJdbcInsert(dataSource);
     }
 }

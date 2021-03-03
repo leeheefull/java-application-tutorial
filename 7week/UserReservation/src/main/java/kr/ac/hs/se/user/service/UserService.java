@@ -23,7 +23,7 @@ public class UserService {
 
     private final UserDao userDao;
     private final UserRoleDao userRoleDao;
-//    private final PasswordEncoder encoder;
+    private final PasswordEncoder encoder;
 
     public LoginUser getUser(String loginUserId) {
         UserEntity user = userDao.selectUserByEmail(loginUserId);
@@ -42,7 +42,6 @@ public class UserService {
     @Transactional
     public long createUserAndUserRole(SignupRequest request) {
 
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
         String now = new SimpleDateFormat("yyyy.MM.dd").format(System.currentTimeMillis());
 
         long userId = userDao.insertUser(
