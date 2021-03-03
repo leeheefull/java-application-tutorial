@@ -1,6 +1,5 @@
 package kr.ac.hs.se.user.repository;
 
-import kr.ac.hs.se.user.model.entity.UserEntity;
 import kr.ac.hs.se.user.model.entity.UserRoleEntity;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;

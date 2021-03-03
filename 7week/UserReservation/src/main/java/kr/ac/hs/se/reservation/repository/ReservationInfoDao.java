@@ -20,8 +20,8 @@ public class ReservationInfoDao {
     private final NamedParameterJdbcTemplate jdbc;
     private final SimpleJdbcInsert insertAction;
 
-    public ReservationInfoDao(DataSource dataSource) {
-        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+    public ReservationInfoDao(DataSource dataSource, NamedParameterJdbcTemplate jdbc) {
+        this.jdbc = jdbc;
         this.insertAction = new SimpleJdbcInsert(dataSource)
                 .withTableName("reservation_info")
                 .usingGeneratedKeyColumns("id");

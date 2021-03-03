@@ -13,15 +13,14 @@ import java.util.List;
 
 import static kr.ac.hs.se.reservation.sql.ReservationInfoPriceSql.SELECT_RESERVATION_INFO_PRICES_BY_RESERVATION_INFO_ID;
 
-
 @Repository
 public class ReservationInfoPriceDao {
 
     private final NamedParameterJdbcTemplate jdbc;
     private final SimpleJdbcInsert insertAction;
 
-    public ReservationInfoPriceDao(DataSource dataSource) {
-        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
+    public ReservationInfoPriceDao(DataSource dataSource, NamedParameterJdbcTemplate jdbc) {
+        this.jdbc = jdbc;
         this.insertAction = new SimpleJdbcInsert(dataSource)
                 .withTableName("reservation_info_price")
                 .usingGeneratedKeyColumns("id");
